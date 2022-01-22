@@ -135,7 +135,7 @@ data.to.plot$Year <-  format(data.to.plot$YYYYMMMDD, format = "%Y") %>% as.numer
   ggplot( aes(colour = datum.attribute, 
               x= Year, y =Z.score, 
               group = datum.attribute) ) + 
-              geom_smooth( se = FALSE) + 
+              geom_smooth( se = FALSE, method = "lm", formula = "y ~ x") + 
               scale_colour_viridis_d() 
 
 
