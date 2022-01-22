@@ -51,10 +51,20 @@ suttonboningtondata[] <- lapply(suttonboningtondata,
                                 replacement = NA
                                 )
 
-path.to.my.data <- fs::path( absolute.path
+path.to.save<- fs::path( absolute.path
                                ,"data-ext","suttonboningtondata", ext = "rds")
-saveRDS(suttonboningtondata,path.to.my.data)
+saveRDS(suttonboningtondata,path.to.save)
 
+
+```
+```{r}
+
+# Prepare data-ss
+
+VC55.weather.ss <- suttonboningtondata %>% 
+                  pivot_longer(!YYYY:mm, 
+                  names_to = "attribute", 
+                  values_to = "measurement")
 
 ```
 
