@@ -127,16 +127,16 @@ data.to.plot$Year <-  format(data.to.plot$YYYYMMMDD, format = "%Y") %>% as.numer
 
 
 
-data.to.plot.df      <-   data.to.plot %>% group_by(datum.attribute) %>% 
+  data.to.plot %>% 
+  group_by(datum.attribute) %>% 
   mutate( value = value,
           Z.score = (value -mean(value))/sd(value)
-          
-          ) 
-
-ggplot(data = data.to.plot.df,   aes(colour = datum.attribute, x= Year, y =Z.score, group = datum.attribute) ) + 
-#  geom_point() +
- #   geom_line() + 
-  geom_smooth( se = FALSE) + scale_colour_viridis_d() 
+        ) %>%
+  ggplot( aes(colour = datum.attribute, 
+              x= Year, y =Z.score, 
+              group = datum.attribute) ) + 
+              geom_smooth( se = FALSE) + 
+              scale_colour_viridis_d() 
 
 
 ```
