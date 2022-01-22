@@ -61,10 +61,57 @@ saveRDS(suttonboningtondata,path.to.save)
 
 # Prepare data-ss
 
-VC55.weather.ss <- suttonboningtondata %>% 
+# First data sl
+VC55.weather.sl <- suttonboningtondata %>% 
                   pivot_longer(!YYYY:mm, 
-                  names_to = "attribute", 
-                  values_to = "measurement")
+                  names_to = "datum.attribute", 
+                  values_to = "value")
+
+
+ VC55.weather.sl$mm <-   stringr::str_pad(VC55.weather.sl$mm, width = 2, pad = "0")
+ 
+ # Create a date at the end of the month.
+ VC55.weather.sl$dd <- 28
+ VC55.weather.sl$YYYMMMDD <-   with( VC55.weather.sl, 
+                                     paste( YYYY, mm, 
+                                            dd, sep= "-"   )    )  
+ 
+ # Reorganise the names into a nice order
+ ss.colnames <- c("YYYMMMDD",
+                  "datum.attribute",
+                  "value"
+ )
+ 
+VC55.weather.ss <- VC55.weather.sl[,ss.colnames]
+ 
+# Finally drop rows where value is NA.
+# Better to keep rows which are not NA
+
+rows.to.keep <- which(!is.na(VC55.weather.ss$value)  )
+ VC55.weather.ss <-  VC55.weather.ss[rows.to.keep,]
+ 
+ #Now save the weather
+ 
+VC55.weather.ss$YYYMMMDD <-   VC55.weather.ss$YYYMMMDD %>% as.Date()
+VC55.weather.ss$value <-   VC55.weather.ss$value %>% as.numeric()
+ 
+path.to.save.ss<- fs::path( absolute.path
+                               ,"data-ss","VC55.weather.ss", ext = "rds")
+saveRDS(VC55.weather.ss, path.to.save.ss)
+
+```
+
+```{r}
+
+# Check plot
+
+data.to.plot <- VC55.weather.ss[VC55.weather.ss$datum.attribute == "rain.mm", ]
+
+ggplot(data = VC55.weather.ss, aes(colour = factor(datum.attribute), x= YYYMMMDD, y =value, group = datum.attribute) ) + 
+  geom_point() +
+    geom_line()
+
+
 
 ```
 
