@@ -8,6 +8,7 @@ library(plyr)
 library(tidyverse)
 library(kableExtra)
 library(gridExtra)
+library(qqplotr)
 
 # Read data
 
@@ -38,19 +39,15 @@ colnames(suttonboningtondata) <- new.colnames
 # Drop row 1
 suttonboningtondata <- suttonboningtondata[-1,] 
 
-suttonboningtondata[] <- lapply(suttonboningtondata, 
-                                gsub,
+suttonboningtondata <- suttonboningtondata %>%
+                        map_df( gsub,
                                 pattern = "\\*",
-                                replacement = ""
-                                )
-
-
-suttonboningtondata[] <- lapply(suttonboningtondata, 
-                                gsub,
+                                replacement = "") %>%
+                        map_df( gsub,
                                 pattern = "---",
                                 replacement = NA
                                 )
-
+  
 # Date is not properly encoded so build a date from the data
 suttonboningtondata$mm <-   stringr::str_pad(suttonboningtondata$mm, width = 2, pad = "0")
  
@@ -64,6 +61,7 @@ suttonboningtondata$dd <- 28
 suttonboningtondata$datumEntity <- with(suttonboningtondata,
                                    paste("Sutton.Bonnington", YYYY, mm, sep = ":" )
                                    ) 
+# manually name some values
 suttonboningtondata$place <- "Sutton Bonnington"
 suttonboningtondata$lattitude <- 52.833
 suttonboningtondata$logitude <- 52.833
@@ -78,13 +76,9 @@ suttonbonington.triple <- suttonboningtondata %>%
                   map_df(as.character) %>% # Convert everything to character
                   pivot_longer(!datumEntity, # Use datumEntity as the key
                   names_to = "datumAttribute", # Save the name of the attribute
-                  values_to = "datumValue") # Save the value of the attribute
-
-# Drop all the NAs from datumValue
-
-rows.to.keep <- which(!is.na(suttonbonington.triple$datumValue)  )
- suttonbonington.triple <-  suttonbonington.triple[rows.to.keep,]
-
+                  values_to = "datumValue" # Save the name of the value
+                  ) %>% 
+                  drop_na() # Drop all the NAs from datumValue
 
 path.to.save<- fs::path( absolute.path
                                ,"data-ext","suttonboningtondata", ext = "rds")
@@ -97,11 +91,6 @@ saveRDS(suttonbonington.triple,path.to.save)
 ```{r}
 
 # Prepare data-ss
-
-
-
-
-
 # First prepare the long data
 VC55.weather.sl <- suttonbonington.triple %>%
                   pivot_wider(
@@ -109,24 +98,22 @@ VC55.weather.sl <- suttonbonington.triple %>%
   names_from = datumAttribute,
   values_from = datumValue)
 
-# But we are interesting in plotting the data by year so
+# But we are interesting in plotting the data by date so
 
   VC55.weather.ss <- VC55.weather.sl %>% 
-    select("YYYYMMDD", "tmax.degC","tmin.degC","airfrost.days", "sun.hours" ,"rain.mm") %>%
-    pivot_longer(!YYYYMMDD,# Use datumEntity as the key
+    select("YYYYMMDD", 
+           "tmax.degC",
+           "tmin.degC",
+           "airfrost.days", 
+           "sun.hours" ,
+           "rain.mm")     %>%
+            pivot_longer(!YYYYMMDD,# Use datumEntity as the key
                   names_to = "datumAttribute", # Save the name of the attribute
                   values_to = "datumValue") # Save the value of the attribute
 
-
-
- 
- # # Reorganise the names into a nice order
- # ss.colnames <- c("YYYYMMMDD",
- #                  "datumAttribute",
- #                  "value"
- # )
- # 
-#VC55.weather.ss <- VC55.weather.sl
+# Set the data types
+VC55.weather.ss$YYYYMMDD <-  VC55.weather.ss$YYYYMMDD %>% as.Date
+VC55.weather.ss$datumValue <- VC55.weather.ss$datumValue %>% as.numeric()
 
  
 path.to.save.ss<- fs::path( absolute.path
@@ -141,13 +128,19 @@ saveRDS(VC55.weather.ss, path.to.save.ss)
 
 data.to.plot <- VC55.weather.ss
 
-ggplot(data = VC55.weather.ss, aes(colour = factor(datumAttribute), x= YYYYMMDD, y =datumValue, group = datumAttribute) ) + 
-  geom_point() +
-    geom_line()
+data.to.plot %>% drop_na() %>%
+ggplot(aes(colour = datumAttribute, x= YYYYMMDD, y =datumValue, group = datumAttribute) ) + 
+ # geom_point() +
+  geom_smooth( se = FALSE, method = "loess", formula = "y ~ x") +
+  facet_wrap(~ datumAttribute)
+ #   geom_line() + facet_wrap(~ datumAttribute)
 
 
 
 ```
+
+The plots are in different units so plot z-scores instead.
+
 
 ```{r}
 
@@ -155,27 +148,55 @@ ggplot(data = VC55.weather.ss, aes(colour = factor(datumAttribute), x= YYYYMMDD,
 
 
 data.to.plot <- VC55.weather.ss
-
-# Turn date into year
-data.to.plot$Year <-format( as.Date(data.to.plot$YYYYMMDD), format = "%Y") %>% as.numeric()
-
-data.to.plot$datumValue <- data.to.plot$datumValue %>% as.numeric()
-
-data.to.plot <- data.to.plot %>% 
+ data.to.plot %>% drop_na() %>%
   group_by(datumAttribute) %>% 
   mutate( value = datumValue,
           Z.score = (datumValue -mean(datumValue))/sd(datumValue)
-        )
-
-
-  ggplot(data.to.plot, aes(colour = datumAttribute, 
-              x= Year, y =Z.score, 
+        ) %>%
+  ggplot( aes(colour = datumAttribute, 
+              x= YYYYMMDD, y =Z.score, 
               group = datumAttribute) ) + 
               geom_smooth( se = FALSE, method = "loess", formula = "y ~ x") + 
-    geom_point(data =data.to.plot[abs(data.to.plot$Z.score) >= 1.5,]) +
+ #   geom_point(data =data.to.plot[abs(data.to.plot$Z.score) >= 1.5,]) +
               scale_colour_viridis_d() 
 
 
+  
+
+```
+
+This looks good but very small deviations from the mean.
+
+```{r}
+
+# An improved summary
+my.dist <- "norm"
+
+data.to.plot <- VC55.weather.ss
+ data.to.plot %>% drop_na() %>%
+  group_by(datumAttribute) %>% 
+  mutate( value = datumValue,
+          Z.score = (datumValue -mean(datumValue))/sd(datumValue)
+        ) %>%
+ #  ggplot( aes(colour = datumAttribute, 
+ #              x= YYYYMMDD, y =Z.score, 
+ #              group = datumAttribute) ) + 
+ #              geom_smooth( se = FALSE, method = "loess", formula = "y ~ x") + 
+ # #   geom_point(data =data.to.plot[abs(data.to.plot$Z.score) >= 1.5,]) +
+ #              scale_colour_viridis_d() 
+
+
+
+#ggplot(distribution.data, aes(x=centrality)) + stat_qq( sample = norm)
+
+ggplot(mapping = aes( 
+                      group = datumAttribute,
+                      sample = Z.score)) +
+ #   stat_qq_band(distribution = my.dist) +
+    stat_qq_line(distribution = my.dist) +
+   stat_qq_point(distribution = my.dist) + 
+  scale_colour_viridis_d() +
+  ggtitle("Z-score compared to normal distribution") + facet_wrap(~ datumAttribute)
   
 
 ```
