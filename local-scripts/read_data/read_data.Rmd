@@ -51,49 +51,83 @@ suttonboningtondata[] <- lapply(suttonboningtondata,
                                 replacement = NA
                                 )
 
+# Date is not properly encoded so build a date from the data
+suttonboningtondata$mm <-   stringr::str_pad(suttonboningtondata$mm, width = 2, pad = "0")
+ 
+ # Create a date at the end of the month.
+suttonboningtondata$dd <- 28
+ suttonboningtondata$YYYYMMDD <-   with( suttonboningtondata, 
+                                     paste( YYYY, mm, 
+                                            dd, sep= "-"   )    )  
+
+
+suttonboningtondata$datumEntity <- with(suttonboningtondata,
+                                   paste("Sutton.Bonnington", YYYY, mm, sep = ":" )
+                                   ) 
+suttonboningtondata$place <- "Sutton Bonnington"
+suttonboningtondata$lattitude <- 52.833
+suttonboningtondata$logitude <- 52.833
+suttonboningtondata$logitude <- -1.250
+suttonboningtondata$easting <- 450700
+suttonboningtondata$northing <- 325900
+suttonboningtondata$height.amsl.metre <- 48
+
+
+
+suttonbonington.triple <- suttonboningtondata %>% 
+                  map_df(as.character) %>% # Convert everything to character
+                  pivot_longer(!datumEntity, # Use datumEntity as the key
+                  names_to = "datumAttribute", # Save the name of the attribute
+                  values_to = "datumValue") # Save the value of the attribute
+
+# Drop all the NAs from datumValue
+
+rows.to.keep <- which(!is.na(suttonbonington.triple$datumValue)  )
+ suttonbonington.triple <-  suttonbonington.triple[rows.to.keep,]
+
+
 path.to.save<- fs::path( absolute.path
                                ,"data-ext","suttonboningtondata", ext = "rds")
-saveRDS(suttonboningtondata,path.to.save)
+saveRDS(suttonbonington.triple,path.to.save)
 
 
 ```
+
+
 ```{r}
 
 # Prepare data-ss
 
-# First data sl
-VC55.weather.sl <- suttonboningtondata %>% 
-                  pivot_longer(!YYYY:mm, 
-                  names_to = "datum.attribute", 
-                  values_to = "value")
 
 
- VC55.weather.sl$mm <-   stringr::str_pad(VC55.weather.sl$mm, width = 2, pad = "0")
- 
- # Create a date at the end of the month.
- VC55.weather.sl$dd <- 28
- VC55.weather.sl$YYYYMMMDD <-   with( VC55.weather.sl, 
-                                     paste( YYYY, mm, 
-                                            dd, sep= "-"   )    )  
- 
- # Reorganise the names into a nice order
- ss.colnames <- c("YYYYMMMDD",
-                  "datum.attribute",
-                  "value"
- )
- 
-VC55.weather.ss <- VC55.weather.sl[,ss.colnames]
- 
-# Finally drop rows where value is NA.
-# Better to keep rows which are not NA
 
-rows.to.keep <- which(!is.na(VC55.weather.ss$value)  )
- VC55.weather.ss <-  VC55.weather.ss[rows.to.keep,]
+
+# First prepare the long data
+VC55.weather.sl <- suttonbonington.triple %>%
+                  pivot_wider(
+  id_cols = datumEntity,
+  names_from = datumAttribute,
+  values_from = datumValue)
+
+# But we are interesting in plotting the data by year so
+
+  VC55.weather.ss <- VC55.weather.sl %>% 
+    select("YYYYMMDD", "tmax.degC","tmin.degC","airfrost.days", "sun.hours" ,"rain.mm") %>%
+    pivot_longer(!YYYYMMDD,# Use datumEntity as the key
+                  names_to = "datumAttribute", # Save the name of the attribute
+                  values_to = "datumValue") # Save the value of the attribute
+
+
+
  
- #Now save the weather
- 
-VC55.weather.ss$YYYYMMMDD <-   VC55.weather.ss$YYYYMMMDD %>% as.Date()
-VC55.weather.ss$value <-   VC55.weather.ss$value %>% as.numeric()
+ # # Reorganise the names into a nice order
+ # ss.colnames <- c("YYYYMMMDD",
+ #                  "datumAttribute",
+ #                  "value"
+ # )
+ # 
+#VC55.weather.ss <- VC55.weather.sl
+
  
 path.to.save.ss<- fs::path( absolute.path
                                ,"data-ss","VC55.weather.ss", ext = "rds")
@@ -105,9 +139,9 @@ saveRDS(VC55.weather.ss, path.to.save.ss)
 
 # Check plot
 
-data.to.plot <- VC55.weather.ss[VC55.weather.ss$datum.attribute == "rain.mm", ]
+data.to.plot <- VC55.weather.ss
 
-ggplot(data = VC55.weather.ss, aes(colour = factor(datum.attribute), x= YYYYMMMDD, y =value, group = datum.attribute) ) + 
+ggplot(data = VC55.weather.ss, aes(colour = factor(datumAttribute), x= YYYYMMDD, y =datumValue, group = datumAttribute) ) + 
   geom_point() +
     geom_line()
 
@@ -123,21 +157,26 @@ ggplot(data = VC55.weather.ss, aes(colour = factor(datum.attribute), x= YYYYMMMD
 data.to.plot <- VC55.weather.ss
 
 # Turn date into year
-data.to.plot$Year <-  format(data.to.plot$YYYYMMMDD, format = "%Y") %>% as.numeric()
+data.to.plot$Year <-format( as.Date(data.to.plot$YYYYMMDD), format = "%Y") %>% as.numeric()
+
+data.to.plot$datumValue <- data.to.plot$datumValue %>% as.numeric()
+
+data.to.plot <- data.to.plot %>% 
+  group_by(datumAttribute) %>% 
+  mutate( value = datumValue,
+          Z.score = (datumValue -mean(datumValue))/sd(datumValue)
+        )
 
 
-
-  data.to.plot %>% 
-  group_by(datum.attribute) %>% 
-  mutate( value = value,
-          Z.score = (value -mean(value))/sd(value)
-        ) %>%
-  ggplot( aes(colour = datum.attribute, 
+  ggplot(data.to.plot, aes(colour = datumAttribute, 
               x= Year, y =Z.score, 
-              group = datum.attribute) ) + 
-              geom_smooth( se = FALSE, method = "lm", formula = "y ~ x") + 
+              group = datumAttribute) ) + 
+              geom_smooth( se = FALSE, method = "loess", formula = "y ~ x") + 
+    geom_point(data =data.to.plot[abs(data.to.plot$Z.score) >= 1.5,]) +
               scale_colour_viridis_d() 
 
+
+  
 
 ```
 
