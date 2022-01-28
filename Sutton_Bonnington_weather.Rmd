@@ -1,26 +1,79 @@
+---
+title: \myTitleMainTitle
+authors:
+  - name: Dr Paul J. Palmer
+    department: Wolfson School of Mechanical, Electrical and Manufacturing Engineering
+    affiliation: Loughborough University
+    location: Leicestershire VC55
+    email: p.j.palmer@lboro.ac.uk
+abstract: |
+  \myAbstract 
+bibliography: references.bib
+biblio-style: unsrt
+output:
+  bookdown::pdf_book:
+    base_format: rticles::arxiv_article
+    extra_dependencies: ["flafter"]
+    includes:
+      in_header: "preamble.tex"  
 
+---
+
+```{r setDefaults,  include=TRUE, echo=FALSE, warning=FALSE, message=FALSE, error=FALSE, results='asis'}
+# Set code chunk options for all chunks
+# These can be overridden at the chunk level, but setting global options 
+# ensures consistency of chunk behaviour.
+# To print a version of this document without code set echo = FALSE. 
+#Include false will ignore the code chunk completely!
+knitr::opts_chunk$set(include = TRUE, 
+                      echo = TRUE, 
+                      warning=FALSE, 
+                      message=FALSE, 
+                      error=FALSE, 
+                     # fig.width = 3,
+                    #  fig.height = 2,
+                     # fig.width = 3,
+                    out.width = '70%',
+                      fig.align = "center",
+                      results='asis')
+
+
+
+```
+
+
+# Introduction
+
+\myTitleMainTitle
 
 # Read Sutton Bonnington Data
 
-```{r}
-
+Load the Tidyverse libraries and other helpers.
+```{r }
+# Load libraries
 library(plyr)
 library(tidyverse)
 library(kableExtra)
 library(gridExtra)
 library(qqplotr)
-
-# Read data
-
 library(readr)
+```
 
+Read the data. The absolute path helps to write code that is computer independent. the use of `fs` ensures operating system compatibility.
+```{r }
+# Read data
 absolute.path <- rprojroot::find_rstudio_root_file()
-path.to.my.data <- fs::path( absolute.path
-                               ,"data-ext","suttonboningtondata", ext = "txt")
+path.to.my.data <- fs::path( absolute.path,
+                             "data-ext",
+                             "suttonboningtondata", 
+                            ext = "txt")
+```
 
-
-suttonboningtondata <- read_table(path.to.my.data, 
-    skip = 5)
+The `read_table` function does a good job of reading the data into columns recognising 
+```{r }
+suttonboningtondata <- read_table(
+                        path.to.my.data, 
+                        skip = 5) # skip 5 lines of text
 
 # Rename the columns to something useful
 
@@ -200,3 +253,8 @@ ggplot(mapping = aes(
 
 ```
 
+
+
+# References {-}
+<div id="refs"></div>
+\let\cleardoublepage\clearpage

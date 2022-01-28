@@ -1,0 +1,362 @@
+\documentclass{article}
+
+\usepackage{arxiv}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{lmodern}        % https://github.com/rstudio/rticles/issues/343
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{lipsum}
+\usepackage{graphicx}
+
+\title{\myTitleMainTitle}
+
+\author{
+    Dr Paul J. Palmer
+   \\
+    Wolfson School of Mechanical, Electrical and Manufacturing Engineering \\
+    Loughborough University \\
+  Leicestershire VC55 \\
+  \texttt{\href{mailto:p.j.palmer@lboro.ac.uk}{\nolinkurl{p.j.palmer@lboro.ac.uk}}} \\
+  }
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+
+% Pandoc citation processing
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+% for Pandoc 2.8 to 2.10.1
+\newenvironment{cslreferences}%
+  {}%
+  {\par}
+% For Pandoc 2.11+
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc} % for calculating minipage widths
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+%\usepackage{booktabs}
+%\usepackage{longtable}
+%\usepackage{morefloats}
+%\extrafloats{100}
+%\date{August 25, 2021}
+%\renewcommand{\today}{September 5, 2021}
+
+% Set the copyright footer
+%\lfoot{\copyright 2021 P.J. Palmer  P.M. Leonard}
+
+% Some figure placement options.
+%\usepackage[figuresonly,nomarkers,fighead, figlist]{endfloat}
+%\usepackage[figuresonly,nomarkers,nolists]{endfloat}
+% Put multiple figures per page
+%\renewcommand{\efloatseparator}{\mbox{}}
+\usepackage{flafter}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+
+
+\begin{document}
+\maketitle
+
+\def\tightlist{}
+
+
+\begin{abstract}
+\myAbstract
+\end{abstract}
+
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+\myTitleMainTitle
+
+\hypertarget{read-sutton-bonnington-data}{%
+\section{Read Sutton Bonnington Data}\label{read-sutton-bonnington-data}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(plyr)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(kableExtra)}
+\FunctionTok{library}\NormalTok{(gridExtra)}
+\FunctionTok{library}\NormalTok{(qqplotr)}
+
+\CommentTok{\# Read data}
+
+\FunctionTok{library}\NormalTok{(readr)}
+
+\NormalTok{absolute.path }\OtherTok{\textless{}{-}}\NormalTok{ rprojroot}\SpecialCharTok{::}\FunctionTok{find\_rstudio\_root\_file}\NormalTok{()}
+\NormalTok{path.to.my.data }\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( absolute.path}
+\NormalTok{                               ,}\StringTok{"data{-}ext"}\NormalTok{,}\StringTok{"suttonboningtondata"}\NormalTok{, }\AttributeTok{ext =} \StringTok{"txt"}\NormalTok{)}
+
+
+\NormalTok{suttonboningtondata }\OtherTok{\textless{}{-}} \FunctionTok{read\_table}\NormalTok{(path.to.my.data, }
+    \AttributeTok{skip =} \DecValTok{5}\NormalTok{)}
+
+\CommentTok{\# Rename the columns to something useful}
+
+\NormalTok{new.colnames }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{( }\StringTok{"YYYY"}\NormalTok{,}
+                   \StringTok{"mm"}\NormalTok{,}
+                   \StringTok{"tmax.degC"}\NormalTok{,}
+                   \StringTok{"tmin.degC"}\NormalTok{,}
+                   \StringTok{"airfrost.days"}\NormalTok{,}
+                   \StringTok{"rain.mm"}\NormalTok{,}
+                   \StringTok{"sun.hours"}
+  
+\NormalTok{)}
+
+\FunctionTok{colnames}\NormalTok{(suttonboningtondata) }\OtherTok{\textless{}{-}}\NormalTok{ new.colnames}
+
+\CommentTok{\# Drop row 1}
+\NormalTok{suttonboningtondata }\OtherTok{\textless{}{-}}\NormalTok{ suttonboningtondata[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,] }
+
+\NormalTok{suttonboningtondata }\OtherTok{\textless{}{-}}\NormalTok{ suttonboningtondata }\SpecialCharTok{\%\textgreater{}\%}
+                        \FunctionTok{map\_df}\NormalTok{( gsub,}
+                                \AttributeTok{pattern =} \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{*"}\NormalTok{,}
+                                \AttributeTok{replacement =} \StringTok{""}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+                        \FunctionTok{map\_df}\NormalTok{( gsub,}
+                                \AttributeTok{pattern =} \StringTok{"{-}{-}{-}"}\NormalTok{,}
+                                \AttributeTok{replacement =} \ConstantTok{NA}
+\NormalTok{                                )}
+  
+\CommentTok{\# Date is not properly encoded so build a date from the data}
+\NormalTok{suttonboningtondata}\SpecialCharTok{$}\NormalTok{mm }\OtherTok{\textless{}{-}}\NormalTok{   stringr}\SpecialCharTok{::}\FunctionTok{str\_pad}\NormalTok{(suttonboningtondata}\SpecialCharTok{$}\NormalTok{mm, }\AttributeTok{width =} \DecValTok{2}\NormalTok{, }\AttributeTok{pad =} \StringTok{"0"}\NormalTok{)}
+ 
+ \CommentTok{\# Create a date at the end of the month.}
+\NormalTok{suttonboningtondata}\SpecialCharTok{$}\NormalTok{dd }\OtherTok{\textless{}{-}} \DecValTok{28}
+\NormalTok{ suttonboningtondata}\SpecialCharTok{$}\NormalTok{YYYYMMDD }\OtherTok{\textless{}{-}}   \FunctionTok{with}\NormalTok{( suttonboningtondata, }
+                                     \FunctionTok{paste}\NormalTok{( YYYY, mm, }
+\NormalTok{                                            dd, }\AttributeTok{sep=} \StringTok{"{-}"}\NormalTok{   )    )  }
+
+
+\NormalTok{suttonboningtondata}\SpecialCharTok{$}\NormalTok{datumEntity }\OtherTok{\textless{}{-}} \FunctionTok{with}\NormalTok{(suttonboningtondata,}
+                                   \FunctionTok{paste}\NormalTok{(}\StringTok{"Sutton.Bonnington"}\NormalTok{, YYYY, mm, }\AttributeTok{sep =} \StringTok{":"}\NormalTok{ )}
+\NormalTok{                                   ) }
+\CommentTok{\# manually name some values}
+\NormalTok{suttonboningtondata}\SpecialCharTok{$}\NormalTok{place }\OtherTok{\textless{}{-}} \StringTok{"Sutton Bonnington"}
+\NormalTok{suttonboningtondata}\SpecialCharTok{$}\NormalTok{lattitude }\OtherTok{\textless{}{-}} \FloatTok{52.833}
+\NormalTok{suttonboningtondata}\SpecialCharTok{$}\NormalTok{logitude }\OtherTok{\textless{}{-}} \FloatTok{52.833}
+\NormalTok{suttonboningtondata}\SpecialCharTok{$}\NormalTok{logitude }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\FloatTok{1.250}
+\NormalTok{suttonboningtondata}\SpecialCharTok{$}\NormalTok{easting }\OtherTok{\textless{}{-}} \DecValTok{450700}
+\NormalTok{suttonboningtondata}\SpecialCharTok{$}\NormalTok{northing }\OtherTok{\textless{}{-}} \DecValTok{325900}
+\NormalTok{suttonboningtondata}\SpecialCharTok{$}\NormalTok{height.amsl.metre }\OtherTok{\textless{}{-}} \DecValTok{48}
+
+
+
+\NormalTok{suttonbonington.triple }\OtherTok{\textless{}{-}}\NormalTok{ suttonboningtondata }\SpecialCharTok{\%\textgreater{}\%} 
+                  \FunctionTok{map\_df}\NormalTok{(as.character) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\# Convert everything to character}
+                  \FunctionTok{pivot\_longer}\NormalTok{(}\SpecialCharTok{!}\NormalTok{datumEntity, }\CommentTok{\# Use datumEntity as the key}
+                  \AttributeTok{names\_to =} \StringTok{"datumAttribute"}\NormalTok{, }\CommentTok{\# Save the name of the attribute}
+                  \AttributeTok{values\_to =} \StringTok{"datumValue"} \CommentTok{\# Save the name of the value}
+\NormalTok{                  ) }\SpecialCharTok{\%\textgreater{}\%} 
+                  \FunctionTok{drop\_na}\NormalTok{() }\CommentTok{\# Drop all the NAs from datumValue}
+
+\NormalTok{path.to.save}\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( absolute.path}
+\NormalTok{                               ,}\StringTok{"data{-}ext"}\NormalTok{,}\StringTok{"suttonboningtondata"}\NormalTok{, }\AttributeTok{ext =} \StringTok{"rds"}\NormalTok{)}
+\FunctionTok{saveRDS}\NormalTok{(suttonbonington.triple,path.to.save)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Prepare data{-}ss}
+\CommentTok{\# First prepare the long data}
+\NormalTok{VC55.weather.sl }\OtherTok{\textless{}{-}}\NormalTok{ suttonbonington.triple }\SpecialCharTok{\%\textgreater{}\%}
+                  \FunctionTok{pivot\_wider}\NormalTok{(}
+  \AttributeTok{id\_cols =}\NormalTok{ datumEntity,}
+  \AttributeTok{names\_from =}\NormalTok{ datumAttribute,}
+  \AttributeTok{values\_from =}\NormalTok{ datumValue)}
+
+\CommentTok{\# But we are interesting in plotting the data by date so}
+
+\NormalTok{  VC55.weather.ss }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.sl }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{select}\NormalTok{(}\StringTok{"YYYYMMDD"}\NormalTok{, }
+           \StringTok{"tmax.degC"}\NormalTok{,}
+           \StringTok{"tmin.degC"}\NormalTok{,}
+           \StringTok{"airfrost.days"}\NormalTok{, }
+           \StringTok{"sun.hours"}\NormalTok{ ,}
+           \StringTok{"rain.mm"}\NormalTok{)     }\SpecialCharTok{\%\textgreater{}\%}
+            \FunctionTok{pivot\_longer}\NormalTok{(}\SpecialCharTok{!}\NormalTok{YYYYMMDD,}\CommentTok{\# Use datumEntity as the key}
+                  \AttributeTok{names\_to =} \StringTok{"datumAttribute"}\NormalTok{, }\CommentTok{\# Save the name of the attribute}
+                  \AttributeTok{values\_to =} \StringTok{"datumValue"}\NormalTok{) }\CommentTok{\# Save the value of the attribute}
+
+\CommentTok{\# Set the data types}
+\NormalTok{VC55.weather.ss}\SpecialCharTok{$}\NormalTok{YYYYMMDD }\OtherTok{\textless{}{-}}\NormalTok{  VC55.weather.ss}\SpecialCharTok{$}\NormalTok{YYYYMMDD }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ as.Date}
+\NormalTok{VC55.weather.ss}\SpecialCharTok{$}\NormalTok{datumValue }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.ss}\SpecialCharTok{$}\NormalTok{datumValue }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.numeric}\NormalTok{()}
+
+ 
+\NormalTok{path.to.save.ss}\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( absolute.path}
+\NormalTok{                               ,}\StringTok{"data{-}ss"}\NormalTok{,}\StringTok{"VC55.weather.ss"}\NormalTok{, }\AttributeTok{ext =} \StringTok{"rds"}\NormalTok{)}
+\FunctionTok{saveRDS}\NormalTok{(VC55.weather.ss, path.to.save.ss)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Check plot}
+
+\NormalTok{data.to.plot }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.ss}
+
+\NormalTok{data.to.plot }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{colour =}\NormalTok{ datumAttribute, }\AttributeTok{x=}\NormalTok{ YYYYMMDD, }\AttributeTok{y =}\NormalTok{datumValue, }\AttributeTok{group =}\NormalTok{ datumAttribute) ) }\SpecialCharTok{+} 
+ \CommentTok{\# geom\_point() +}
+  \FunctionTok{geom\_smooth}\NormalTok{( }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{method =} \StringTok{"loess"}\NormalTok{, }\AttributeTok{formula =} \StringTok{"y \textasciitilde{} x"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ datumAttribute)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-4-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+ \CommentTok{\#   geom\_line() + facet\_wrap(\textasciitilde{} datumAttribute)}
+\end{Highlighting}
+\end{Shaded}
+
+The plots are in different units so plot z-scores instead.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# An improved summary}
+
+
+\NormalTok{data.to.plot }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.ss}
+\NormalTok{ data.to.plot }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(datumAttribute) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{( }\AttributeTok{value =}\NormalTok{ datumValue,}
+          \AttributeTok{Z.score =}\NormalTok{ (datumValue }\SpecialCharTok{{-}}\FunctionTok{mean}\NormalTok{(datumValue))}\SpecialCharTok{/}\FunctionTok{sd}\NormalTok{(datumValue)}
+\NormalTok{        ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{( }\FunctionTok{aes}\NormalTok{(}\AttributeTok{colour =}\NormalTok{ datumAttribute, }
+              \AttributeTok{x=}\NormalTok{ YYYYMMDD, }\AttributeTok{y =}\NormalTok{Z.score, }
+              \AttributeTok{group =}\NormalTok{ datumAttribute) ) }\SpecialCharTok{+} 
+              \FunctionTok{geom\_smooth}\NormalTok{( }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{method =} \StringTok{"loess"}\NormalTok{, }\AttributeTok{formula =} \StringTok{"y \textasciitilde{} x"}\NormalTok{) }\SpecialCharTok{+} 
+ \CommentTok{\#   geom\_point(data =data.to.plot[abs(data.to.plot$Z.score) \textgreater{}= 1.5,]) +}
+              \FunctionTok{scale\_colour\_viridis\_d}\NormalTok{() }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-5-1} \end{center}
+
+This looks good but very small deviations from the mean.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# An improved summary}
+\NormalTok{my.dist }\OtherTok{\textless{}{-}} \StringTok{"norm"}
+
+\NormalTok{data.to.plot }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.ss}
+\NormalTok{ data.to.plot }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(datumAttribute) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{( }\AttributeTok{value =}\NormalTok{ datumValue,}
+          \AttributeTok{Z.score =}\NormalTok{ (datumValue }\SpecialCharTok{{-}}\FunctionTok{mean}\NormalTok{(datumValue))}\SpecialCharTok{/}\FunctionTok{sd}\NormalTok{(datumValue)}
+\NormalTok{        ) }\SpecialCharTok{\%\textgreater{}\%}
+ \CommentTok{\#  ggplot( aes(colour = datumAttribute, }
+ \CommentTok{\#              x= YYYYMMDD, y =Z.score, }
+ \CommentTok{\#              group = datumAttribute) ) + }
+ \CommentTok{\#              geom\_smooth( se = FALSE, method = "loess", formula = "y \textasciitilde{} x") + }
+ \CommentTok{\# \#   geom\_point(data =data.to.plot[abs(data.to.plot$Z.score) \textgreater{}= 1.5,]) +}
+ \CommentTok{\#              scale\_colour\_viridis\_d() }
+
+
+
+\CommentTok{\#ggplot(distribution.data, aes(x=centrality)) + stat\_qq( sample = norm)}
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{( }
+                      \AttributeTok{group =}\NormalTok{ datumAttribute,}
+                      \AttributeTok{sample =}\NormalTok{ Z.score)) }\SpecialCharTok{+}
+ \CommentTok{\#   stat\_qq\_band(distribution = my.dist) +}
+    \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ my.dist) }\SpecialCharTok{+}
+   \FunctionTok{stat\_qq\_point}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ my.dist) }\SpecialCharTok{+} 
+  \FunctionTok{scale\_colour\_viridis\_d}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Z{-}score compared to normal distribution"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ datumAttribute)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-6-1} \end{center}
+
+\hypertarget{references}{%
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{0}{0}
+\end{CSLReferences}
+
+\let\cleardoublepage\clearpage
+
+\bibliographystyle{unsrt}
+\bibliography{references.bib}
+
+
+\end{document}
