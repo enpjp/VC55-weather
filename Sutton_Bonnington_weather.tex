@@ -305,7 +305,7 @@ For the purpose of this vignette we load the \texttt{data-raw} to demonstrate th
 \end{Highlighting}
 \end{Shaded}
 
-The \texttt{suttonboningtondata} now looks like this:
+The first 10 rows of the \texttt{suttonboningtondata} now look like this:
 
 \begin{longtable}[]{@{}ccc@{}}
 \toprule
@@ -377,6 +377,310 @@ From the raw data we now prepare \texttt{data-sl} which is a loosely defined for
 \end{Highlighting}
 \end{Shaded}
 
+The wider format \texttt{VC55.weather.sl} now looks like:
+
+\begin{longtable}[]{@{}cccccc@{}}
+\caption{Table continues below}\tabularnewline
+\toprule
+\begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.35}}\centering
+datumEntity\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.09}}\centering
+YYYY\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.06}}\centering
+mm\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
+tmax.degC\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
+tmin.degC\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.20}}\centering
+airfrost.days\strut
+\end{minipage}\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+\begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.35}}\centering
+datumEntity\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.09}}\centering
+YYYY\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.06}}\centering
+mm\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
+tmax.degC\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
+tmin.degC\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.20}}\centering
+airfrost.days\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.35}}\centering
+Sutton.Bonnington:1959:01\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.09}}\centering
+1959\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.06}}\centering
+01\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
+4.2\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
+-2.4\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.20}}\centering
+23\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.35}}\centering
+Sutton.Bonnington:1959:02\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.09}}\centering
+1959\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.06}}\centering
+02\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
+7.0\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
+0.9\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.20}}\centering
+11\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.35}}\centering
+Sutton.Bonnington:1959:03\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.09}}\centering
+1959\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.06}}\centering
+03\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
+10.7\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
+3.2\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.20}}\centering
+2\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.35}}\centering
+Sutton.Bonnington:1959:04\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.09}}\centering
+1959\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.06}}\centering
+04\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
+13.8\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
+5.1\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.20}}\centering
+0\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.35}}\centering
+Sutton.Bonnington:1959:05\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.09}}\centering
+1959\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.06}}\centering
+05\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
+17.6\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
+6.1\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.20}}\centering
+3\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.35}}\centering
+Sutton.Bonnington:1959:06\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.09}}\centering
+1959\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.06}}\centering
+06\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
+20.6\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
+9.7\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.20}}\centering
+0\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}cccccc@{}}
+\caption{Table continues below}\tabularnewline
+\toprule
+\begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+sun.hours\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.07}}\centering
+dd\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.18}}\centering
+YYYYMMDD\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.27}}\centering
+place\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+lattitude\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+logitude\strut
+\end{minipage}\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+\begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+sun.hours\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.07}}\centering
+dd\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.18}}\centering
+YYYYMMDD\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.27}}\centering
+place\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+lattitude\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+logitude\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+78.8\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.07}}\centering
+28\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.18}}\centering
+1959-01-28\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.27}}\centering
+Sutton Bonnington\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+52.833\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+-1.25\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+54.0\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.07}}\centering
+28\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.18}}\centering
+1959-02-28\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.27}}\centering
+Sutton Bonnington\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+52.833\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+-1.25\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+80.7\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.07}}\centering
+28\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.18}}\centering
+1959-03-28\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.27}}\centering
+Sutton Bonnington\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+52.833\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+-1.25\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+148.1\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.07}}\centering
+28\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.18}}\centering
+1959-04-28\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.27}}\centering
+Sutton Bonnington\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+52.833\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+-1.25\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+206.7\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.07}}\centering
+28\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.18}}\centering
+1959-05-28\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.27}}\centering
+Sutton Bonnington\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+52.833\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+-1.25\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+246.6\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.07}}\centering
+28\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.18}}\centering
+1959-06-28\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.27}}\centering
+Sutton Bonnington\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+52.833\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+-1.25\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}cccc@{}}
+\toprule
+\begin{minipage}[b]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+easting\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 3\tabcolsep) * \real{0.15}}\centering
+northing\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 3\tabcolsep) * \real{0.28}}\centering
+height.amsl.metre\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+rain.mm\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+450700\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.15}}\centering
+325900\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.28}}\centering
+48\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+NA\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+450700\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.15}}\centering
+325900\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.28}}\centering
+48\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+NA\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+450700\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.15}}\centering
+325900\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.28}}\centering
+48\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+NA\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+450700\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.15}}\centering
+325900\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.28}}\centering
+48\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+NA\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+450700\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.15}}\centering
+325900\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.28}}\centering
+48\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+NA\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+450700\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.15}}\centering
+325900\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.28}}\centering
+48\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+NA\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+To make out strictly defined data to analyse the weather we select the columns of interest and make a long format with the date as the key column. We choose this format as it gives great flexibility with analysis and works well with a Grammar of Graphic (GoG) approach. This contrasts with the temptation to produce a wide format of data as one might use in a spreadsheet analysis. The versatility of GoG will become apparent as we proceed and see how all plots may be specified by changing the GoG verbs.
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# But we are interesting in plotting the data by date so}
@@ -391,17 +695,58 @@ From the raw data we now prepare \texttt{data-sl} which is a loosely defined for
             \FunctionTok{pivot\_longer}\NormalTok{(}\SpecialCharTok{!}\NormalTok{YYYYMMDD,}\CommentTok{\# Use datumEntity as the key}
                   \AttributeTok{names\_to =} \StringTok{"datumAttribute"}\NormalTok{, }\CommentTok{\# Save the name of the attribute}
                   \AttributeTok{values\_to =} \StringTok{"datumValue"}\NormalTok{) }\CommentTok{\# Save the value of the attribute}
+\end{Highlighting}
+\end{Shaded}
 
+At this point we can specify data types as Date and numeric for analysis.
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# Set the data types}
 \NormalTok{VC55.weather.ss}\SpecialCharTok{$}\NormalTok{YYYYMMDD }\OtherTok{\textless{}{-}}\NormalTok{  VC55.weather.ss}\SpecialCharTok{$}\NormalTok{YYYYMMDD }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ as.Date}
 \NormalTok{VC55.weather.ss}\SpecialCharTok{$}\NormalTok{datumValue }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.ss}\SpecialCharTok{$}\NormalTok{datumValue }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.numeric}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
 
- 
+We can now save into \texttt{data-ss}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dir.create}\NormalTok{( }
+\NormalTok{          fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( absolute.path,}
+            \StringTok{"data{-}ss"}\NormalTok{ ),  }
+            \AttributeTok{showWarnings =} \ConstantTok{FALSE}\NormalTok{,}
+            \AttributeTok{recursive =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# Create the directory}
+
+\CommentTok{\#And save.}
 \NormalTok{path.to.save.ss}\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( absolute.path}
 \NormalTok{                               ,}\StringTok{"data{-}ss"}\NormalTok{,}\StringTok{"VC55.weather.ss"}\NormalTok{, }\AttributeTok{ext =} \StringTok{"rds"}\NormalTok{)}
 \FunctionTok{saveRDS}\NormalTok{(VC55.weather.ss, path.to.save.ss)}
 \end{Highlighting}
 \end{Shaded}
+
+Once again the data may be loaded and the analysis start from this point. Rather than load as a named file, we demonstrate how multiple files in \texttt{data-ss} may be loaded and combined in a simple action. Since \texttt{data-ss} are strictly defined each file may be `stacked' to combine into a larger data-set. If this were really the case then it would make sense to rename the data to soemthing more appropriate. The named method of loading is included as comments for comparison.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load data{-}ss}
+\NormalTok{path.to.data.ss }\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{(absolute.path,}\StringTok{"data{-}ss"}\NormalTok{)}
+
+\NormalTok{VC55.weather.ss }\OtherTok{\textless{}{-}} \FunctionTok{list.files}\NormalTok{(}
+\NormalTok{  path.to.data.ss,}
+  \AttributeTok{pattern =} \StringTok{".rds"}\NormalTok{, }\CommentTok{\# Make a suitable filter. Use the dot for a wildcard.}
+  \AttributeTok{full.names =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{recursive =} \ConstantTok{TRUE}\NormalTok{)  }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  purrr}\SpecialCharTok{::}\FunctionTok{map\_df}\NormalTok{(readRDS) }
+
+\CommentTok{\# path.to.data \textless{}{-} fs::path( absolute.path}
+\CommentTok{\#                                ,"data{-}ss","suttonboningtondata", ext = "rds")}
+\CommentTok{\# \# Could change the name of the data if we so wished.}
+\CommentTok{\# suttonboningtondata \textless{}{-}  readRDS(path.to.data)}
+\end{Highlighting}
+\end{Shaded}
+
+At this point we can do a simple check plot which uncovers some issues. By faceting on \texttt{datumAttribute} we can produce a separate graph for each attribute. While is shows we have data, each graph has different units, so the scales do not male sense.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -417,7 +762,7 @@ From the raw data we now prepare \texttt{data-sl} which is a loosely defined for
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-16-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -425,7 +770,7 @@ From the raw data we now prepare \texttt{data-sl} which is a loosely defined for
 \end{Highlighting}
 \end{Shaded}
 
-The plots are in different units so plot z-scores instead.
+However, if we use z-scores instead then each plot is normalised against zero and the standard deviation. Rather than 5 separate plots, we can use a single graph and plot a smooth loess regression.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -447,9 +792,9 @@ The plots are in different units so plot z-scores instead.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-17-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
-This looks good but very small deviations from the mean.
+This looks good but it is predicated upon the deviations being normally distributed about the mean. We can check this with a QQ plot.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -484,7 +829,142 @@ This looks good but very small deviations from the mean.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-18-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-22-1} \end{center}
+
+Our assumption or a normal distribution is reasonably valid, but not perfect. As we are looking at weather data, it might be nice to look at: Annual Total Rainfall, Annual Air Frost days, Annual Maximum Temperature, and Annual Minimum Temperature. Again GoG comes to the rescue and we can quickly produce the following plots.
+
+\hypertarget{rainfall}{%
+\subsection{Rainfall}\label{rainfall}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Weather "tmax.degC"     "tmin.degC"     "airfrost.days" "sun.hours"     "rain.mm"}
+
+\NormalTok{weather.attribute }\OtherTok{\textless{}{-}} \StringTok{"rain.mm"}
+
+\NormalTok{path.to.ss}\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( absolute.path}
+\NormalTok{                               ,}\StringTok{"data{-}ss"}\NormalTok{,}\StringTok{"VC55.weather.ss"}\NormalTok{, }\AttributeTok{ext =} \StringTok{"rds"}\NormalTok{)}
+\NormalTok{VC55.weather.ss  }\OtherTok{\textless{}{-}}   \FunctionTok{readRDS}\NormalTok{(path.to.ss)}
+
+\NormalTok{data.to.plot }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.ss[VC55.weather.ss}\SpecialCharTok{$}\NormalTok{datumAttribute }\SpecialCharTok{==}\NormalTok{ weather.attribute, ]}
+
+\NormalTok{data.to.plot}\SpecialCharTok{$}\NormalTok{YYYY }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(data.to.plot}\SpecialCharTok{$}\NormalTok{YYYYMMDD, }\AttributeTok{format =} \StringTok{"\%Y"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.numeric}\NormalTok{()}
+
+\NormalTok{data.to.plot.annual }\OtherTok{\textless{}{-}}\NormalTok{ data.to.plot }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{group\_by}\NormalTok{(YYYY) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{( }
+          \AttributeTok{annual =} \FunctionTok{sum}\NormalTok{(datumValue)}
+\NormalTok{        ) }
+  
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{data.to.plot.annual, }\FunctionTok{aes}\NormalTok{( }\AttributeTok{x=}\NormalTok{ YYYY, }\AttributeTok{y =}\NormalTok{annual) ) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+\CommentTok{\#   geom\_smooth( se = FALSE, method = "loess", formula = "y \textasciitilde{} x") +}
+  \FunctionTok{geom\_line}\NormalTok{()}\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(weather.attribute) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(weather.attribute)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-23-1} \end{center}
+
+\hypertarget{airfrost}{%
+\subsection{Airfrost}\label{airfrost}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Weather "tmax.degC"     "tmin.degC"     "airfrost.days" "sun.hours"     "rain.mm"  }
+
+\NormalTok{weather.attribute }\OtherTok{\textless{}{-}} \StringTok{"airfrost.days"}
+
+\NormalTok{path.to.ss}\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( absolute.path}
+\NormalTok{                               ,}\StringTok{"data{-}ss"}\NormalTok{,}\StringTok{"VC55.weather.ss"}\NormalTok{, }\AttributeTok{ext =} \StringTok{"rds"}\NormalTok{)}
+\NormalTok{VC55.weather.ss  }\OtherTok{\textless{}{-}}   \FunctionTok{readRDS}\NormalTok{(path.to.ss)}
+
+\NormalTok{data.to.plot }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.ss[VC55.weather.ss}\SpecialCharTok{$}\NormalTok{datumAttribute }\SpecialCharTok{==}\NormalTok{ weather.attribute, ]}
+
+\NormalTok{data.to.plot}\SpecialCharTok{$}\NormalTok{YYYY }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(data.to.plot}\SpecialCharTok{$}\NormalTok{YYYYMMDD, }\AttributeTok{format =} \StringTok{"\%Y"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.numeric}\NormalTok{()}
+
+\NormalTok{data.to.plot.annual }\OtherTok{\textless{}{-}}\NormalTok{ data.to.plot }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{group\_by}\NormalTok{(YYYY) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{( }
+          \AttributeTok{annual =} \FunctionTok{sum}\NormalTok{(datumValue)}
+\NormalTok{        ) }
+  
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{data.to.plot.annual, }\FunctionTok{aes}\NormalTok{( }\AttributeTok{x=}\NormalTok{ YYYY, }\AttributeTok{y =}\NormalTok{annual) ) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+\CommentTok{\#   geom\_smooth( se = FALSE, method = "loess", formula = "y \textasciitilde{} x") +}
+  \FunctionTok{geom\_line}\NormalTok{()}\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(weather.attribute) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(weather.attribute)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-24-1} \end{center}
+
+\hypertarget{maximum-temperature}{%
+\subsection{Maximum Temperature}\label{maximum-temperature}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Weather "tmax.degC"     "tmin.degC"     "airfrost.days" "sun.hours"     "rain.mm"  }
+
+\NormalTok{weather.attribute }\OtherTok{\textless{}{-}} \StringTok{"tmax.degC"}
+
+\NormalTok{path.to.ss}\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( absolute.path}
+\NormalTok{                               ,}\StringTok{"data{-}ss"}\NormalTok{,}\StringTok{"VC55.weather.ss"}\NormalTok{, }\AttributeTok{ext =} \StringTok{"rds"}\NormalTok{)}
+\NormalTok{VC55.weather.ss  }\OtherTok{\textless{}{-}}   \FunctionTok{readRDS}\NormalTok{(path.to.ss)}
+
+\NormalTok{data.to.plot }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.ss[VC55.weather.ss}\SpecialCharTok{$}\NormalTok{datumAttribute }\SpecialCharTok{==}\NormalTok{ weather.attribute, ]}
+
+\NormalTok{data.to.plot}\SpecialCharTok{$}\NormalTok{YYYY }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(data.to.plot}\SpecialCharTok{$}\NormalTok{YYYYMMDD, }\AttributeTok{format =} \StringTok{"\%Y"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.numeric}\NormalTok{()}
+
+\NormalTok{data.to.plot.annual }\OtherTok{\textless{}{-}}\NormalTok{ data.to.plot }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{group\_by}\NormalTok{(YYYY) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{( }
+          \AttributeTok{annual =} \FunctionTok{max}\NormalTok{(datumValue)}
+\NormalTok{        ) }
+  
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{data.to.plot.annual, }\FunctionTok{aes}\NormalTok{( }\AttributeTok{x=}\NormalTok{ YYYY, }\AttributeTok{y =}\NormalTok{annual) ) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+\CommentTok{\#   geom\_smooth( se = FALSE, method = "loess", formula = "y \textasciitilde{} x") +}
+  \FunctionTok{geom\_line}\NormalTok{()}\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(weather.attribute) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(weather.attribute)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-25-1} \end{center}
+
+\hypertarget{minimum-temperature}{%
+\subsection{Minimum Temperature}\label{minimum-temperature}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Weather "tmax.degC"     "tmin.degC"     "airfrost.days" "sun.hours"     "rain.mm"  }
+
+\NormalTok{weather.attribute }\OtherTok{\textless{}{-}} \StringTok{"tmin.degC"}
+
+\NormalTok{path.to.ss}\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( absolute.path}
+\NormalTok{                               ,}\StringTok{"data{-}ss"}\NormalTok{,}\StringTok{"VC55.weather.ss"}\NormalTok{, }\AttributeTok{ext =} \StringTok{"rds"}\NormalTok{)}
+\NormalTok{VC55.weather.ss  }\OtherTok{\textless{}{-}}   \FunctionTok{readRDS}\NormalTok{(path.to.ss)}
+
+\NormalTok{data.to.plot }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.ss[VC55.weather.ss}\SpecialCharTok{$}\NormalTok{datumAttribute }\SpecialCharTok{==}\NormalTok{ weather.attribute, ]}
+
+\NormalTok{data.to.plot}\SpecialCharTok{$}\NormalTok{YYYY }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(data.to.plot}\SpecialCharTok{$}\NormalTok{YYYYMMDD, }\AttributeTok{format =} \StringTok{"\%Y"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.numeric}\NormalTok{()}
+
+\NormalTok{data.to.plot.annual }\OtherTok{\textless{}{-}}\NormalTok{ data.to.plot }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{group\_by}\NormalTok{(YYYY) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{( }
+          \AttributeTok{annual =} \FunctionTok{min}\NormalTok{(datumValue)}
+\NormalTok{        ) }
+  
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{data.to.plot.annual, }\FunctionTok{aes}\NormalTok{( }\AttributeTok{x=}\NormalTok{ YYYY, }\AttributeTok{y =}\NormalTok{annual) ) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+\CommentTok{\#   geom\_smooth( se = FALSE, method = "loess", formula = "y \textasciitilde{} x") +}
+  \FunctionTok{geom\_line}\NormalTok{()}\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(weather.attribute) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(weather.attribute)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-26-1} \end{center}
+
+\hypertarget{conclusion}{%
+\subsection{Conclusion}\label{conclusion}}
+
+This vignette demonstrates the versatility of using data state in conjunction with GoG.
 
 \hypertarget{references}{%
 \section*{References}\label{references}}

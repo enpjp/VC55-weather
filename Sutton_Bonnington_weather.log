@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.3.3)  31 JAN 2022 10:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.3.3)  31 JAN 2022 11:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -971,109 +971,260 @@ Package xcolor Warning: Incompatible color definition on input line 378.
 Package xcolor Warning: Incompatible color definition on input line 378.
 
 
-Package xcolor Warning: Incompatible color definition on input line 380.
+Overfull \hbox (29.99323pt too wide) in alignment at lines 382--399
+ [] [] [] [] [] [] 
+ []
 
 
-Package xcolor Warning: Incompatible color definition on input line 404.
+Overfull \hbox (29.99323pt too wide) in alignment at lines 399--415
+ [] [] [] [] [] [] 
+ []
 
 
-Package xcolor Warning: Incompatible color definition on input line 404.
+Overfull \hbox (29.99323pt too wide) in alignment at lines 415--495
+ [] [] [] [] [] [] 
+ []
 
 
-Package xcolor Warning: Incompatible color definition on input line 406.
+Overfull \hbox (30.00664pt too wide) in alignment at lines 497--514
+ [] [] [] [] [] [] 
+ []
 
 
-Package xcolor Warning: Incompatible color definition on input line 418.
+Overfull \hbox (30.00664pt too wide) in alignment at lines 514--530
+ [] [] [] [] [] [] 
+ []
 
 
-Package xcolor Warning: Incompatible color definition on input line 418.
+Overfull \hbox (30.00664pt too wide) in alignment at lines 530--610
+ [] [] [] [] [] [] 
+ []
 
-<Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-16-1.pdf, id=40, 45
-3.695pt x 313.17pt>
-File: Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-16-1.pdf Graph
-ic file (type pdf)
-<use Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-16-1.pdf>
-Package pdftex.def Info: Sutton_Bonnington_weather_files/figure-latex/unnamed-c
-hunk-16-1.pdf  used on input line 420.
-(pdftex.def)             Requested size: 328.82706pt x 226.9779pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Package xcolor Warning: Incompatible color definition on input line 684.
+
+
+Package xcolor Warning: Incompatible color definition on input line 699.
+
+
+Package xcolor Warning: Incompatible color definition on input line 699.
+
+
+Package xcolor Warning: Incompatible color definition on input line 699.
 
 [4]
 
-Package xcolor Warning: Incompatible color definition on input line 422.
+Package xcolor Warning: Incompatible color definition on input line 699.
 
 
-Package xcolor Warning: Incompatible color definition on input line 426.
+Package xcolor Warning: Incompatible color definition on input line 699.
 
 
-Package xcolor Warning: Incompatible color definition on input line 426.
+Package xcolor Warning: Incompatible color definition on input line 703.
 
 
-Package xcolor Warning: Incompatible color definition on input line 430.
+Package xcolor Warning: Incompatible color definition on input line 709.
 
 
-Package xcolor Warning: Incompatible color definition on input line 448.
+Package xcolor Warning: Incompatible color definition on input line 709.
 
 
-Package xcolor Warning: Incompatible color definition on input line 448.
+Package xcolor Warning: Incompatible color definition on input line 713.
 
-<Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-17-1.pdf, id=45, 45
+
+Package xcolor Warning: Incompatible color definition on input line 726.
+
+
+Package xcolor Warning: Incompatible color definition on input line 726.
+
+
+Package xcolor Warning: Incompatible color definition on input line 730.
+
+
+Package xcolor Warning: Incompatible color definition on input line 747.
+
+
+Package xcolor Warning: Incompatible color definition on input line 747.
+
+
+Package xcolor Warning: Incompatible color definition on input line 751.
+
+
+Package xcolor Warning: Incompatible color definition on input line 763.
+
+
+Package xcolor Warning: Incompatible color definition on input line 763.
+
+<Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-20-1.pdf, id=67, 45
 3.695pt x 313.17pt>
-File: Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-17-1.pdf Graph
+File: Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-20-1.pdf Graph
 ic file (type pdf)
-<use Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-17-1.pdf>
+<use Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-20-1.pdf>
 Package pdftex.def Info: Sutton_Bonnington_weather_files/figure-latex/unnamed-c
-hunk-17-1.pdf  used on input line 450.
+hunk-20-1.pdf  used on input line 765.
+(pdftex.def)             Requested size: 328.82706pt x 226.9779pt.
+
+Underfull \vbox (badness 1389) has occurred while \output is active []
+
+[5]
+
+Package xcolor Warning: Incompatible color definition on input line 767.
+
+
+Package xcolor Warning: Incompatible color definition on input line 771.
+
+
+Package xcolor Warning: Incompatible color definition on input line 771.
+
+
+Package xcolor Warning: Incompatible color definition on input line 775.
+
+
+Package xcolor Warning: Incompatible color definition on input line 793.
+
+
+Package xcolor Warning: Incompatible color definition on input line 793.
+
+<Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-21-1.pdf, id=72, 45
+3.695pt x 313.17pt>
+File: Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-21-1.pdf Graph
+ic file (type pdf)
+<use Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-21-1.pdf>
+Package pdftex.def Info: Sutton_Bonnington_weather_files/figure-latex/unnamed-c
+hunk-21-1.pdf  used on input line 795.
 (pdftex.def)             Requested size: 328.82706pt x 226.9779pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[5 <./Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-16-1.pdf>]
+[6 <./Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-20-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 454.
-
-
-Package xcolor Warning: Incompatible color definition on input line 485.
+Package xcolor Warning: Incompatible color definition on input line 799.
 
 
-Package xcolor Warning: Incompatible color definition on input line 485.
+Package xcolor Warning: Incompatible color definition on input line 830.
 
-<Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-18-1.pdf, id=57, 45
+
+Package xcolor Warning: Incompatible color definition on input line 830.
+
+<Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-22-1.pdf, id=84, 45
 9.7175pt x 313.17pt>
-File: Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-18-1.pdf Graph
+File: Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-22-1.pdf Graph
 ic file (type pdf)
-<use Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-18-1.pdf>
+<use Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-22-1.pdf>
 Package pdftex.def Info: Sutton_Bonnington_weather_files/figure-latex/unnamed-c
-hunk-18-1.pdf  used on input line 487.
+hunk-22-1.pdf  used on input line 832.
 (pdftex.def)             Requested size: 328.82706pt x 224.01518pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[6 <./Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-17-1.pdf>]
+[7 <./Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-21-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 839.
+
+
+Package xcolor Warning: Incompatible color definition on input line 864.
+
+
+Package xcolor Warning: Incompatible color definition on input line 864.
+
+<Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-23-1.pdf, id=97, 45
+9.7175pt x 313.17pt>
+File: Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-23-1.pdf Graph
+ic file (type pdf)
+<use Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-23-1.pdf>
+Package pdftex.def Info: Sutton_Bonnington_weather_files/figure-latex/unnamed-c
+hunk-23-1.pdf  used on input line 866.
+(pdftex.def)             Requested size: 328.82706pt x 224.01518pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[8 <./Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-22-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 871.
+
+
+Package xcolor Warning: Incompatible color definition on input line 896.
+
+
+Package xcolor Warning: Incompatible color definition on input line 896.
+
+<Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-24-1.pdf, id=110, 4
+59.7175pt x 313.17pt>
+File: Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-24-1.pdf Graph
+ic file (type pdf)
+<use Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-24-1.pdf>
+Package pdftex.def Info: Sutton_Bonnington_weather_files/figure-latex/unnamed-c
+hunk-24-1.pdf  used on input line 898.
+(pdftex.def)             Requested size: 328.82706pt x 224.01518pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[9 <./Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-23-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 903.
+
+
+Package xcolor Warning: Incompatible color definition on input line 928.
+
+
+Package xcolor Warning: Incompatible color definition on input line 928.
+
+<Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-25-1.pdf, id=123, 4
+59.7175pt x 313.17pt>
+File: Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-25-1.pdf Graph
+ic file (type pdf)
+<use Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-25-1.pdf>
+Package pdftex.def Info: Sutton_Bonnington_weather_files/figure-latex/unnamed-c
+hunk-25-1.pdf  used on input line 930.
+(pdftex.def)             Requested size: 328.82706pt x 224.01518pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[10 <./Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-24-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 935.
+
+
+Package xcolor Warning: Incompatible color definition on input line 960.
+
+
+Package xcolor Warning: Incompatible color definition on input line 960.
+
+<Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-26-1.pdf, id=136, 4
+59.7175pt x 313.17pt>
+File: Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-26-1.pdf Graph
+ic file (type pdf)
+<use Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-26-1.pdf>
+Package pdftex.def Info: Sutton_Bonnington_weather_files/figure-latex/unnamed-c
+hunk-26-1.pdf  used on input line 962.
+(pdftex.def)             Requested size: 328.82706pt x 224.01518pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[11 <./Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-25-1.pdf>]
 No file Sutton_Bonnington_weather.bbl.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 503.
-[7 <./Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-18-1.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 503.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 983.
+[12 <./Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-26-1.pdf>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 983.
 (./Sutton_Bonnington_weather.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 503.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 503.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 983.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 983.
 Package rerunfilecheck Info: File `Sutton_Bonnington_weather.out' has not chang
 ed.
-(rerunfilecheck)             Checksum: 73123E1D26648B1B297604EDF0A31201;155.
+(rerunfilecheck)             Checksum: 675193695C7AF974BA3078B4A92AA46A;464.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 503.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 983.
  ) 
 Here is how much of TeX's memory you used:
- 20050 strings out of 492616
- 351128 string characters out of 6129482
- 567495 words of memory out of 5000000
- 23664 multiletter control sequences out of 15000+600000
- 568150 words of font info for 68 fonts, out of 8000000 for 9000
+ 20109 strings out of 492616
+ 352902 string characters out of 6129482
+ 576495 words of memory out of 5000000
+ 23693 multiletter control sequences out of 15000+600000
+ 568482 words of font info for 72 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 117i,15n,107p,500b,389s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 117i,15n,107p,542b,389s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/lo
 cal/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</usr/local/texlive/20
 19/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2019/texmf-d
@@ -1082,10 +1233,10 @@ type1/public/lm/lmcsc10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/pub
 lic/lm/lmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmsy
 10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></u
 sr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on Sutton_Bonnington_weather.pdf (7 pages, 350446 bytes).
+Output written on Sutton_Bonnington_weather.pdf (12 pages, 403846 bytes).
 PDF statistics:
- 115 PDF objects out of 1000 (max. 8388607)
- 89 compressed objects within 1 object stream
- 16 named destinations out of 1000 (max. 500000)
- 12328 words of extra memory for PDF output out of 14400 (max. 10000000)
+ 199 PDF objects out of 1000 (max. 8388607)
+ 155 compressed objects within 2 object streams
+ 34 named destinations out of 1000 (max. 500000)
+ 12388 words of extra memory for PDF output out of 14400 (max. 10000000)
 
