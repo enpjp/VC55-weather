@@ -276,15 +276,94 @@ The datum triple is the universal starting point for all data. Converting to thi
 \end{Highlighting}
 \end{Shaded}
 
-Finally we can save the data in a machine readable format for reuse.
+Finally we can save the data in a machine readable format for reuse. Effectively this is \texttt{raw} data that we have transformed into a readable state, so it is placed in a directory \texttt{data-raw}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\FunctionTok{dir.create}\NormalTok{( }
+\NormalTok{          fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( absolute.path,}
+            \StringTok{"data{-}raw"}\NormalTok{ ),  }
+            \AttributeTok{showWarnings =} \ConstantTok{FALSE}\NormalTok{,}
+            \AttributeTok{recursive =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# }
+
 \NormalTok{path.to.save}\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( absolute.path}
-\NormalTok{                               ,}\StringTok{"data{-}ext"}\NormalTok{,}\StringTok{"suttonboningtondata"}\NormalTok{, }\AttributeTok{ext =} \StringTok{"rds"}\NormalTok{)}
+\NormalTok{                               ,}\StringTok{"data{-}raw"}\NormalTok{,}\StringTok{"suttonboningtondata"}\NormalTok{, }\AttributeTok{ext =} \StringTok{"rds"}\NormalTok{)}
 \FunctionTok{saveRDS}\NormalTok{(suttonbonington.triple,path.to.save)}
 \end{Highlighting}
 \end{Shaded}
+
+For the purpose of this vignette we load the \texttt{data-raw} to demonstrate the the analysis could start from this point.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load data{-}raw}
+
+\NormalTok{path.to.data }\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( absolute.path}
+\NormalTok{                               ,}\StringTok{"data{-}raw"}\NormalTok{,}\StringTok{"suttonboningtondata"}\NormalTok{, }\AttributeTok{ext =} \StringTok{"rds"}\NormalTok{)}
+\CommentTok{\# Could change the name of the data if we so wished.}
+\NormalTok{suttonboningtondata }\OtherTok{\textless{}{-}}  \FunctionTok{readRDS}\NormalTok{(path.to.data)}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{suttonboningtondata} now looks like this:
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+\begin{minipage}[b]{(\columnwidth - 2\tabcolsep) * \real{0.39}}\centering
+datumEntity\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 2\tabcolsep) * \real{0.24}}\centering
+datumAttribute\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 2\tabcolsep) * \real{0.18}}\centering
+datumValue\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.39}}\centering
+Sutton.Bonnington:1959:01\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.24}}\centering
+YYYY\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.18}}\centering
+1959\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.39}}\centering
+Sutton.Bonnington:1959:01\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.24}}\centering
+mm\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.18}}\centering
+01\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.39}}\centering
+Sutton.Bonnington:1959:01\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.24}}\centering
+tmax.degC\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.18}}\centering
+4.2\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.39}}\centering
+Sutton.Bonnington:1959:01\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.24}}\centering
+tmin.degC\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.18}}\centering
+-2.4\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.39}}\centering
+Sutton.Bonnington:1959:01\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.24}}\centering
+airfrost.days\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.18}}\centering
+23\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.39}}\centering
+Sutton.Bonnington:1959:01\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.24}}\centering
+sun.hours\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.18}}\centering
+78.8\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+From the raw data we now prepare \texttt{data-sl} which is a loosely defined format of convenience. All the attributes are in character format, but may be in many different units. Re-arranging into a wider format is helpful
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -295,7 +374,11 @@ Finally we can save the data in a machine readable format for reuse.
   \AttributeTok{id\_cols =}\NormalTok{ datumEntity,}
   \AttributeTok{names\_from =}\NormalTok{ datumAttribute,}
   \AttributeTok{values\_from =}\NormalTok{ datumValue)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# But we are interesting in plotting the data by date so}
 
 \NormalTok{  VC55.weather.ss }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.sl }\SpecialCharTok{\%\textgreater{}\%} 
@@ -334,7 +417,7 @@ Finally we can save the data in a machine readable format for reuse.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-13-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -364,7 +447,7 @@ The plots are in different units so plot z-scores instead.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-14-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 This looks good but very small deviations from the mean.
 
@@ -401,7 +484,7 @@ This looks good but very small deviations from the mean.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-15-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 \hypertarget{references}{%
 \section*{References}\label{references}}

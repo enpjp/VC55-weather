@@ -151,29 +151,40 @@ suttonbonington.triple <- suttonboningtondata %>%
                   drop_na() # Drop all the NAs from datumValue
 ```
 
-Finally we can save the data in a machine readable format for reuse. Effectively thi is `raw` data that is ready for analysis.
+Finally we can save the data in a machine readable format for reuse. Effectively this is `raw` data that we have transformed into a readable state, so it is placed in a directory `data-raw`.
 ```{r }
 dir.create( 
           fs::path( absolute.path,
-            "data-ext" ),  
+            "data-raw" ),  
             showWarnings = FALSE,
             recursive = TRUE) # 
 
 path.to.save<- fs::path( absolute.path
-                               ,"data-ext","suttonboningtondata", ext = "rds")
+                               ,"data-raw","suttonboningtondata", ext = "rds")
 saveRDS(suttonbonington.triple,path.to.save)
 
 
 ```
 
-For the purpose of 
+For the purpose of this vignette we load the `data-raw` to demonstrate the the analysis could start from this point. 
 ```{r}
+# Load data-raw
+
+path.to.data <- fs::path( absolute.path
+                               ,"data-raw","suttonboningtondata", ext = "rds")
+# Could change the name of the data if we so wished.
+suttonboningtondata <-  readRDS(path.to.data)
 
 ```
 
+The first 10 rows of the `suttonboningtondata` now look like this:
+```{r echo=FALSE}
+pander::pander(head(suttonboningtondata))
+```
+
+From the raw data we now prepare `data-sl` which is a loosely defined format of convenience. All the attributes are in character format, but may be in many different units. Re-arranging into a wider format is helpful
 
 ```{r}
-
 # Prepare data-ss
 # First prepare the long data
 VC55.weather.sl <- suttonbonington.triple %>%
@@ -181,7 +192,18 @@ VC55.weather.sl <- suttonbonington.triple %>%
   id_cols = datumEntity,
   names_from = datumAttribute,
   values_from = datumValue)
+```
 
+The wider format `VC55.weather.sl` now looks like:
+
+```{r echo=FALSE}
+pander::pander(head(VC55.weather.sl))
+```
+
+
+To make out strictly defined data to analyse the weather we select the columns of interest and make a long format with the date as the key column. We choose this format as it gives great flexibility with analysis and works well with a Grammar of Graphic (GoG) approach. This contrasts with the temptation to produce a wide format of data as one might use in a spreadsheet analysis. The versatility of GoG will become apparent as we proceed and see how all plots may be specified by changing the GoG verbs.
+
+```{r}
 # But we are interesting in plotting the data by date so
 
   VC55.weather.ss <- VC55.weather.sl %>% 
@@ -194,12 +216,24 @@ VC55.weather.sl <- suttonbonington.triple %>%
             pivot_longer(!YYYYMMDD,# Use datumEntity as the key
                   names_to = "datumAttribute", # Save the name of the attribute
                   values_to = "datumValue") # Save the value of the attribute
+```
 
+At this point we can specify data types as Date and numeric for analysis.
+```{r}
 # Set the data types
 VC55.weather.ss$YYYYMMDD <-  VC55.weather.ss$YYYYMMDD %>% as.Date
 VC55.weather.ss$datumValue <- VC55.weather.ss$datumValue %>% as.numeric()
+```
 
- 
+
+```{r}
+dir.create( 
+          fs::path( absolute.path,
+            "data-ss" ),  
+            showWarnings = FALSE,
+            recursive = TRUE) # Create the directory
+
+#And save.
 path.to.save.ss<- fs::path( absolute.path
                                ,"data-ss","VC55.weather.ss", ext = "rds")
 saveRDS(VC55.weather.ss, path.to.save.ss)
