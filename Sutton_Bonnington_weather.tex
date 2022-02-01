@@ -155,6 +155,7 @@ Load the Tidyverse libraries and other helpers.
 \FunctionTok{library}\NormalTok{(gridExtra)}
 \FunctionTok{library}\NormalTok{(qqplotr)}
 \FunctionTok{library}\NormalTok{(readr)}
+\FunctionTok{library}\NormalTok{(timeDate)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -226,14 +227,19 @@ The early months of the year are represented by a single digit so we need to pad
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Date is not properly encoded so build a date from the data}
+\CommentTok{\# Date is not properly encoded so build a date from the data.}
+\CommentTok{\# The weather is summaries monthly so we need the last day of the month.}
 \NormalTok{suttonboningtondata}\SpecialCharTok{$}\NormalTok{mm }\OtherTok{\textless{}{-}}\NormalTok{   stringr}\SpecialCharTok{::}\FunctionTok{str\_pad}\NormalTok{(suttonboningtondata}\SpecialCharTok{$}\NormalTok{mm, }\AttributeTok{width =} \DecValTok{2}\NormalTok{, }\AttributeTok{pad =} \StringTok{"0"}\NormalTok{)}
  
  \CommentTok{\# Create a date at the end of the month.}
-\NormalTok{suttonboningtondata}\SpecialCharTok{$}\NormalTok{dd }\OtherTok{\textless{}{-}} \DecValTok{28}
-\NormalTok{ suttonboningtondata}\SpecialCharTok{$}\NormalTok{YYYYMMDD }\OtherTok{\textless{}{-}}   \FunctionTok{with}\NormalTok{( suttonboningtondata, }
-                                     \FunctionTok{paste}\NormalTok{( YYYY, mm, }
-\NormalTok{                                            dd, }\AttributeTok{sep=} \StringTok{"{-}"}\NormalTok{   )    )}
+\NormalTok{dummyDate }\OtherTok{\textless{}{-}} \FunctionTok{with}\NormalTok{( suttonboningtondata, }
+                  \FunctionTok{paste}\NormalTok{( YYYY, }
+\NormalTok{                  mm, }
+                  \StringTok{"28"}\NormalTok{, }\CommentTok{\# Need to put a day in every month.}
+                  \AttributeTok{sep=} \StringTok{"{-}"}\NormalTok{   ) }
+\NormalTok{                  )}
+\CommentTok{\# Calculates the last day of the month}
+\NormalTok{ suttonboningtondata}\SpecialCharTok{$}\NormalTok{YYYYMMDD }\OtherTok{\textless{}{-}} \FunctionTok{timeLastDayInMonth}\NormalTok{(dummyDate) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.character}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -497,183 +503,169 @@ Sutton.Bonnington:1959:06\strut
 \begin{longtable}[]{@{}cccccc@{}}
 \caption{Table continues below}\tabularnewline
 \toprule
-\begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
 sun.hours\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.07}}\centering
-dd\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.18}}\centering
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
 YYYYMMDD\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.27}}\centering
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.25}}\centering
 place\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
 lattitude\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
 logitude\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
+easting\strut
 \end{minipage}\tabularnewline
 \midrule
 \endfirsthead
 \toprule
-\begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
 sun.hours\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.07}}\centering
-dd\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.18}}\centering
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
 YYYYMMDD\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.27}}\centering
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.25}}\centering
 place\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
 lattitude\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
 logitude\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
+easting\strut
 \end{minipage}\tabularnewline
 \midrule
 \endhead
-\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
 78.8\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.07}}\centering
-28\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.18}}\centering
-1959-01-28\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.27}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+1959-01-31\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.25}}\centering
 Sutton Bonnington\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
 52.833\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
 -1.25\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
+450700\strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
 54.0\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.07}}\centering
-28\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.18}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
 1959-02-28\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.27}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.25}}\centering
 Sutton Bonnington\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
 52.833\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
 -1.25\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
+450700\strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
 80.7\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.07}}\centering
-28\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.18}}\centering
-1959-03-28\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.27}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+1959-03-31\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.25}}\centering
 Sutton Bonnington\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
 52.833\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
 -1.25\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
+450700\strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
 148.1\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.07}}\centering
-28\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.18}}\centering
-1959-04-28\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.27}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+1959-04-30\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.25}}\centering
 Sutton Bonnington\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
 52.833\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
 -1.25\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
+450700\strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
 206.7\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.07}}\centering
-28\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.18}}\centering
-1959-05-28\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.27}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+1959-05-31\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.25}}\centering
 Sutton Bonnington\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
 52.833\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
 -1.25\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
+450700\strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
 246.6\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.07}}\centering
-28\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.18}}\centering
-1959-06-28\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.27}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+1959-06-30\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.25}}\centering
 Sutton Bonnington\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
 52.833\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
 -1.25\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
+450700\strut
 \end{minipage}\tabularnewline
 \bottomrule
 \end{longtable}
 
-\begin{longtable}[]{@{}cccc@{}}
+\begin{longtable}[]{@{}ccc@{}}
 \toprule
-\begin{minipage}[b]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
-easting\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 3\tabcolsep) * \real{0.15}}\centering
+\begin{minipage}[b]{(\columnwidth - 2\tabcolsep) * \real{0.15}}\centering
 northing\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 3\tabcolsep) * \real{0.28}}\centering
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 2\tabcolsep) * \real{0.28}}\centering
 height.amsl.metre\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 2\tabcolsep) * \real{0.14}}\centering
 rain.mm\strut
 \end{minipage}\tabularnewline
 \midrule
 \endhead
-\begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
-450700\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.15}}\centering
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.15}}\centering
 325900\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.28}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.28}}\centering
 48\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.14}}\centering
 NA\strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
-450700\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.15}}\centering
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.15}}\centering
 325900\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.28}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.28}}\centering
 48\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.14}}\centering
 NA\strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
-450700\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.15}}\centering
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.15}}\centering
 325900\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.28}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.28}}\centering
 48\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.14}}\centering
 NA\strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
-450700\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.15}}\centering
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.15}}\centering
 325900\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.28}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.28}}\centering
 48\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.14}}\centering
 NA\strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
-450700\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.15}}\centering
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.15}}\centering
 325900\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.28}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.28}}\centering
 48\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.14}}\centering
 NA\strut
 \end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
-450700\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.15}}\centering
+\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.15}}\centering
 325900\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.28}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.28}}\centering
 48\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 3\tabcolsep) * \real{0.14}}\centering
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.14}}\centering
 NA\strut
 \end{minipage}\tabularnewline
 \bottomrule

@@ -57,6 +57,7 @@ library(kableExtra)
 library(gridExtra)
 library(qqplotr)
 library(readr)
+library(timeDate)
 ```
 
 Read the data. The absolute path helps to write code that is computer independent but it does use the Rstudio specific function to find the current project location. The use of `fs` to build the file path ensures compatibility across all operating systems. It also gives a chance to check that it is correct before loading the file.
@@ -111,14 +112,19 @@ suttonboningtondata <- suttonboningtondata %>%
 
 The early months of the year are represented by a single digit so we need to pad them with a leading zero. The we can create a date in the ISO recognised format: `YYYY-MM-DD`. As these are monthly summaries we choose a date near the end of the month which allows us to convert from a character string to a date when we plot results.
 ```{r }
-# Date is not properly encoded so build a date from the data
+# Date is not properly encoded so build a date from the data.
+# The weather is summaries monthly so we need the last day of the month.
 suttonboningtondata$mm <-   stringr::str_pad(suttonboningtondata$mm, width = 2, pad = "0")
  
  # Create a date at the end of the month.
-suttonboningtondata$dd <- 28
- suttonboningtondata$YYYYMMDD <-   with( suttonboningtondata, 
-                                     paste( YYYY, mm, 
-                                            dd, sep= "-"   )    )
+dummyDate <- with( suttonboningtondata, 
+                  paste( YYYY, 
+                  mm, 
+                  "28", # Need to put a day in every month.
+                  sep= "-"   ) 
+                  )
+# Calculates the last day of the month
+ suttonboningtondata$YYYYMMDD <- timeLastDayInMonth(dummyDate) %>% as.character()
 ```
 
 Each row of data needs a unique identifier which we call `datumEntity`.
