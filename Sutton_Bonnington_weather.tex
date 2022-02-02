@@ -11,7 +11,6 @@
 \usepackage{amsfonts}       % blackboard math symbols
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
-\usepackage{lipsum}
 \usepackage{graphicx}
 
 \title{\myTitleMainTitle}
@@ -25,6 +24,7 @@
   \texttt{\href{mailto:p.j.palmer@lboro.ac.uk}{\nolinkurl{p.j.palmer@lboro.ac.uk}}} \\
   }
 
+% Pandoc syntax highlighting
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -66,11 +66,29 @@
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 
+% tightlist command for lists without linebreak
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% From pandoc table feature
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+
 % Pandoc citation processing
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
 \newlength{\cslhangindent}
 \setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
 % for Pandoc 2.8 to 2.10.1
 \newenvironment{cslreferences}%
   {}%
@@ -80,14 +98,15 @@
  {% don't indent paragraphs
   \setlength{\parindent}{0pt}
   % turn on hanging indent if param 1 is 1
-  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
-  % set entry spacing
-  \ifnum #2 > 0
-  \setlength{\parskip}{#2\baselineskip}
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
   \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
  }%
  {}
-\usepackage{calc} % for calculating minipage widths
+\usepackage{calc}
 \newcommand{\CSLBlock}[1]{#1\hfill\break}
 \newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
@@ -123,12 +142,8 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
-
-
 \begin{document}
 \maketitle
-
-\def\tightlist{}
 
 
 \begin{abstract}
@@ -311,61 +326,35 @@ For the purpose of this vignette we load the \texttt{data-raw} to demonstrate th
 \end{Highlighting}
 \end{Shaded}
 
-The first 10 rows of the \texttt{suttonboningtondata} now look like this:
+The first 13 rows of the \texttt{suttonboningtondata} now look like this:
 
-\begin{longtable}[]{@{}ccc@{}}
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.39}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.28}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.28}}@{}}
 \toprule
-\begin{minipage}[b]{(\columnwidth - 2\tabcolsep) * \real{0.39}}\centering
-datumEntity\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 2\tabcolsep) * \real{0.24}}\centering
-datumAttribute\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 2\tabcolsep) * \real{0.18}}\centering
-datumValue\strut
-\end{minipage}\tabularnewline
+\begin{minipage}[b]{\linewidth}\centering
+datumEntity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+datumAttribute
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+datumValue
+\end{minipage} \\
 \midrule
 \endhead
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.39}}\centering
-Sutton.Bonnington:1959:01\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.24}}\centering
-YYYY\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.18}}\centering
-1959\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.39}}\centering
-Sutton.Bonnington:1959:01\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.24}}\centering
-mm\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.18}}\centering
-01\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.39}}\centering
-Sutton.Bonnington:1959:01\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.24}}\centering
-tmax.degC\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.18}}\centering
-4.2\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.39}}\centering
-Sutton.Bonnington:1959:01\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.24}}\centering
-tmin.degC\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.18}}\centering
--2.4\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.39}}\centering
-Sutton.Bonnington:1959:01\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.24}}\centering
-airfrost.days\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.18}}\centering
-23\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.39}}\centering
-Sutton.Bonnington:1959:01\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.24}}\centering
-sun.hours\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.18}}\centering
-78.8\strut
-\end{minipage}\tabularnewline
+Sutton.Bonnington:1959:01 & YYYY & 1959 \\
+Sutton.Bonnington:1959:01 & mm & 01 \\
+Sutton.Bonnington:1959:01 & tmax.degC & 4.2 \\
+Sutton.Bonnington:1959:01 & tmin.degC & -2.4 \\
+Sutton.Bonnington:1959:01 & airfrost.days & 23 \\
+Sutton.Bonnington:1959:01 & sun.hours & 78.8 \\
+Sutton.Bonnington:1959:01 & YYYYMMDD & 1959-01-31 \\
+Sutton.Bonnington:1959:01 & place & Sutton Bonnington \\
+Sutton.Bonnington:1959:01 & lattitude & 52.833 \\
+Sutton.Bonnington:1959:01 & logitude & -1.25 \\
+Sutton.Bonnington:1959:01 & easting & 450700 \\
+Sutton.Bonnington:1959:01 & northing & 325900 \\
+Sutton.Bonnington:1959:01 & height.amsl.metre & 48 \\
 \bottomrule
 \end{longtable}
 
@@ -385,289 +374,124 @@ From the raw data we now prepare \texttt{data-sl} which is a loosely defined for
 
 The wider format \texttt{VC55.weather.sl} now looks like:
 
-\begin{longtable}[]{@{}cccccc@{}}
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.35}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.09}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.06}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.15}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.15}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.20}}@{}}
 \caption{Table continues below}\tabularnewline
 \toprule
-\begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.35}}\centering
-datumEntity\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.09}}\centering
-YYYY\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.06}}\centering
-mm\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-tmax.degC\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-tmin.degC\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.20}}\centering
-airfrost.days\strut
-\end{minipage}\tabularnewline
+\begin{minipage}[b]{\linewidth}\centering
+datumEntity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+YYYY
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+mm
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+tmax.degC
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+tmin.degC
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+airfrost.days
+\end{minipage} \\
 \midrule
 \endfirsthead
 \toprule
-\begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.35}}\centering
-datumEntity\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.09}}\centering
-YYYY\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.06}}\centering
-mm\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-tmax.degC\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-tmin.degC\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.20}}\centering
-airfrost.days\strut
-\end{minipage}\tabularnewline
+\begin{minipage}[b]{\linewidth}\centering
+datumEntity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+YYYY
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+mm
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+tmax.degC
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+tmin.degC
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+airfrost.days
+\end{minipage} \\
 \midrule
 \endhead
-\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.35}}\centering
-Sutton.Bonnington:1959:01\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.09}}\centering
-1959\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.06}}\centering
-01\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-4.2\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
--2.4\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.20}}\centering
-23\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.35}}\centering
-Sutton.Bonnington:1959:02\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.09}}\centering
-1959\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.06}}\centering
-02\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-7.0\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-0.9\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.20}}\centering
-11\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.35}}\centering
-Sutton.Bonnington:1959:03\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.09}}\centering
-1959\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.06}}\centering
-03\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-10.7\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-3.2\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.20}}\centering
-2\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.35}}\centering
-Sutton.Bonnington:1959:04\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.09}}\centering
-1959\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.06}}\centering
-04\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-13.8\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-5.1\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.20}}\centering
-0\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.35}}\centering
-Sutton.Bonnington:1959:05\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.09}}\centering
-1959\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.06}}\centering
-05\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-17.6\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-6.1\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.20}}\centering
-3\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.35}}\centering
-Sutton.Bonnington:1959:06\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.09}}\centering
-1959\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.06}}\centering
-06\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-20.6\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-9.7\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.20}}\centering
-0\strut
-\end{minipage}\tabularnewline
+Sutton.Bonnington:1959:01 & 1959 & 01 & 4.2 & -2.4 & 23 \\
+Sutton.Bonnington:1959:02 & 1959 & 02 & 7.0 & 0.9 & 11 \\
+Sutton.Bonnington:1959:03 & 1959 & 03 & 10.7 & 3.2 & 2 \\
+Sutton.Bonnington:1959:04 & 1959 & 04 & 13.8 & 5.1 & 0 \\
+Sutton.Bonnington:1959:05 & 1959 & 05 & 17.6 & 6.1 & 3 \\
+Sutton.Bonnington:1959:06 & 1959 & 06 & 20.6 & 9.7 & 0 \\
 \bottomrule
 \end{longtable}
 
-\begin{longtable}[]{@{}cccccc@{}}
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.15}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.16}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.25}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.15}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.14}}
+  >{\centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.14}}@{}}
 \caption{Table continues below}\tabularnewline
 \toprule
-\begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-sun.hours\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
-YYYYMMDD\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.25}}\centering
-place\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-lattitude\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
-logitude\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
-easting\strut
-\end{minipage}\tabularnewline
+\begin{minipage}[b]{\linewidth}\centering
+sun.hours
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+YYYYMMDD
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+place
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+lattitude
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+logitude
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+easting
+\end{minipage} \\
 \midrule
 \endfirsthead
 \toprule
-\begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-sun.hours\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
-YYYYMMDD\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.25}}\centering
-place\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-lattitude\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
-logitude\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
-easting\strut
-\end{minipage}\tabularnewline
+\begin{minipage}[b]{\linewidth}\centering
+sun.hours
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+YYYYMMDD
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+place
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+lattitude
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+logitude
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+easting
+\end{minipage} \\
 \midrule
 \endhead
-\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-78.8\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
-1959-01-31\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.25}}\centering
-Sutton Bonnington\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-52.833\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
--1.25\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
-450700\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-54.0\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
-1959-02-28\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.25}}\centering
-Sutton Bonnington\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-52.833\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
--1.25\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
-450700\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-80.7\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
-1959-03-31\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.25}}\centering
-Sutton Bonnington\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-52.833\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
--1.25\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
-450700\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-148.1\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
-1959-04-30\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.25}}\centering
-Sutton Bonnington\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-52.833\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
--1.25\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
-450700\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-206.7\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
-1959-05-31\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.25}}\centering
-Sutton Bonnington\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-52.833\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
--1.25\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
-450700\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-246.6\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.16}}\centering
-1959-06-30\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.25}}\centering
-Sutton Bonnington\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.15}}\centering
-52.833\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
--1.25\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 5\tabcolsep) * \real{0.14}}\centering
-450700\strut
-\end{minipage}\tabularnewline
+78.8 & 1959-01-31 & Sutton Bonnington & 52.833 & -1.25 & 450700 \\
+54.0 & 1959-02-28 & Sutton Bonnington & 52.833 & -1.25 & 450700 \\
+80.7 & 1959-03-31 & Sutton Bonnington & 52.833 & -1.25 & 450700 \\
+148.1 & 1959-04-30 & Sutton Bonnington & 52.833 & -1.25 & 450700 \\
+206.7 & 1959-05-31 & Sutton Bonnington & 52.833 & -1.25 & 450700 \\
+246.6 & 1959-06-30 & Sutton Bonnington & 52.833 & -1.25 & 450700 \\
 \bottomrule
 \end{longtable}
 
-\begin{longtable}[]{@{}ccc@{}}
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.15}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.28}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.14}}@{}}
 \toprule
-\begin{minipage}[b]{(\columnwidth - 2\tabcolsep) * \real{0.15}}\centering
-northing\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 2\tabcolsep) * \real{0.28}}\centering
-height.amsl.metre\strut
-\end{minipage} & \begin{minipage}[b]{(\columnwidth - 2\tabcolsep) * \real{0.14}}\centering
-rain.mm\strut
-\end{minipage}\tabularnewline
+\begin{minipage}[b]{\linewidth}\centering
+northing
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+height.amsl.metre
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+rain.mm
+\end{minipage} \\
 \midrule
 \endhead
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.15}}\centering
-325900\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.28}}\centering
-48\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.14}}\centering
-NA\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.15}}\centering
-325900\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.28}}\centering
-48\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.14}}\centering
-NA\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.15}}\centering
-325900\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.28}}\centering
-48\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.14}}\centering
-NA\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.15}}\centering
-325900\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.28}}\centering
-48\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.14}}\centering
-NA\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.15}}\centering
-325900\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.28}}\centering
-48\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.14}}\centering
-NA\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.15}}\centering
-325900\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.28}}\centering
-48\strut
-\end{minipage} & \begin{minipage}[t]{(\columnwidth - 2\tabcolsep) * \real{0.14}}\centering
-NA\strut
-\end{minipage}\tabularnewline
+325900 & 48 & NA \\
+325900 & 48 & NA \\
+325900 & 48 & NA \\
+325900 & 48 & NA \\
+325900 & 48 & NA \\
+325900 & 48 & NA \\
 \bottomrule
 \end{longtable}
 

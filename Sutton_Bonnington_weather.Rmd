@@ -183,9 +183,9 @@ suttonboningtondata <-  readRDS(path.to.data)
 
 ```
 
-The first 10 rows of the `suttonboningtondata` now look like this:
+The first 13 rows of the `suttonboningtondata` now look like this:
 ```{r echo=FALSE}
-pander::pander(head(suttonboningtondata))
+pander::pander(head(suttonboningtondata,13))
 ```
 
 From the raw data we now prepare `data-sl` which is a loosely defined format of convenience. All the attributes are in character format, but may be in many different units. Re-arranging into a wider format is helpful
