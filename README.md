@@ -1,5 +1,5 @@
-This is a template for managing lepidoptera dissection records.
+[![DOI](https://zenodo.org/badge/450628730.svg)](https://zenodo.org/badge/latestdoi/450628730)
 
-To use this template a directory called ` _records` should be created to hold the records. Copy the data model to individual subdirectories each identified with a entity reference number.
+This is a vignette for reading nascent data.
 
-It is an idea to create the ` _records` directory as a private repository to manage records.
+View the PDF in the latest release for a working example.
