@@ -16,7 +16,6 @@ output:
     extra_dependencies: ["flafter"]
     includes:
       in_header: "preamble.tex"  
-
 ---
 
 ```{r setDefaults,  include=TRUE, echo=FALSE, warning=FALSE, message=FALSE, error=FALSE, results='asis'}
@@ -41,14 +40,16 @@ knitr::opts_chunk$set(include = TRUE,
 
 ```
 
-
 # Introduction
 
-\myTitleMainTitle
+The purpose of this vignette is a practical demonstration of reusable templates based upon the novel concept of data state. This report is used as a case study for the paper: *Achieving Analytical Fluency With Complex Data* and uses real world long term weather data as its source. It is not the intention to analyse climate change, but the trends uncovered are striking, even in this single public domain source.
+
+This work has been written using RStudio [@RStudioTeam2016], Bookdown [@Xie2017], and rticles [@Allaire2019] to demonstrate integration of authoring and formatting tools to achieve academic quality outputs directly from the compiled document.
 
 # Read Sutton Bonnington Data
 
 Load the Tidyverse libraries and other helpers.
+
 ```{r }
 # Load libraries
 library(plyr)
@@ -61,6 +62,7 @@ library(timeDate)
 ```
 
 Read the data. The absolute path helps to write code that is computer independent but it does use the Rstudio specific function to find the current project location. The use of `fs` to build the file path ensures compatibility across all operating systems. It also gives a chance to check that it is correct before loading the file.
+
 ```{r }
 # Read data
 absolute.path <- rprojroot::find_rstudio_root_file()
@@ -71,14 +73,15 @@ path.to.my.data <- fs::path( absolute.path,
 ```
 
 The `read_table` function does a good job of reading the data into columns recognising the partitioning with the use of spaces after the first five lines of text are skipped.
+
 ```{r }
 suttonboningtondata <- read_table(
                         path.to.my.data, 
                         skip = 5) # skip 5 lines of text
 ```
 
-
 Renaming the column names requires checking the results manually with `view(suttonboningtondata)` befor making a list of names.
+
 ```{r }
 # Rename the columns to something useful
 new.colnames <- c( "YYYY",
@@ -93,12 +96,14 @@ colnames(suttonboningtondata) <- new.colnames
 ```
 
 The text file headings were split across two rows so the first row of the data contains fragments which we can drop since we have included them in our column names manually.
+
 ```{r }
 # Drop row 1
 suttonboningtondata <- suttonboningtondata[-1,]
 ```
 
-We can now remove the unwanted characters that remain in the data. Note the use of the double escape `\\*` to select the asterisk. The removal of unwanted special characters is often a problem in nascent data so it is best to get rid of them before they cause problems when code is executed.. 
+We can now remove the unwanted characters that remain in the data. Note the use of the double escape `\\*` to select the asterisk. The removal of unwanted special characters is often a problem in nascent data so it is best to get rid of them before they cause problems when code is executed..
+
 ```{r }
 suttonboningtondata <- suttonboningtondata %>%
                         map_df( gsub,
@@ -111,6 +116,7 @@ suttonboningtondata <- suttonboningtondata %>%
 ```
 
 The early months of the year are represented by a single digit so we need to pad them with a leading zero. The we can create a date in the ISO recognised format: `YYYY-MM-DD`. As these are monthly summaries we choose a date near the end of the month which allows us to convert from a character string to a date when we plot results.
+
 ```{r }
 # Date is not properly encoded so build a date from the data.
 # The weather is summaries monthly so we need the last day of the month.
@@ -128,6 +134,7 @@ dummyDate <- with( suttonboningtondata,
 ```
 
 Each row of data needs a unique identifier which we call `datumEntity`.
+
 ```{r }
 suttonboningtondata$datumEntity <- with(suttonboningtondata,
                                    paste("Sutton.Bonnington", YYYY, mm, sep = ":" )
@@ -135,6 +142,7 @@ suttonboningtondata$datumEntity <- with(suttonboningtondata,
 ```
 
 There are also some data attributes which were described in the five lines of text which apply to all rows of data. We manually add them here as they will be useful if we combine our data with similar sources from other locations.
+
 ```{r }
 # manually name some values
 suttonboningtondata$place <- "Sutton Bonnington"
@@ -147,6 +155,7 @@ suttonboningtondata$height.amsl.metre <- 48
 ```
 
 The datum triple is the universal starting point for all data. Converting to this format allows us to combine data from multiple sources, as long as the `datumEntity` only ever refers to a unique observation. Note that this format makes no presumptions about attributes, but it does require all data to be represented as characters. There is no reason to keep any attribute with a value of `NA` as the row contains no information.
+
 ```{r }
 suttonbonington.triple <- suttonboningtondata %>% 
                   map_df(as.character) %>% # Convert everything to character
@@ -158,6 +167,7 @@ suttonbonington.triple <- suttonboningtondata %>%
 ```
 
 Finally we can save the data in a machine readable format for reuse. Effectively this is `raw` data that we have transformed into a readable state, so it is placed in a directory `data-raw`.
+
 ```{r }
 dir.create( 
           fs::path( absolute.path,
@@ -172,7 +182,8 @@ saveRDS(suttonbonington.triple,path.to.save)
 
 ```
 
-For the purpose of this vignette we load the `data-raw` to demonstrate the the analysis could start from this point. 
+For the purpose of this vignette we load the `data-raw` to demonstrate the the analysis could start from this point.
+
 ```{r}
 # Load data-raw
 
@@ -184,6 +195,7 @@ suttonboningtondata <-  readRDS(path.to.data)
 ```
 
 The first 13 rows of the `suttonboningtondata` now look like this:
+
 ```{r echo=FALSE}
 pander::pander(head(suttonboningtondata,13))
 ```
@@ -206,7 +218,6 @@ The wider format `VC55.weather.sl` now looks like:
 pander::pander(head(VC55.weather.sl))
 ```
 
-
 To make out strictly defined data to analyse the weather we select the columns of interest and make a long format with the date as the key column. We choose this format as it gives great flexibility with analysis and works well with a Grammar of Graphic (GoG) approach. This contrasts with the temptation to produce a wide format of data as one might use in a spreadsheet analysis. The versatility of GoG will become apparent as we proceed and see how all plots may be specified by changing the GoG verbs.
 
 ```{r}
@@ -225,6 +236,7 @@ To make out strictly defined data to analyse the weather we select the columns o
 ```
 
 At this point we can specify data types as Date and numeric for analysis.
+
 ```{r}
 # Set the data types
 VC55.weather.ss$YYYYMMDD <-  VC55.weather.ss$YYYYMMDD %>% as.Date
@@ -232,6 +244,7 @@ VC55.weather.ss$datumValue <- VC55.weather.ss$datumValue %>% as.numeric()
 ```
 
 We can now save into `data-ss`.
+
 ```{r}
 dir.create( 
           fs::path( absolute.path,
@@ -266,7 +279,6 @@ VC55.weather.ss <- list.files(
 
 ```
 
-
 At this point we can do a simple check plot which uncovers some issues. By faceting on `datumAttribute` we can produce a separate graph for each attribute. While is shows we have data, each graph has different units, so the scales do not male sense.
 
 ```{r}
@@ -286,7 +298,7 @@ ggplot(aes(colour = datumAttribute, x= YYYYMMDD, y =datumValue, group = datumAtt
 
 ```
 
-However, if we use z-scores instead then each plot is normalised against zero and the standard deviation. Rather than 5 separate plots, we can use a single graph and plot a smooth loess regression. 
+However, if we use z-scores instead then each plot is normalised against zero and the standard deviation. Rather than 5 separate plots, we can use a single graph and plot a smooth loess regression.
 
 ```{r}
 
@@ -346,9 +358,13 @@ ggplot(mapping = aes(
   
 
 ```
+
 Our assumption or a normal distribution is reasonably valid, but not perfect. As we are looking at weather data, it might be nice to look at: Annual Total Rainfall, Annual Air Frost days, Annual Maximum Temperature, and Annual Minimum Temperature. Again GoG comes to the rescue and we can quickly produce the following plots.
 
+.
+
 ## Rainfall
+
 ```{r}
 # Weather "tmax.degC"     "tmin.degC"     "airfrost.days" "sun.hours"     "rain.mm"
 
@@ -375,7 +391,9 @@ ggplot(data =data.to.plot.annual, aes( x= YYYY, y =annual) ) +
 
 
 ```
+
 ## Airfrost
+
 ```{r}
 # Weather "tmax.degC"     "tmin.degC"     "airfrost.days" "sun.hours"     "rain.mm"  
 
@@ -402,7 +420,9 @@ ggplot(data =data.to.plot.annual, aes( x= YYYY, y =annual) ) +
 
 
 ```
+
 ## Maximum Temperature
+
 ```{r}
 # Weather "tmax.degC"     "tmin.degC"     "airfrost.days" "sun.hours"     "rain.mm"  
 
@@ -429,6 +449,7 @@ ggplot(data =data.to.plot.annual, aes( x= YYYY, y =annual) ) +
 
 
 ```
+
 ## Minimum Temperature
 
 ```{r}
@@ -457,10 +478,14 @@ ggplot(data =data.to.plot.annual, aes( x= YYYY, y =annual) ) +
 
 
 ```
+
 ## Conclusion
 
-This vignette demonstrates the versatility of using data state in conjunction with GoG. 
+This vignette demonstrates the versatility of using data state in conjunction with GoG.
 
-# References {-}
-<div id="refs"></div>
+# References {.unnumbered}
+
+::: {#refs}
+:::
+
 \let\cleardoublepage\clearpage

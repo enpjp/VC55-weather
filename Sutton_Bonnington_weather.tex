@@ -154,7 +154,9 @@
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-\myTitleMainTitle
+The purpose of this vignette is a practical demonstration of reusable templates based upon the novel concept of data state. This report is used as a case study for the paper: \emph{Achieving Analytical Fluency With Complex Data} and uses real world long term weather data as its source. It is not the intention to analyse climate change, but the trends uncovered are striking, even in this single public domain source.
+
+This work has been written using RStudio (Team 2020), Bookdown (Xie 2017), and rticles (Allaire et al. 2019) to demonstrate integration of authoring and formatting tools to achieve academic quality outputs directly from the compiled document.
 
 \hypertarget{read-sutton-bonnington-data}{%
 \section{Read Sutton Bonnington Data}\label{read-sutton-bonnington-data}}
@@ -649,6 +651,8 @@ This looks good but it is predicated upon the deviations being normally distribu
 
 Our assumption or a normal distribution is reasonably valid, but not perfect. As we are looking at weather data, it might be nice to look at: Annual Total Rainfall, Annual Air Frost days, Annual Maximum Temperature, and Annual Minimum Temperature. Again GoG comes to the rescue and we can quickly produce the following plots.
 
+.
+
 \hypertarget{rainfall}{%
 \subsection{Rainfall}\label{rainfall}}
 
@@ -787,7 +791,16 @@ This vignette demonstrates the versatility of using data state in conjunction wi
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
-\begin{CSLReferences}{0}{0}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-Allaire2019}{}}%
+Allaire, J J, Yihui Xie, R Foundation, and Hadley Wickham. 2019. {``Rticles: Article Formats for r Markdown.''}
+
+\leavevmode\vadjust pre{\hypertarget{ref-RStudioTeam2016}{}}%
+Team, RStudio. 2020. {``RStudio.''} RStudio, Inc. \url{http://www.rstudio.com/}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Xie2017}{}}%
+Xie, Yihui. 2017. \emph{Bookdown: Authoring Books and Technical Documents with r Markdown}. Chapman; Hall/CRC. \url{https://bookdown.org/yihui/bookdown/get-started.html}.
+
 \end{CSLReferences}
 
 \let\cleardoublepage\clearpage
