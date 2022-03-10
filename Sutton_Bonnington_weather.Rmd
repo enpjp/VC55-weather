@@ -229,10 +229,12 @@ The wider format `VC55.weather.sl` now looks like:
 pander::pander(head(VC55.weather.sl))
 ```
 
-To make out strictly defined data to analyse the weather we select the columns of interest and make a long format with the date as the key column. At this point we loose any columns that are not required that may have be present if multiple sources of `data-raw` were used.
+# Why Use Wide Format
+To prepare strictly defined data to analyse the weather we select the columns of interest and make a long format with the date as the key column. At this point we loose any columns that are not required that may have be present if multiple sources of `data-raw` were used.
 
 We choose this format as it gives great flexibility with analysis and works well with a Grammar of Graphic (GoG) approach. This contrasts with the temptation to produce a wide format of data as one might use in a spreadsheet analysis. The versatility of GoG will become apparent as we proceed and see how all plots may be specified by changing the GoG verbs.
 
+# Create Data-ss
 ```{r}
 # But we are interesting in plotting the data by date so
 
@@ -243,11 +245,12 @@ We choose this format as it gives great flexibility with analysis and works well
            "airfrost.days", 
            "sun.hours" ,
            "rain.mm")     %>%
-            pivot_longer(!YYYYMMDD,# Use datumEntity as the key
-                  names_to = "datumAttribute", # Save the name of the attribute
-                  values_to = "datumValue") # Save the value of the attribute
+            pivot_longer(!YYYYMMDD,
+                  names_to = "datumAttribute", 
+                  values_to = "datumValue") 
 ```
 
+# Specify Data types
 At this point we can specify data types as Date and numeric for analysis.
 
 ```{r}
@@ -256,6 +259,7 @@ VC55.weather.ss$YYYYMMDD <-  VC55.weather.ss$YYYYMMDD %>% as.Date
 VC55.weather.ss$datumValue <- VC55.weather.ss$datumValue %>% as.numeric()
 ```
 
+# Save Data-ss
 We can now save into `data-ss`.
 
 ```{r}
@@ -272,8 +276,10 @@ saveRDS(VC55.weather.ss, path.to.save.ss)
 
 ```
 
+# Why Save Data-ss?
 Once again the data may be loaded and the analysis start from this point. Rather than load as a named file, we demonstrate how multiple files in `data-ss` may be loaded and combined in a simple action. Since `data-ss` are strictly defined each file may be 'stacked' to combine into a larger data-set. If this were really the case then it would make sense to rename the data to something more appropriate. The named method of loading is included as comments for comparison.
 
+# Load Data-ss
 ```{r}
 # Load data-ss
 path.to.data.ss <- fs::path(absolute.path,"data-ss")
@@ -288,31 +294,64 @@ VC55.weather.ss <- list.files(
 
 ```
 
-At this point we can do a simple check plot which uncovers some issues. By faceting on `datumAttribute` we can produce a separate graph for each attribute. While is shows we have data, each graph has different units, so the scales do not make sense.
+# A Simple Check Plot
+By faceting on `datumAttribute` we can produce a separate graph for each attribute. While is shows we have data, each graph has different units, so the scales do not make sense.
 
-```{r}
+```{r eval=FALSE}
+data.to.plot <- VC55.weather.ss
+data.to.plot %>% drop_na() %>%
+ggplot(aes(colour = datumAttribute, 
+           x= YYYYMMDD, 
+           y =datumValue, 
+           group = datumAttribute) ) + 
+ # geom_point() +
+  geom_smooth( se = FALSE, 
+     method = "loess", formula = "y ~ x") +
+  facet_wrap(~ datumAttribute)
+```
 
-# Check plot
 
+# Simple Check Plot
+By faceting on `datumAttribute` we can produce a separate graph for each attribute. While is shows we have data, each graph has different units, so the scales do not make sense.
+
+```{r eval=TRUE, echo=FALSE}
 data.to.plot <- VC55.weather.ss
 
 data.to.plot %>% drop_na() %>%
-ggplot(aes(colour = datumAttribute, x= YYYYMMDD, y =datumValue, group = datumAttribute) ) + 
- # geom_point() +
-  geom_smooth( se = FALSE, method = "loess", formula = "y ~ x") +
+ggplot(aes(colour = datumAttribute, 
+           x= YYYYMMDD, 
+           y =datumValue, 
+           group = datumAttribute) ) + 
+  geom_smooth( se = FALSE, method = "loess", 
+               formula = "y ~ x") +
   facet_wrap(~ datumAttribute)
- #   geom_line() + facet_wrap(~ datumAttribute)
+```
 
+# Normalising With Z-scores
+However, if we use z-scores instead then each plot is normalised against zero and the standard deviation. 
 
+```{r eval=FALSE}
+
+data.to.plot <- VC55.weather.ss
+ data.to.plot %>% drop_na() %>%
+  group_by(datumAttribute) %>% 
+  mutate( value = datumValue,
+  Z.score = 
+    (datumValue -mean(datumValue))/sd(datumValue)
+        ) %>%
+  ggplot( aes(colour = datumAttribute, 
+              x= YYYYMMDD, y =Z.score, 
+              group = datumAttribute) ) + 
+              geom_smooth( se = FALSE, 
+                           method = "loess", 
+                           formula = "y ~ x") + 
+              scale_colour_viridis_d()
 
 ```
 
-However, if we use z-scores instead then each plot is normalised against zero and the standard deviation. Rather than 5 separate plots, we can use a single graph and plot a smooth loess regression.
-
-```{r}
-
-# An improved summary
-
+# Plotting With Z-scores
+Rather than 5 separate plots, we can use a single graph to plot a smooth loess regression for each attribute.
+```{r eval= TRUE, echo=FALSE}
 
 data.to.plot <- VC55.weather.ss
  data.to.plot %>% drop_na() %>%
@@ -324,14 +363,12 @@ data.to.plot <- VC55.weather.ss
               x= YYYYMMDD, y =Z.score, 
               group = datumAttribute) ) + 
               geom_smooth( se = FALSE, method = "loess", formula = "y ~ x") + 
- #   geom_point(data =data.to.plot[abs(data.to.plot$Z.score) >= 1.5,]) +
-              scale_colour_viridis_d() 
-
-
-  
+              scale_colour_viridis_d()
 
 ```
 
+
+# Checking Data Distribution
 This looks good but it is predicated upon the deviations being normally distributed about the mean. We can check this with a QQ plot.
 
 ```{r}
