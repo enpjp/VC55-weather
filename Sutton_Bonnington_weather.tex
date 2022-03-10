@@ -202,7 +202,7 @@ The \texttt{read\_table} function does a good job of reading the data into colum
 \end{Highlighting}
 \end{Shaded}
 
-Renaming the column names requires checking the results manually with \texttt{view(suttonboningtondata)} before making a list of names.
+Renaming the column names requires checking the results manually with \texttt{view(suttonboningtondata)} before making a list of names. The use of spaces has been avoided since they can cause problems in programmatic analysis.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -228,7 +228,7 @@ The text file headings were split across two rows so the first row of the data c
 \end{Highlighting}
 \end{Shaded}
 
-We can now remove the unwanted characters that remain in the data. Note the use of the double escape \texttt{\textbackslash{}\textbackslash{}*} to select the asterisk. The removal of unwanted special characters is often a problem in nascent data so it is best to get rid of them before they cause problems when code is executed..
+We can now remove the unwanted characters that remain in the data. Note the use of the double escape \texttt{\textbackslash{}\textbackslash{}*} to select the asterisk. The removal of unwanted special characters is often a problem in nascent data so it is best to get rid of them before they cause problems when code is executed. Not how \texttt{tidyverse}` syntax allows us to daisy chain the substitutions,
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -243,7 +243,7 @@ We can now remove the unwanted characters that remain in the data. Note the use 
 \end{Highlighting}
 \end{Shaded}
 
-The early months of the year are represented by a single digit so we need to pad them with a leading zero. The we can create a date in the ISO recognised format: \texttt{YYYY-MM-DD}. As these are monthly summaries we choose a date near the end of the month which allows us to convert from a character string to a date when we plot results.
+The early months of the year are represented by a single digit so we need to pad them with a leading zero. The we can create a date in the ISO recognised format: \texttt{YYYY-MM-DD}. As these are monthly summaries we choose the last day of the month which allows us to convert from a character string to a date when we plot results. We do this by building a dummy. but correctly formatted date, and then finding the last day of the month using the helper function from \texttt{timeDate}. There are numerous in which this could have been calculated, but the R language users have written many helpers for tedious tasks such as this.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -259,11 +259,11 @@ The early months of the year are represented by a single digit so we need to pad
                   \AttributeTok{sep=} \StringTok{"{-}"}\NormalTok{   ) }
 \NormalTok{                  )}
 \CommentTok{\# Calculates the last day of the month}
-\NormalTok{ suttonboningtondata}\SpecialCharTok{$}\NormalTok{YYYYMMDD }\OtherTok{\textless{}{-}} \FunctionTok{timeLastDayInMonth}\NormalTok{(dummyDate) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.character}\NormalTok{()}
+\NormalTok{ suttonboningtondata}\SpecialCharTok{$}\NormalTok{YYYYMMDD }\OtherTok{\textless{}{-}}\NormalTok{ timeDate}\SpecialCharTok{::}\FunctionTok{timeLastDayInMonth}\NormalTok{(dummyDate) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.character}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-Each row of data needs a unique identifier which we call \texttt{datumEntity}.
+The long datum triple format requires the explicit use of a unique identifier for each row which we call \texttt{datumEntity}. When data is in a wide format, as at present, the identifier is implicit as in the row number, but this is a relative term that is affected by order. The analysis that follows uses the advantages that are brought with an explicit definition.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -302,7 +302,7 @@ The datum triple is the universal starting point for all data. Converting to thi
 \end{Highlighting}
 \end{Shaded}
 
-Finally we can save the data in a machine readable format for reuse. Effectively this is \texttt{raw} data that we have transformed into a readable state, so it is placed in a directory \texttt{data-raw}.
+Finally we can save the data in a machine readable format for reuse. Effectively this is \texttt{raw} data that we have transformed into a readable state, so it is placed in a directory \texttt{data-raw}. Although we have termed this as \texttt{data-raw}, note that multiple choices have been made in its preparation into this state. It should be clear that this \texttt{state} makes no assumptions about numbers of fields in any observation.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -318,20 +318,25 @@ Finally we can save the data in a machine readable format for reuse. Effectively
 \end{Highlighting}
 \end{Shaded}
 
-For the purpose of this vignette we load the \texttt{data-raw} to demonstrate the the analysis could start from this point.
+For the purpose of this vignette we load the \texttt{data-raw} to demonstrate the the analysis could start from this point. Note the choice of a loading using a search style chain. This allows for the inclusion of multiple files in \texttt{data-raw} that have the same attributes as the Sutton Bonnington data in the onward analysis. This is a loose requirement as we will see that other attributes will be dropped as unused. The point being made is the ease with which additional data may be included without re-writing code.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Load data{-}raw}
 
 \NormalTok{path.to.data }\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( absolute.path}
-\NormalTok{                               ,}\StringTok{"data{-}raw"}\NormalTok{,}\StringTok{"suttonboningtondata"}\NormalTok{, }\AttributeTok{ext =} \StringTok{"rds"}\NormalTok{)}
-\CommentTok{\# Could change the name of the data if we so wished.}
-\NormalTok{suttonboningtondata }\OtherTok{\textless{}{-}}  \FunctionTok{readRDS}\NormalTok{(path.to.data)}
+\NormalTok{                               ,}\StringTok{"data{-}raw"}\NormalTok{)}
+\NormalTok{weather.data.triple }\OtherTok{\textless{}{-}} \FunctionTok{list.files}\NormalTok{(}
+\NormalTok{  path.to.data,}
+  \AttributeTok{pattern =} \StringTok{".rds$"}\NormalTok{, }\CommentTok{\# Make a suitable filter. Use the dot for a wildcard. note the use of the $ to match the files extension.}
+  \AttributeTok{full.names =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{recursive =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{   purrr}\SpecialCharTok{::}\FunctionTok{map\_df}\NormalTok{(readRDS) }\SpecialCharTok{\%\textgreater{}\%}
+   \FunctionTok{rbind}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-The first 13 rows of the \texttt{suttonboningtondata} now look like this:
+The first 13 rows of the \texttt{weather.data.triple} now look like this:
 
 \begin{longtable}[]{@{}
   >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.39}}
@@ -369,7 +374,7 @@ From the raw data we now prepare \texttt{data-sl} which is a loosely defined for
 \begin{Highlighting}[]
 \CommentTok{\# Prepare data{-}ss}
 \CommentTok{\# First prepare the long data}
-\NormalTok{VC55.weather.sl }\OtherTok{\textless{}{-}}\NormalTok{ suttonbonington.triple }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{VC55.weather.sl }\OtherTok{\textless{}{-}}\NormalTok{ weather.data.triple }\SpecialCharTok{\%\textgreater{}\%}
                   \FunctionTok{pivot\_wider}\NormalTok{(}
   \AttributeTok{id\_cols =}\NormalTok{ datumEntity,}
   \AttributeTok{names\_from =}\NormalTok{ datumAttribute,}
@@ -500,7 +505,9 @@ rain.mm
 \bottomrule
 \end{longtable}
 
-To make out strictly defined data to analyse the weather we select the columns of interest and make a long format with the date as the key column. We choose this format as it gives great flexibility with analysis and works well with a Grammar of Graphic (GoG) approach. This contrasts with the temptation to produce a wide format of data as one might use in a spreadsheet analysis. The versatility of GoG will become apparent as we proceed and see how all plots may be specified by changing the GoG verbs.
+To make out strictly defined data to analyse the weather we select the columns of interest and make a long format with the date as the key column. At this point we loose any columns that are not required that may have be present if multiple sources of \texttt{data-raw} were used.
+
+We choose this format as it gives great flexibility with analysis and works well with a Grammar of Graphic (GoG) approach. This contrasts with the temptation to produce a wide format of data as one might use in a spreadsheet analysis. The versatility of GoG will become apparent as we proceed and see how all plots may be specified by changing the GoG verbs.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -546,7 +553,7 @@ We can now save into \texttt{data-ss}.
 \end{Highlighting}
 \end{Shaded}
 
-Once again the data may be loaded and the analysis start from this point. Rather than load as a named file, we demonstrate how multiple files in \texttt{data-ss} may be loaded and combined in a simple action. Since \texttt{data-ss} are strictly defined each file may be `stacked' to combine into a larger data-set. If this were really the case then it would make sense to rename the data to soemthing more appropriate. The named method of loading is included as comments for comparison.
+Once again the data may be loaded and the analysis start from this point. Rather than load as a named file, we demonstrate how multiple files in \texttt{data-ss} may be loaded and combined in a simple action. Since \texttt{data-ss} are strictly defined each file may be `stacked' to combine into a larger data-set. If this were really the case then it would make sense to rename the data to something more appropriate. The named method of loading is included as comments for comparison.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -559,15 +566,10 @@ Once again the data may be loaded and the analysis start from this point. Rather
   \AttributeTok{full.names =} \ConstantTok{TRUE}\NormalTok{,}
   \AttributeTok{recursive =} \ConstantTok{TRUE}\NormalTok{)  }\SpecialCharTok{\%\textgreater{}\%}
 \NormalTok{  purrr}\SpecialCharTok{::}\FunctionTok{map\_df}\NormalTok{(readRDS) }
-
-\CommentTok{\# path.to.data \textless{}{-} fs::path( absolute.path}
-\CommentTok{\#                                ,"data{-}ss","suttonboningtondata", ext = "rds")}
-\CommentTok{\# \# Could change the name of the data if we so wished.}
-\CommentTok{\# suttonboningtondata \textless{}{-}  readRDS(path.to.data)}
 \end{Highlighting}
 \end{Shaded}
 
-At this point we can do a simple check plot which uncovers some issues. By faceting on \texttt{datumAttribute} we can produce a separate graph for each attribute. While is shows we have data, each graph has different units, so the scales do not male sense.
+At this point we can do a simple check plot which uncovers some issues. By faceting on \texttt{datumAttribute} we can produce a separate graph for each attribute. While is shows we have data, each graph has different units, so the scales do not make sense.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -654,22 +656,28 @@ This looks good but it is predicated upon the deviations being normally distribu
 
 Our assumption or a normal distribution is reasonably valid, but not perfect. As we are looking at weather data, it might be nice to look at: Annual Total Rainfall, Annual Air Frost days, Annual Maximum Temperature, and Annual Minimum Temperature. Again GoG comes to the rescue and we can quickly produce the following plots.
 
-.
+For convenience, the plot routine has been written as a function so we can get all the plots quickly by reusing the code and just changing the selection attribute. This is done by making a list and using \texttt{lapply} to produce all the plots together. The use of the named list allows us to pass in nicer looking names and use these in the title.
 
-\hypertarget{rainfall}{%
-\subsection{Rainfall}\label{rainfall}}
+\hypertarget{weather-plots-in-native-units}{%
+\subsection{Weather Plots In Native Units}\label{weather-plots-in-native-units}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Weather "tmax.degC"     "tmin.degC"     "airfrost.days" "sun.hours"     "rain.mm"}
 
-\NormalTok{weather.attribute }\OtherTok{\textless{}{-}} \StringTok{"rain.mm"}
+\NormalTok{weather.attribute.list }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}
+ \StringTok{"max temp degC"} \OtherTok{=} \StringTok{"tmax.degC"}\NormalTok{,}
+ \StringTok{"min temp degC"} \OtherTok{=} \StringTok{"tmin.degC"}\NormalTok{,}
+\StringTok{"airfrost days"} \OtherTok{=}\StringTok{"airfrost.days"}\NormalTok{,}
+\StringTok{"rain mm"} \OtherTok{=} \StringTok{"rain.mm"}
+\NormalTok{) }
 
-\NormalTok{path.to.ss}\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( absolute.path}
-\NormalTok{                               ,}\StringTok{"data{-}ss"}\NormalTok{,}\StringTok{"VC55.weather.ss"}\NormalTok{, }\AttributeTok{ext =} \StringTok{"rds"}\NormalTok{)}
-\NormalTok{VC55.weather.ss  }\OtherTok{\textless{}{-}}   \FunctionTok{readRDS}\NormalTok{(path.to.ss)}
+\NormalTok{title.list }\OtherTok{\textless{}{-}}\NormalTok{ weather.attribute.list }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ row.names}
+  
+\NormalTok{weather.plot }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(weather.attribute, data.to.use, nice.title ) \{}
+  
 
-\NormalTok{data.to.plot }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.ss[VC55.weather.ss}\SpecialCharTok{$}\NormalTok{datumAttribute }\SpecialCharTok{==}\NormalTok{ weather.attribute, ]}
+\NormalTok{data.to.plot }\OtherTok{\textless{}{-}}\NormalTok{ data.to.use[data.to.use}\SpecialCharTok{$}\NormalTok{datumAttribute }\SpecialCharTok{==}\NormalTok{ weather.attribute, ]}
 
 \NormalTok{data.to.plot}\SpecialCharTok{$}\NormalTok{YYYY }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(data.to.plot}\SpecialCharTok{$}\NormalTok{YYYYMMDD, }\AttributeTok{format =} \StringTok{"\%Y"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.numeric}\NormalTok{()}
 
@@ -679,42 +687,30 @@ Our assumption or a normal distribution is reasonably valid, but not perfect. As
           \AttributeTok{annual =} \FunctionTok{sum}\NormalTok{(datumValue)}
 \NormalTok{        ) }
   
-\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{data.to.plot.annual, }\FunctionTok{aes}\NormalTok{( }\AttributeTok{x=}\NormalTok{ YYYY, }\AttributeTok{y =}\NormalTok{annual) ) }\SpecialCharTok{+} 
-  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
-\CommentTok{\#   geom\_smooth( se = FALSE, method = "loess", formula = "y \textasciitilde{} x") +}
-  \FunctionTok{geom\_line}\NormalTok{()}\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(weather.attribute) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(weather.attribute)}
+\NormalTok{plot.output }\OtherTok{\textless{}{-}}    \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{data.to.plot.annual, }\FunctionTok{aes}\NormalTok{( }\AttributeTok{x=}\NormalTok{ YYYY, }\AttributeTok{y =}\NormalTok{annual) ) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} 
+   \FunctionTok{geom\_smooth}\NormalTok{( }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{formula =} \StringTok{"y \textasciitilde{} x"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{()}\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{( nice.title ) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(nice.title)}
+
+\FunctionTok{return}\NormalTok{(plot.output)}
+
+\NormalTok{\}}
+
+\CommentTok{\#weather.plot(weather.attribute, VC55.weather.ss)}
+
+\NormalTok{weather.plots.list }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(}\AttributeTok{X =}\NormalTok{ weather.attribute.list, }
+                             \AttributeTok{FUN =}\NormalTok{ weather.plot, }
+                             \AttributeTok{data.to.use =}\NormalTok{ VC55.weather.ss,}
+                             \AttributeTok{nice.title =}\NormalTok{ title.list )}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-latex/unnamed-chunk-23-1} \end{center}
-
-\hypertarget{airfrost}{%
-\subsection{Airfrost}\label{airfrost}}
+\hypertarget{airfrost-days}{%
+\subsection{Airfrost Days}\label{airfrost-days}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Weather "tmax.degC"     "tmin.degC"     "airfrost.days" "sun.hours"     "rain.mm"  }
-
-\NormalTok{weather.attribute }\OtherTok{\textless{}{-}} \StringTok{"airfrost.days"}
-
-\NormalTok{path.to.ss}\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( absolute.path}
-\NormalTok{                               ,}\StringTok{"data{-}ss"}\NormalTok{,}\StringTok{"VC55.weather.ss"}\NormalTok{, }\AttributeTok{ext =} \StringTok{"rds"}\NormalTok{)}
-\NormalTok{VC55.weather.ss  }\OtherTok{\textless{}{-}}   \FunctionTok{readRDS}\NormalTok{(path.to.ss)}
-
-\NormalTok{data.to.plot }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.ss[VC55.weather.ss}\SpecialCharTok{$}\NormalTok{datumAttribute }\SpecialCharTok{==}\NormalTok{ weather.attribute, ]}
-
-\NormalTok{data.to.plot}\SpecialCharTok{$}\NormalTok{YYYY }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(data.to.plot}\SpecialCharTok{$}\NormalTok{YYYYMMDD, }\AttributeTok{format =} \StringTok{"\%Y"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.numeric}\NormalTok{()}
-
-\NormalTok{data.to.plot.annual }\OtherTok{\textless{}{-}}\NormalTok{ data.to.plot }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{group\_by}\NormalTok{(YYYY) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{( }
-          \AttributeTok{annual =} \FunctionTok{sum}\NormalTok{(datumValue)}
-\NormalTok{        ) }
-  
-\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{data.to.plot.annual, }\FunctionTok{aes}\NormalTok{( }\AttributeTok{x=}\NormalTok{ YYYY, }\AttributeTok{y =}\NormalTok{annual) ) }\SpecialCharTok{+} 
-  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
-\CommentTok{\#   geom\_smooth( se = FALSE, method = "loess", formula = "y \textasciitilde{} x") +}
-  \FunctionTok{geom\_line}\NormalTok{()}\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(weather.attribute) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(weather.attribute)}
+\NormalTok{weather.plots.list}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{max temp degC}\StringTok{\textasciigrave{}}
 \end{Highlighting}
 \end{Shaded}
 

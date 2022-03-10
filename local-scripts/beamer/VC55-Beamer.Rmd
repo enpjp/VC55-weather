@@ -33,3 +33,23 @@ knitr::opts_chunk$set(include = TRUE,
    - Pages from this report are used to create Figures describing a case study for the paper: *Achieving Analytical Fluency With Complex Data*.
    -  Real world long term weather data are used as the source. 
    - **It is not the intention to analyse climate change, but the trends uncovered are striking, even using this single public domain data source**.
+
+## Load Libraries
+
+Load the Tidyverse libraries and other helpers before the analysis starts.
+
+
+```{r }
+# Load libraries
+library(tidyverse) # Load all the Tidyverse packages in one go.
+library(kableExtra) # Enable advanced table styling
+library(qqplotr) # Enable QQ plots for statistical analysis
+library(readr) # Improved reading of text files
+library(timeDate) # Helper for time date manipulation
+library(rprojroot) # Useful utilities
+library(fs) # System independent file paths
+
+```
+
+
+
