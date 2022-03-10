@@ -1,9 +1,17 @@
 ---
 title: "VC55 Weather Case Study"
 author: Paul J. Palmer
-date: March 22, 2005
-output: beamer_presentation
+output: 
+  beamer_presentation:
+    theme: "AnnArbor"
+    colortheme: "dolphin"
+    fonttheme: "structurebold"
+    slide_level: 1
+    includes:
+          in_header: "preamble.tex" 
+
 ---
+
 
 ```{r setDefaults,  include=TRUE, echo=FALSE, warning=FALSE, message=FALSE, error=FALSE, results='asis'}
 # Set code chunk options for all chunks
@@ -30,7 +38,7 @@ knitr::opts_chunk$set(include = TRUE,
 # Introduction
 
   - The purpose of this vignette is a practical demonstration of reusable templates based upon the novel concept of data state. 
-  - This report is used as a case study for the paper: *Achieving Analytical Fluency With Complex Data* and uses real world long term weather data as its source. I
+  - This report is used as a case study for the paper: *Achieving Analytical Fluency With Complex Data* and uses real world long term weather data as its source.
   - It is not the intention to analyse climate change, but the trends uncovered are striking, even in this single public domain source.
 
 
@@ -117,19 +125,19 @@ The early months of the year are represented by a single digit so we need to pad
 
 # Building The Nominal Dates
 ```{r }
-# Date is not properly encoded so build a date from the data.
-# The weather is summaries monthly so we need the last day of the month.
-suttonboningtondata$mm <-   stringr::str_pad(suttonboningtondata$mm, width = 2, pad = "0")
- 
+suttonboningtondata$mm <-   stringr::str_pad(
+  suttonboningtondata$mm, width = 2, pad = "0")
  # Create a date at the end of the month.
 dummyDate <- with( suttonboningtondata, 
                   paste( YYYY, 
                   mm, 
-                  "28", # Need to put a day in every month.
+                  "28", # Need a dummy day
                   sep= "-"   ) 
                   )
 # Calculates the last day of the month
- suttonboningtondata$YYYYMMDD <- timeDate::timeLastDayInMonth(dummyDate) %>% as.character()
+ suttonboningtondata$YYYYMMDD <- 
+   timeDate::timeLastDayInMonth(dummyDate) %>% 
+   as.character()
 ```
 
 # Introducing Datum Triples
@@ -222,14 +230,7 @@ VC55.weather.sl <- weather.data.triple %>%
   values_from = datumValue)
 ```
 
-# Contents of `VC55.weather.sl`
-The wider format `VC55.weather.sl` now looks like:
-
-```{r echo=FALSE}
-pander::pander(head(VC55.weather.sl))
-```
-
-# Why Use Wide Format
+# Why Use Wide Format?
 To prepare strictly defined data to analyse the weather we select the columns of interest and make a long format with the date as the key column. At this point we loose any columns that are not required that may have be present if multiple sources of `data-raw` were used.
 
 We choose this format as it gives great flexibility with analysis and works well with a Grammar of Graphic (GoG) approach. This contrasts with the temptation to produce a wide format of data as one might use in a spreadsheet analysis. The versatility of GoG will become apparent as we proceed and see how all plots may be specified by changing the GoG verbs.
@@ -411,7 +412,6 @@ data.to.plot <- VC55.weather.ss
   scale_colour_viridis_d() +
   ggtitle("Z-score compared to normal distribution") + 
    facet_wrap(~ datumAttribute)
-  
 
 ```
 
@@ -420,8 +420,6 @@ Our assumption or a normal distribution is reasonably valid, but not perfect. As
 
 # Weather Plots In Native Units
 For convenience, the plot routine has been written as a function so we can get all the plots quickly by reusing the code and just changing the selection attribute. This is done by making a list and using `lapply` to produce all the plots together. The use of the named list allows us to pass in nicer looking names and use these in the title.
-
-
 
 ```{r echo=FALSE}
 # Weather "tmax.degC"     "tmin.degC"     "airfrost.days" "sun.hours"     "rain.mm"
@@ -436,10 +434,7 @@ weather.attribute.list <- c(
 title.list <- weather.attribute.list %>% as.data.frame() %>% row.names
   
 weather.plot <- function(weather.attribute, data.to.use, nice.title ) {
-  
-
 data.to.plot <- data.to.use[data.to.use$datumAttribute == weather.attribute, ]
-
 data.to.plot$YYYY <- format(data.to.plot$YYYYMMDD, format = "%Y") %>% as.numeric()
 
 data.to.plot.annual <- data.to.plot %>% drop_na() %>%
@@ -447,22 +442,43 @@ data.to.plot.annual <- data.to.plot %>% drop_na() %>%
   mutate( 
           annual = sum(datumValue)
         ) 
-  
+
 plot.output <-    ggplot(data =data.to.plot.annual, aes( x= YYYY, y =annual) ) + 
   geom_point() + 
    geom_smooth( se = FALSE, method = "lm", formula = "y ~ x") +
   geom_line()+ ggtitle( nice.title ) + ylab(nice.title)
-
 return(plot.output)
 
 }
 
+data.to.plot.annual <- data.to.plot %>% drop_na() %>%
+    group_by(YYYY) %>%
+  mutate( 
+          annual = sum(datumValue)
+        ) 
+
+
+
+ggfun <- function(dat, x.var, y.var, nice.title){
+  x.var <- rlang::sym(quo_name(enquo(x.var)))
+  y.var <- rlang::sym(quo_name(enquo(y.var)))
+  plot.output <- ggplot(data = dat,
+                aes(x = !! x.var,
+                    y = !! y.var)) +
+    geom_point() +
+    geom_smooth( se = FALSE, method = "lm", formula = "y ~ x") +
+  geom_line()+ ggtitle( nice.title ) + ylab(nice.title)
+
+  return(plot.output)
+}
+
+
 #weather.plot(weather.attribute, VC55.weather.ss)
 
-weather.plots.list <- lapply(X = weather.attribute.list, 
-                             FUN = weather.plot, 
-                             data.to.use = VC55.weather.ss,
-                             nice.title = title.list )
+# weather.plots.list <- lapply(X = weather.attribute.list, 
+#                              FUN = weather.plot, 
+#                              data.to.use = VC55.weather.ss,
+#                              nice.title = title.list )
 
 ```
 
@@ -470,7 +486,9 @@ weather.plots.list <- lapply(X = weather.attribute.list,
 
 ```{r echo=FALSE}
 
-weather.plots.list$`max temp degC`
+ggfun(dat = data.to.plot, x.var = YYYY, y.var = annual, nice.title = "Test" ) 
+
+#weather.plots.list$`max temp degC`
 
 ```
 
