@@ -346,7 +346,6 @@ data.to.plot <- VC55.weather.ss
                            method = "loess", 
                            formula = "y ~ x") + 
               scale_colour_viridis_d()
-
 ```
 
 # Plotting With Z-scores
@@ -357,61 +356,74 @@ data.to.plot <- VC55.weather.ss
  data.to.plot %>% drop_na() %>%
   group_by(datumAttribute) %>% 
   mutate( value = datumValue,
-          Z.score = (datumValue -mean(datumValue))/sd(datumValue)
+      Z.score = (datumValue -mean(datumValue))/sd(datumValue)
         ) %>%
   ggplot( aes(colour = datumAttribute, 
-              x= YYYYMMDD, y =Z.score, 
-              group = datumAttribute) ) + 
-              geom_smooth( se = FALSE, method = "loess", formula = "y ~ x") + 
+      x= YYYYMMDD, y =Z.score, 
+      group = datumAttribute) ) + 
+      geom_smooth( se = FALSE, 
+                   method = "loess", 
+                   formula = "y ~ x") + 
               scale_colour_viridis_d()
 
 ```
 
 
 # Checking Data Distribution
-This looks good but it is predicated upon the deviations being normally distributed about the mean. We can check this with a QQ plot.
 
-```{r}
-
-# An improved summary
+```{r eval=FALSE}
 my.dist <- "norm"
-
 data.to.plot <- VC55.weather.ss
  data.to.plot %>% drop_na() %>%
   group_by(datumAttribute) %>% 
   mutate( value = datumValue,
-          Z.score = (datumValue -mean(datumValue))/sd(datumValue)
+      Z.score = 
+        (datumValue -mean(datumValue))/sd(datumValue)
         ) %>%
- #  ggplot( aes(colour = datumAttribute, 
- #              x= YYYYMMDD, y =Z.score, 
- #              group = datumAttribute) ) + 
- #              geom_smooth( se = FALSE, method = "loess", formula = "y ~ x") + 
- # #   geom_point(data =data.to.plot[abs(data.to.plot$Z.score) >= 1.5,]) +
- #              scale_colour_viridis_d() 
-
-
-
-#ggplot(distribution.data, aes(x=centrality)) + stat_qq( sample = norm)
-
-ggplot(mapping = aes( 
+  ggplot(mapping = aes( 
                       group = datumAttribute,
                       sample = Z.score)) +
- #   stat_qq_band(distribution = my.dist) +
     stat_qq_line(distribution = my.dist) +
    stat_qq_point(distribution = my.dist) + 
   scale_colour_viridis_d() +
-  ggtitle("Z-score compared to normal distribution") + facet_wrap(~ datumAttribute)
+  ggtitle("Z-score compared to normal distribution") + 
+   facet_wrap(~ datumAttribute)
   
 
 ```
 
+# Q-Q Plot Z-score Compared To Normal Distribution
+This looks good but it is predicated upon the deviations being normally distributed about the mean. 
+```{r eval=TRUE, echo=FALSE}
+my.dist <- "norm"
+data.to.plot <- VC55.weather.ss
+ data.to.plot %>% drop_na() %>%
+  group_by(datumAttribute) %>% 
+  mutate( value = datumValue,
+      Z.score = 
+        (datumValue -mean(datumValue))/sd(datumValue)
+        ) %>%
+  ggplot(mapping = aes( 
+                      group = datumAttribute,
+                      sample = Z.score)) +
+    stat_qq_line(distribution = my.dist) +
+   stat_qq_point(distribution = my.dist) + 
+  scale_colour_viridis_d() +
+  ggtitle("Z-score compared to normal distribution") + 
+   facet_wrap(~ datumAttribute)
+  
+
+```
+
+# Assumptions
 Our assumption or a normal distribution is reasonably valid, but not perfect. As we are looking at weather data, it might be nice to look at: Annual Total Rainfall, Annual Air Frost days, Annual Maximum Temperature, and Annual Minimum Temperature. Again GoG comes to the rescue and we can quickly produce the following plots.
 
+# Weather Plots In Native Units
 For convenience, the plot routine has been written as a function so we can get all the plots quickly by reusing the code and just changing the selection attribute. This is done by making a list and using `lapply` to produce all the plots together. The use of the named list allows us to pass in nicer looking names and use these in the title.
 
-## Weather Plots In Native Units
 
-```{r}
+
+```{r echo=FALSE}
 # Weather "tmax.degC"     "tmin.degC"     "airfrost.days" "sun.hours"     "rain.mm"
 
 weather.attribute.list <- c(
@@ -454,17 +466,17 @@ weather.plots.list <- lapply(X = weather.attribute.list,
 
 ```
 
-## Airfrost Days
+# Airfrost Days
 
-```{r}
+```{r echo=FALSE}
 
 weather.plots.list$`max temp degC`
 
 ```
 
-## Maximum Temperature
+# Maximum Temperature
 
-```{r}
+```{r echo=FALSE}
 # Weather "tmax.degC"     "tmin.degC"     "airfrost.days" "sun.hours"     "rain.mm"  
 
 weather.attribute <- "tmax.degC"
@@ -491,9 +503,9 @@ ggplot(data =data.to.plot.annual, aes( x= YYYY, y =annual) ) +
 
 ```
 
-## Minimum Temperature
+# Minimum Temperature
 
-```{r}
+```{r echo=FALSE}
 # Weather "tmax.degC"     "tmin.degC"     "airfrost.days" "sun.hours"     "rain.mm"  
 
 weather.attribute <- "tmin.degC"
@@ -520,13 +532,7 @@ ggplot(data =data.to.plot.annual, aes( x= YYYY, y =annual) ) +
 
 ```
 
-## Conclusion
+# Conclusion
 
 This vignette demonstrates the versatility of using data state in conjunction with GoG.
 
-# References {.unnumbered}
-
-::: {#refs}
-:::
-
-\let\cleardoublepage\clearpage
