@@ -1,0 +1,35 @@
+---
+title: "VC55 Weather Case Study"
+author: Paul J. Palmer
+date: March 22, 2005
+output: beamer_presentation
+---
+```{r setDefaults,  include=TRUE, echo=FALSE, warning=FALSE, message=FALSE, error=FALSE, results='asis'}
+# Set code chunk options for all chunks
+# These can be overridden at the chunk level, but setting global options 
+# ensures consistency of chunk behaviour.
+# To print a version of this document without code set echo = FALSE. 
+#Include false will ignore the code chunk completely!
+knitr::opts_chunk$set(include = TRUE, 
+                      echo = TRUE, 
+                      warning=FALSE, 
+                      message=FALSE, 
+                      error=FALSE, 
+                     # fig.width = 3,
+                    #  fig.height = 2,
+                     # fig.width = 3,
+                    out.width = '70%',
+                      fig.align = "center",
+                      results='asis')
+
+
+
+```
+
+
+## Introduction
+
+   - The purpose of this vignette is a practical demonstration of reusable templates based upon the novel concept of data state. 
+   - Pages from this report are used to create Figures describing a case study for the paper: *Achieving Analytical Fluency With Complex Data*.
+   -  Real world long term weather data are used as the source. 
+   - **It is not the intention to analyse climate change, but the trends uncovered are striking, even using this single public domain data source**.
