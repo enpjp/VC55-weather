@@ -419,136 +419,108 @@ data.to.plot <- VC55.weather.ss
 Our assumption or a normal distribution is reasonably valid, but not perfect. As we are looking at weather data, it might be nice to look at: Annual Total Rainfall, Annual Air Frost days, Annual Maximum Temperature, and Annual Minimum Temperature. Again GoG comes to the rescue and we can quickly produce the following plots.
 
 # Weather Plots In Native Units
-For convenience, the plot routine has been written as a function so we can get all the plots quickly by reusing the code and just changing the selection attribute. This is done by making a list and using `lapply` to produce all the plots together. The use of the named list allows us to pass in nicer looking names and use these in the title.
+For convenience, the plot routine has been written as a function so we can get all the plots quickly by reusing the code and just changing the selection attribute.
 
-```{r echo=FALSE}
-# Weather "tmax.degC"     "tmin.degC"     "airfrost.days" "sun.hours"     "rain.mm"
-
-weather.attribute.list <- c(
- "max temp degC" = "tmax.degC",
- "min temp degC" = "tmin.degC",
-"airfrost days" ="airfrost.days",
-"rain mm" = "rain.mm"
-) 
-
-title.list <- weather.attribute.list %>% as.data.frame() %>% row.names
-  
-weather.plot <- function(weather.attribute, data.to.use, nice.title ) {
-data.to.plot <- data.to.use[data.to.use$datumAttribute == weather.attribute, ]
-data.to.plot$YYYY <- format(data.to.plot$YYYYMMDD, format = "%Y") %>% as.numeric()
-
-data.to.plot.annual <- data.to.plot %>% drop_na() %>%
-    group_by(YYYY) %>%
-  mutate( 
-          annual = sum(datumValue)
-        ) 
-
-plot.output <-    ggplot(data =data.to.plot.annual, aes( x= YYYY, y =annual) ) + 
-  geom_point() + 
-   geom_smooth( se = FALSE, method = "lm", formula = "y ~ x") +
-  geom_line()+ ggtitle( nice.title ) + ylab(nice.title)
-return(plot.output)
-
-}
-
-data.to.plot.annual <- data.to.plot %>% drop_na() %>%
-    group_by(YYYY) %>%
-  mutate( 
-          annual = sum(datumValue)
-        ) 
-
-
-
-ggfun <- function(dat, x.var, y.var, nice.title){
-  x.var <- rlang::sym(quo_name(enquo(x.var)))
-  y.var <- rlang::sym(quo_name(enquo(y.var)))
+```{r}
+ggfun <- function(dat, nice.title){
   plot.output <- ggplot(data = dat,
-                aes(x = !! x.var,
-                    y = !! y.var)) +
+                aes(x = YYYY,
+                    y = annual)) +
     geom_point() +
-    geom_smooth( se = FALSE, method = "lm", formula = "y ~ x") +
+    geom_smooth( se = FALSE, 
+             method = "lm", formula = "y ~ x") +
   geom_line()+ ggtitle( nice.title ) + ylab(nice.title)
-
   return(plot.output)
 }
-
-
-#weather.plot(weather.attribute, VC55.weather.ss)
-
-# weather.plots.list <- lapply(X = weather.attribute.list, 
-#                              FUN = weather.plot, 
-#                              data.to.use = VC55.weather.ss,
-#                              nice.title = title.list )
-
 ```
 
-# Airfrost Days
+
+
+# Filter The Data
+
+```{r}
+# Weather "tmax.degC"     "tmin.degC"    
+# "airfrost.days" "sun.hours"     "rain.mm"
+data.to.plot.local <- VC55.weather.ss[
+  VC55.weather.ss$datumAttribute == "airfrost.days", ]
+data.to.plot.local$YYYY <- format(
+  data.to.plot.local$YYYYMMDD, format = "%Y") %>% 
+    as.numeric()
+data.to.plot.annual <- data.to.plot.local %>% 
+  drop_na() %>% group_by(YYYY) %>%
+    mutate( 
+  # Change to max, min etc. as required.
+          annual = sum(datumValue)
+        ) 
+```
+
+# Plot Total Airfrost Days
 
 ```{r echo=FALSE}
+data.to.plot.local <- VC55.weather.ss[VC55.weather.ss$datumAttribute == "airfrost.days", ]
+data.to.plot.local$YYYY <- format(data.to.plot.local$YYYYMMDD, format = "%Y") %>% as.numeric()
 
-ggfun(dat = data.to.plot, x.var = YYYY, y.var = annual, nice.title = "Test" ) 
+data.to.plot.annual <- data.to.plot.local %>% drop_na() %>%
+    group_by(YYYY) %>%
+    mutate( 
+          annual = sum(datumValue)
+        ) 
+
+ggfun(dat = data.to.plot.annual, nice.title = "Total Air Frost Days" ) 
 
 #weather.plots.list$`max temp degC`
 
 ```
 
-# Maximum Temperature
+# Plot Maximum Temperature
 
 ```{r echo=FALSE}
-# Weather "tmax.degC"     "tmin.degC"     "airfrost.days" "sun.hours"     "rain.mm"  
+data.to.plot.local <- VC55.weather.ss[VC55.weather.ss$datumAttribute == "tmax.degC", ]
+data.to.plot.local$YYYY <- format(data.to.plot.local$YYYYMMDD, format = "%Y") %>% as.numeric()
 
-weather.attribute <- "tmax.degC"
-
-path.to.ss<- fs::path( absolute.path
-                               ,"data-ss","VC55.weather.ss", ext = "rds")
-VC55.weather.ss  <-   readRDS(path.to.ss)
-
-data.to.plot <- VC55.weather.ss[VC55.weather.ss$datumAttribute == weather.attribute, ]
-
-data.to.plot$YYYY <- format(data.to.plot$YYYYMMDD, format = "%Y") %>% as.numeric()
-
-data.to.plot.annual <- data.to.plot %>% drop_na() %>%
+data.to.plot.annual <- data.to.plot.local %>% drop_na() %>%
     group_by(YYYY) %>%
-  mutate( 
+    mutate( 
           annual = max(datumValue)
         ) 
-  
-ggplot(data =data.to.plot.annual, aes( x= YYYY, y =annual) ) + 
-  geom_point() +
-#   geom_smooth( se = FALSE, method = "loess", formula = "y ~ x") +
-  geom_line()+ ggtitle(weather.attribute) + ylab(weather.attribute)
 
+ggfun(dat = data.to.plot.annual, nice.title = "Maximum Temperature" ) 
 
 ```
 
-# Minimum Temperature
+# Plot Minimum Temperature
 
 ```{r echo=FALSE}
-# Weather "tmax.degC"     "tmin.degC"     "airfrost.days" "sun.hours"     "rain.mm"  
+data.to.plot.local <- VC55.weather.ss[VC55.weather.ss$datumAttribute == "tmin.degC", ]
+data.to.plot.local$YYYY <- format(data.to.plot.local$YYYYMMDD, format = "%Y") %>% as.numeric()
 
-weather.attribute <- "tmin.degC"
-
-path.to.ss<- fs::path( absolute.path
-                               ,"data-ss","VC55.weather.ss", ext = "rds")
-VC55.weather.ss  <-   readRDS(path.to.ss)
-
-data.to.plot <- VC55.weather.ss[VC55.weather.ss$datumAttribute == weather.attribute, ]
-
-data.to.plot$YYYY <- format(data.to.plot$YYYYMMDD, format = "%Y") %>% as.numeric()
-
-data.to.plot.annual <- data.to.plot %>% drop_na() %>%
+data.to.plot.annual <- data.to.plot.local %>% drop_na() %>%
     group_by(YYYY) %>%
-  mutate( 
+    mutate( 
           annual = min(datumValue)
         ) 
-  
-ggplot(data =data.to.plot.annual, aes( x= YYYY, y =annual) ) + 
-  geom_point() +
-#   geom_smooth( se = FALSE, method = "loess", formula = "y ~ x") +
-  geom_line()+ ggtitle(weather.attribute) + ylab(weather.attribute)
 
+ggfun(dat = data.to.plot.annual, nice.title = "Mainimum Temperature" ) 
 
 ```
+
+# Plot Total Rainfail
+
+```{r echo=FALSE}
+data.to.plot.local <- VC55.weather.ss[VC55.weather.ss$datumAttribute == "rain.mm", ]
+data.to.plot.local$YYYY <- format(data.to.plot.local$YYYYMMDD, format = "%Y") %>% as.numeric()
+
+data.to.plot.annual <- data.to.plot.local %>% drop_na() %>%
+    group_by(YYYY) %>%
+    mutate( 
+          annual = sum(datumValue)
+        ) 
+
+ggfun(dat = data.to.plot.annual, nice.title = "Annual Total Rainfall mm" ) 
+
+```
+
+
 
 # Conclusion
 
