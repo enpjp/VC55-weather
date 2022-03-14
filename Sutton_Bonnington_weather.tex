@@ -190,7 +190,8 @@ starts.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(tidyverse) }\CommentTok{\# Load all the Tidyverse packages in one go.}
+\FunctionTok{library}\NormalTok{(tidyverse) }\CommentTok{\# Load all the Tidyverse packages }
+\CommentTok{\#in one go.}
 \FunctionTok{library}\NormalTok{(kableExtra) }\CommentTok{\# Enable advanced table styling}
 \FunctionTok{library}\NormalTok{(qqplotr) }\CommentTok{\# Enable QQ plots for statistical analysis}
 \FunctionTok{library}\NormalTok{(readr) }\CommentTok{\# Improved reading of text files}
@@ -550,8 +551,10 @@ analysis.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Specify data types}
-\NormalTok{VC55.weather.ss}\SpecialCharTok{$}\NormalTok{YYYYMMDD }\OtherTok{\textless{}{-}}\NormalTok{  VC55.weather.ss}\SpecialCharTok{$}\NormalTok{YYYYMMDD }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ as.Date}
-\NormalTok{VC55.weather.ss}\SpecialCharTok{$}\NormalTok{datumValue }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.ss}\SpecialCharTok{$}\NormalTok{datumValue }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.numeric}\NormalTok{()}
+\NormalTok{VC55.weather.ss}\SpecialCharTok{$}\NormalTok{YYYYMMDD }\OtherTok{\textless{}{-}}  
+\NormalTok{  VC55.weather.ss}\SpecialCharTok{$}\NormalTok{YYYYMMDD }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ as.Date}
+\NormalTok{VC55.weather.ss}\SpecialCharTok{$}\NormalTok{datumValue }\OtherTok{\textless{}{-}} 
+\NormalTok{  VC55.weather.ss}\SpecialCharTok{$}\NormalTok{datumValue }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.numeric}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 \end{frame}
@@ -567,10 +570,10 @@ We can now save into \texttt{data-ss}.
             \StringTok{"data{-}ss"}\NormalTok{ ),  }
             \AttributeTok{showWarnings =} \ConstantTok{FALSE}\NormalTok{,}
             \AttributeTok{recursive =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# Create the directory}
-
 \CommentTok{\#And save.}
 \NormalTok{path.to.save.ss}\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( absolute.path}
-\NormalTok{                               ,}\StringTok{"data{-}ss"}\NormalTok{,}\StringTok{"VC55.weather.ss"}\NormalTok{, }\AttributeTok{ext =} \StringTok{"rds"}\NormalTok{)}
+\NormalTok{                               ,}\StringTok{"data{-}ss"}\NormalTok{,}\StringTok{"VC55.weather.ss"}\NormalTok{,}
+                            \AttributeTok{ext =} \StringTok{"rds"}\NormalTok{)}
 \FunctionTok{saveRDS}\NormalTok{(VC55.weather.ss, path.to.save.ss)}
 \end{Highlighting}
 \end{Shaded}
@@ -596,7 +599,8 @@ named method of loading is included as comments for comparison.
 
 \NormalTok{VC55.weather.ss }\OtherTok{\textless{}{-}} \FunctionTok{list.files}\NormalTok{(}
 \NormalTok{  path.to.data.ss,}
-  \AttributeTok{pattern =} \StringTok{".rds"}\NormalTok{, }\CommentTok{\# Make a suitable filter. Use the dot for a wildcard.}
+  \AttributeTok{pattern =} \StringTok{".rds"}\NormalTok{, }\CommentTok{\# Make a suitable filter. }
+  \CommentTok{\# Use the dot for a wildcard.}
   \AttributeTok{full.names =} \ConstantTok{TRUE}\NormalTok{,}
   \AttributeTok{recursive =} \ConstantTok{TRUE}\NormalTok{)  }\SpecialCharTok{\%\textgreater{}\%}
 \NormalTok{  purrr}\SpecialCharTok{::}\FunctionTok{map\_df}\NormalTok{(readRDS) }

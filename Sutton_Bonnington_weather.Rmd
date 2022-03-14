@@ -45,7 +45,8 @@ knitr::opts_chunk$set(include = TRUE,
 Load the Tidyverse libraries and other helpers before the analysis starts.
 
 ```{r LoadLibraries}
-library(tidyverse) # Load all the Tidyverse packages in one go.
+library(tidyverse) # Load all the Tidyverse packages 
+#in one go.
 library(kableExtra) # Enable advanced table styling
 library(qqplotr) # Enable QQ plots for statistical analysis
 library(readr) # Improved reading of text files
@@ -270,8 +271,10 @@ At this point we can specify data types as Date and numeric for analysis.
 
 ```{r SpecifyDataTypes}
 # Specify data types
-VC55.weather.ss$YYYYMMDD <-  VC55.weather.ss$YYYYMMDD %>% as.Date
-VC55.weather.ss$datumValue <- VC55.weather.ss$datumValue %>% as.numeric()
+VC55.weather.ss$YYYYMMDD <-  
+  VC55.weather.ss$YYYYMMDD %>% as.Date
+VC55.weather.ss$datumValue <- 
+  VC55.weather.ss$datumValue %>% as.numeric()
 ```
 
 # Save Data-ss
@@ -284,10 +287,10 @@ dir.create(
             "data-ss" ),  
             showWarnings = FALSE,
             recursive = TRUE) # Create the directory
-
 #And save.
 path.to.save.ss<- fs::path( absolute.path
-                               ,"data-ss","VC55.weather.ss", ext = "rds")
+                               ,"data-ss","VC55.weather.ss",
+                            ext = "rds")
 saveRDS(VC55.weather.ss, path.to.save.ss)
 
 ```
@@ -304,11 +307,11 @@ path.to.data.ss <- fs::path(absolute.path,"data-ss")
 
 VC55.weather.ss <- list.files(
   path.to.data.ss,
-  pattern = ".rds", # Make a suitable filter. Use the dot for a wildcard.
+  pattern = ".rds", # Make a suitable filter. 
+  # Use the dot for a wildcard.
   full.names = TRUE,
   recursive = TRUE)  %>%
   purrr::map_df(readRDS) 
-
 
 ```
 
@@ -375,19 +378,15 @@ Rather than 5 separate plots, we can use a single graph to plot a smooth loess r
 ```{r NormalisingWithZScore, eval= TRUE, echo=FALSE}
 
 data.to.plot <- VC55.weather.ss
- data.to.plot %>% drop_na() %>%
-  group_by(datumAttribute) %>% 
-  mutate( value = datumValue,
-      Z.score = (datumValue -mean(datumValue))/sd(datumValue)
-        ) %>%
+data.to.plot %>% drop_na() %>% group_by(datumAttribute) %>% 
+  mutate( value = datumValue, Z.score = 
+        (datumValue -mean(datumValue))/sd(datumValue)) %>%
   ggplot( aes(colour = datumAttribute, 
       x= YYYYMMDD, y =Z.score, 
       group = datumAttribute) ) + 
       geom_smooth( se = FALSE, 
-                   method = "loess", 
-                   formula = "y ~ x") + 
-              scale_colour_viridis_d()
-
+      method = "loess",  formula = "y ~ x") + 
+      scale_colour_viridis_d()
 ```
 
 # Checking Data Distribution
