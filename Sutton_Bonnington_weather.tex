@@ -5,10 +5,6 @@
 \documentclass[
   ignorenonframetext,
 ]{beamer}
-\title{VC55 Weather Case Study}
-\author{Paul J. Palmer}
-\date{}
-
 \usepackage{pgfpages}
 \setbeamertemplate{caption}[numbered]
 \setbeamertemplate{caption label separator}{: }
@@ -154,7 +150,8 @@
     
     % Your institution for the title page
 }
-\date{\today} % Date, can be changed to a custom date
+\author{}
+\date{\vspace{-2.5em}\today} % Date, can be changed to a custom date
 
   %title: ""
  % author: Dr. Paul J. Palmer
@@ -162,6 +159,10 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
+
+\title{VC55 Weather Case Study}
+\author{Paul J. Palmer}
+\date{}
 
 \begin{document}
 \frame{\titlepage}
@@ -458,9 +459,9 @@ The first 13 rows of the \texttt{weather.data.triple} now look like
 this:
 
 \begin{longtable}[]{@{}
-  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.39}}
-  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.28}}
-  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.28}}@{}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3889}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2778}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2778}}@{}}
 \toprule
 \begin{minipage}[b]{\linewidth}\centering
 datumEntity
