@@ -1,69 +1,52 @@
 ---
-title: Achieving Analytical Fluency With Complex Data
+title: "Achieving Analytical Fluency With Complex Data"
 subtitle: Do you have a subtitle? If so, write it here
 titlerunning: Analytical Fluency
-authorrunning: P.J. Palmer, M. Henshaw, R.L. Lock
-thanks: | 
-    The authors thank EPSRC grant: EP/R513088/1 for funding the
-    doctoral research on which this work is based.
-
-authors: 
+output:
+  bookdown::pdf_book: default
+  rticles::springer_article: default
+thanks: |
+  doctoral research on which this work is based.
+  The authors thank EPSRC grant: EP/R513088/1 for funding the
+authors:
 - name: Paul J Palmer
   address: Department of YYY, University of XXX
   email: abc@def
-  
 - name: Michael Henshaw
   address: Department of ZZZ, University of WWW
   email: djf@wef
-  
 - name: Russell Lock
   address: Department of ZZZ, University of WWW
-  email: djf@wef 
-
+  email: djf@wef
 keywords:
 - key
 - dictionary
 - word
-
-#PACS: 
-#- PAC1
-#- superPAC
-    
-# MSC:
-# - MSC code 1
-# - MSC code 2
-
 abstract: |
   Scientific analysis is formally presented as a rigid process typically
-  comprising: Review; Theory; Research question; Methodology;
   Experiment; Analysis, Evaluation; and Conclusions.
-
+  comprising: Review; Theory; Research question; Methodology;
   We do, however, question whether established methods for managing and
   analysing data are still appropriate for "Big Data", by which we mean
   data that is too big to be conveniently manipulated by manually
   intensive methods.
-
-  This presents two questions which we seek to address here: the first
   is to justify why there is a need for new analytical techniques, given
   that the existing ones still work; the second is to show how an
   abstract perception of data impacts the analytical process.
-
+  This presents two questions which we seek to address here: the first
   An example of the motivation for change is illustrated by the "Grammar
   of Graphics" (GoG) paradigm. GoG uses combinations of transforms to
   generate every possible graphic and tabulation from data presented in
   a suitable state allowing for a radical change in the analytic
   workflow, while still preserving the goals of scientific analysis.
-
   By framing this problem as one of transforming *data state*, we can
   mathematically describe general properties allowing the creation of
   re-usable code templates for data preparation. Coupled with "literate
   programming" techniques we show that this approach enables
   analytically fluent analysis of complex data.
-
 bibliography: library.bib
 biblio-style: spphys
-# bibstyle options spbasic(default), spphys, spmpsci
-output: rticles::springer_article
+authorrunning: P.J. Palmer, M. Henshaw, R.L. Lock
 ---
 
 # Introduction {#sec:introduction}
