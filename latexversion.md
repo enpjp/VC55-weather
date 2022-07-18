@@ -1,38 +1,34 @@
 ---
+title: 'Achieving Analytical Fluency With Complex Data [^1] '
+author:
+- Paul J Palmer
+- Michael Henshaw
+- Russell Lock
+date: 'Received: date / Accepted: date'
+output: pdf_document
 abstract: |
   Scientific analysis is formally presented as a rigid process typically
-  comprising: Review; Theory; Research question; Methodology;
   Experiment; Analysis, Evaluation; and Conclusions.
-
+  comprising: Review; Theory; Research question; Methodology;
   We do, however, question whether established methods for managing and
   analysing data are still appropriate for "Big Data", by which we mean
   data that is too big to be conveniently manipulated by manually
   intensive methods.
-
-  This presents two questions which we seek to address here: the first
   is to justify why there is a need for new analytical techniques, given
   that the existing ones still work; the second is to show how an
   abstract perception of data impacts the analytical process.
-
+  This presents two questions which we seek to address here: the first
   An example of the motivation for change is illustrated by the "Grammar
   of Graphics" (GoG) paradigm. GoG uses combinations of transforms to
   generate every possible graphic and tabulation from data presented in
   a suitable state allowing for a radical change in the analytic
   workflow, while still preserving the goals of scientific analysis.
-
   By framing this problem as one of transforming *data state*, we can
   mathematically describe general properties allowing the creation of
   re-usable code templates for data preparation. Coupled with "literate
   programming" techniques we show that this approach enables
   analytically fluent analysis of complex data.
-author:
-- Paul J Palmer
-- Michael Henshaw
-- Russell Lock
-bibliography:
-- library.bib
-date: "Received: date / Accepted: date"
-title: "Achieving Analytical Fluency With Complex Data [^1] "
+bibliography: library.bib
 ---
 
 # Introduction {#sec:introduction}
@@ -174,9 +170,6 @@ annotated and some are missing. Multiple similar source files available
 for download, so the issues in this file are typical of a much larger
 data set.
 
-![Head of the text file supplied as Sutton Bonnington weather
-data.](Sutton_bonnington_data.png){#fig:suttonbonningtondata
-width="0.7\\linewidth"}
 
 However, if we unpick the file shown in
 Figure [1](#fig:suttonbonningtondata){reference-type="ref"
