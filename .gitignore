@@ -59,3 +59,7 @@ dissection-report*/
 # Remove the record files from version control
 #_records/
 
+# Remove some Latex files
+
+*.log
+
