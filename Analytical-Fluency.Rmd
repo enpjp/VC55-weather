@@ -2,12 +2,8 @@
 title: "Achieving Analytical Fluency With Complex Data"
 subtitle: Do you have a subtitle? If so, write it here
 titlerunning: Analytical Fluency
-output:
-  bookdown::pdf_book: default
-  rticles::springer_article: default
 thanks: |
-  doctoral research on which this work is based.
-  The authors thank EPSRC grant: EP/R513088/1 for funding the
+  The authors acknowledge EPSRC grant: EP/R513088/1 for funding the doctoral research on which this work is based.
 authors:
 - name: Paul J Palmer
   address: Department of YYY, University of XXX
@@ -47,6 +43,12 @@ abstract: |
 bibliography: library.bib
 biblio-style: spphys
 authorrunning: P.J. Palmer, M. Henshaw, R.L. Lock
+output:
+  bookdown::pdf_book:
+    base_format: rticles::springer_article
+    includes:
+      in_header: "jese.tex"
+      keep_tex:  true  
 ---
 
 # Introduction {#sec:introduction}
