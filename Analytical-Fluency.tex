@@ -28,6 +28,47 @@
 %% load any required packages here
 
 
+% Pandoc syntax highlighting
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 
 % tightlist command for lists without linebreak
 \providecommand{\tightlist}{%
@@ -79,6 +120,20 @@
 
 
 
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 \begin{document}
 
 
@@ -152,6 +207,19 @@ analytically fluent analysis of complex data.
 {#1}\small\normalsize} \spacingset{1}
 
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse) }\CommentTok{\# Load all the Tidyverse packages }
+\CommentTok{\#in one go.}
+\FunctionTok{library}\NormalTok{(kableExtra) }\CommentTok{\# Enable advanced table styling}
+\FunctionTok{library}\NormalTok{(qqplotr) }\CommentTok{\# Enable QQ plots for statistical analysis}
+\FunctionTok{library}\NormalTok{(readr) }\CommentTok{\# Improved reading of text files}
+\FunctionTok{library}\NormalTok{(timeDate) }\CommentTok{\# Helper for time date manipulation}
+\FunctionTok{library}\NormalTok{(rprojroot) }\CommentTok{\# Useful utilities}
+\FunctionTok{library}\NormalTok{(fs) }\CommentTok{\# System independent file paths}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{sec:introduction}{%
 \section{Introduction}\label{sec:introduction}}
 
@@ -179,43 +247,23 @@ analytical process?'' To achieve this goal we follow a pragmatic
 methodology that draws inspiration from the critical realism philosophy
 of (Bhaskar 2008) which gives context to data as observations arising
 from an unknowable real world. Our methodology is pragmatic in that we
-use public domain data as the case study for each step in our analytical
-approach.
+use public domain weather data as the case study for each step in our analytical approach. This data has the following characteristics:
+
+\begin{verbatim}
+-   Open Source;
+
+-   Presented in an inconvenient state for analysis;
+
+-   Multiple units of measure;
+
+-   Extensible, in that related similar sources are available.
+\end{verbatim}
 
 We do not, however, try to justify the analytical \emph{results} from our
 case study, as the intent of this work is to demonstrate how \emph{analytical
 fluency} can be achieved when faced with the complexities of real data.
 The reason for this caveat is due to the topical subject of the case
-study and how it relates to the unknowable real world. First, we
-complete our description of the methodology as a series of descriptive
-steps.
-
-\begin{description}
-\item[Case Study:]
-The analytical process is demonstrated with data with the following
-characteristics:
-
-\begin{itemize}
-\item
-  Open Source;
-\item
-  Presented in an inconvenient state for analysis;
-\item
-  Multiple units of measure;
-\item
-  Extensible, in that related similar sources are available.
-\end{itemize}
-\item[Data Definition:]
-Consider the philosophical nature of data with special reference to
-the case study to create a data model.
-\item[Apply the model:]
-The practical demonstration of data ready for analysis.
-\item[Template Concept:]
-Building reusable programmatic elements for analysis.
-\item[Template Evaluation:]
-A demonstration and evaluation of the template and its role in
-supporting analytical fluency.
-\end{description}
+study and how it relates to the unknowable real world.
 
 Throughout this work we have based the practical analysis on the R
 Analytical language (R Core Team 2022). In principle, the techniques

@@ -50,6 +50,10 @@ output:
       in_header: "jese.tex"
       keep_tex:  true  
 ---
+```{r child = "_header.Rmd"}
+
+```
+
 
 # Introduction {#sec:introduction}
 
@@ -76,21 +80,7 @@ analytical process?" To achieve this goal we follow a pragmatic
 methodology that draws inspiration from the critical realism philosophy
 of [@Bhaskar2008] which gives context to data as observations arising
 from an unknowable real world. Our methodology is pragmatic in that we
-use public domain data as the case study for each step in our analytical
-approach.
-
-We do not, however, try to justify the analytical *results* from our
-case study, as the intent of this work is to demonstrate how *analytical
-fluency* can be achieved when faced with the complexities of real data.
-The reason for this caveat is due to the topical subject of the case
-study and how it relates to the unknowable real world. First, we
-complete our description of the methodology as a series of descriptive
-steps.
-
-Case Study:
-
-:   The analytical process is demonstrated with data with the following
-    characteristics:
+use public domain weather data as the case study for each step in our analytical approach. This data has the following characteristics:
 
     -   Open Source;
 
@@ -100,23 +90,11 @@ Case Study:
 
     -   Extensible, in that related similar sources are available.
 
-Data Definition:
-
-:   Consider the philosophical nature of data with special reference to
-    the case study to create a data model.
-
-Apply the model:
-
-:   The practical demonstration of data ready for analysis.
-
-Template Concept:
-
-:   Building reusable programmatic elements for analysis.
-
-Template Evaluation:
-
-:   A demonstration and evaluation of the template and its role in
-    supporting analytical fluency.
+We do not, however, try to justify the analytical *results* from our
+case study, as the intent of this work is to demonstrate how *analytical
+fluency* can be achieved when faced with the complexities of real data.
+The reason for this caveat is due to the topical subject of the case
+study and how it relates to the unknowable real world.
 
 Throughout this work we have based the practical analysis on the R
 Analytical language [@RCoreTeam2017]. In principle, the techniques

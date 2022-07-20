@@ -167,6 +167,21 @@
 \begin{document}
 \frame{\titlepage}
 
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse) }\CommentTok{\# Load all the Tidyverse packages }
+\CommentTok{\#in one go.}
+\FunctionTok{library}\NormalTok{(kableExtra) }\CommentTok{\# Enable advanced table styling}
+\FunctionTok{library}\NormalTok{(qqplotr) }\CommentTok{\# Enable QQ plots for statistical analysis}
+\FunctionTok{library}\NormalTok{(readr) }\CommentTok{\# Improved reading of text files}
+\FunctionTok{library}\NormalTok{(timeDate) }\CommentTok{\# Helper for time date manipulation}
+\FunctionTok{library}\NormalTok{(rprojroot) }\CommentTok{\# Useful utilities}
+\FunctionTok{library}\NormalTok{(fs) }\CommentTok{\# System independent file paths}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
 \begin{frame}{Introduction}
 \protect\hypertarget{introduction}{}
 \begin{itemize}
@@ -184,23 +199,10 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Load Libraries}
+\begin{frame}{Load Libraries}
 \protect\hypertarget{load-libraries}{}
 Load the Tidyverse libraries and other helpers before the analysis
 starts.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(tidyverse) }\CommentTok{\# Load all the Tidyverse packages }
-\CommentTok{\#in one go.}
-\FunctionTok{library}\NormalTok{(kableExtra) }\CommentTok{\# Enable advanced table styling}
-\FunctionTok{library}\NormalTok{(qqplotr) }\CommentTok{\# Enable QQ plots for statistical analysis}
-\FunctionTok{library}\NormalTok{(readr) }\CommentTok{\# Improved reading of text files}
-\FunctionTok{library}\NormalTok{(timeDate) }\CommentTok{\# Helper for time date manipulation}
-\FunctionTok{library}\NormalTok{(rprojroot) }\CommentTok{\# Useful utilities}
-\FunctionTok{library}\NormalTok{(fs) }\CommentTok{\# System independent file paths}
-\end{Highlighting}
-\end{Shaded}
 \end{frame}
 
 \begin{frame}[fragile]{Read The Sutton Bonnington Data}
