@@ -76,6 +76,9 @@
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 % Jese tex
+
+
+
 \begin{document}
 
 
@@ -166,8 +169,68 @@ This contrasts with the typical approach where difficulties with data intensive 
 
 Our alternative approach is consider data as observations of the real world that are to be interpreted through analysis, rather than formatted tables meeting arbitrary technical specifications.{[}\^{}3{]} This also expands on an idea hinted at in the GoG example above: there is no need to rigidly define data format in advance since the real world is clearly independent of the methods we choose to observe and record. If we believe that the knowledge we seek is encapsulated within a set of observations, then we can choose a viewpoint where we see data as starting in an initial \emph{inconvenient state}. It follows that we must transform it into a \emph{convenient state} for analysis. By constructing a working theory supported with a mathematical description, we show that the transformation of \emph{data state} can be generalised to allow the creation of re-usable code templates. To explain how re-framing the problem of \emph{imperfect data} in terms of \emph{data state} can make such a difference to the way in which we approach the analytical process, we must first construct a methodology that takes into account the nature of data.
 
+\hypertarget{sec:methodology}{%
+\section{Methodology}\label{sec:methodology}}
+
+The two questions we seek to answer are: ``Why develop new analytical
+techniques, given that the existing ones still work?'' and ``How can
+changing our abstract perception of data beneficially impact the
+analytical process?'' To achieve this goal we follow a pragmatic
+methodology that draws inspiration from the critical realism philosophy
+of (Bhaskar 2008) which gives context to data as observations arising
+from an unknowable real world. Our methodology is pragmatic in that we
+use public domain data as the case study for each step in our analytical
+approach.
+
+We do not, however, try to justify the analytical \emph{results} from our
+case study, as the intent of this work is to demonstrate how \emph{analytical
+fluency} can be achieved when faced with the complexities of real data.
+The reason for this caveat is due to the topical subject of the case
+study and how it relates to the unknowable real world. First, we
+complete our description of the methodology as a series of descriptive
+steps.
+
+\begin{description}
+\item[Case Study:]
+The analytical process is demonstrated with data with the following
+characteristics:
+
+\begin{itemize}
+\item
+  Open Source;
+\item
+  Presented in an inconvenient state for analysis;
+\item
+  Multiple units of measure;
+\item
+  Extensible, in that related similar sources are available.
+\end{itemize}
+\item[Data Definition:]
+Consider the philosophical nature of data with special reference to
+the case study to create a data model.
+\item[Apply the model:]
+The practical demonstration of data ready for analysis.
+\item[Template Concept:]
+Building reusable programmatic elements for analysis.
+\item[Template Evaluation:]
+A demonstration and evaluation of the template and its role in
+supporting analytical fluency.
+\end{description}
+
+Throughout this work we have based the practical analysis on the R
+Analytical language (R Core Team 2022). In principle, the techniques
+presented here would work with other languages such as Python
+(Gentleman and Temple Lang 2007), but their potential has not been explored.
+
+\hypertarget{references}{%
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
+
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-Bhaskar2008}{}}%
+Bhaskar, Prof. Roy. 2008. \emph{{A Realist Theory of Science}}. London, UK: Verso.
+
 \leavevmode\vadjust pre{\hypertarget{ref-Bishop2013}{}}%
 Bishop, Katrina. 2013. {``{Spreadsheet blunders costing business billions}.''} Englewood Cliffs, New Jersey,USA. \url{https://www.cnbc.com/id/100923538}.
 
@@ -191,6 +254,9 @@ Peng, Roger. 2015. {``{The reproducibility crisis in science: A statistical coun
 
 \leavevmode\vadjust pre{\hypertarget{ref-Powell2008}{}}%
 Powell, Stephen G., Kenneth R. Baker, and Barry Lawson. 2008. {``{A critical review of the literature on spreadsheet errors}.''} \emph{Decision Support Systems} 46 (1): 128--38. \url{https://doi.org/10.1016/j.dss.2008.06.001}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-RCoreTeam2017}{}}%
+R Core Team. 2022. {``{R: A language and environment for statistical computing. R Foundation for Statistical Computing}.''} Vienna, Austria: R Foundation for Statistical Computing. \url{https://www.r-project.org/}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-Stodden2014}{}}%
 Stodden, Victoria, Friedrich Leisch, and Roger D. Peng. 2014. \emph{{Implementing reproducible research}}. CRC Press/Taylor; Francis.

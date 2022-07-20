@@ -66,3 +66,63 @@ Both the need and benefit are illustrated by the "Grammar of Graphics" (GoG) par
 This contrasts with the typical approach where difficulties with data intensive analysis are often retrospectively blamed on imperfections within the data that are seen as requiring "cleaning" before analysis can begin. It is unfortunate that the popular spreadsheet encourages a manually intensive formatting of data and the use of visualisation tools that do not scale well with data size [@Mack2018; @Bishop2013; @Powell2008].
 
 Our alternative approach is consider data as observations of the real world that are to be interpreted through analysis, rather than formatted tables meeting arbitrary technical specifications.[\^3] This also expands on an idea hinted at in the GoG example above: there is no need to rigidly define data format in advance since the real world is clearly independent of the methods we choose to observe and record. If we believe that the knowledge we seek is encapsulated within a set of observations, then we can choose a viewpoint where we see data as starting in an initial *inconvenient state*. It follows that we must transform it into a *convenient state* for analysis. By constructing a working theory supported with a mathematical description, we show that the transformation of *data state* can be generalised to allow the creation of re-usable code templates. To explain how re-framing the problem of *imperfect data* in terms of *data state* can make such a difference to the way in which we approach the analytical process, we must first construct a methodology that takes into account the nature of data.
+
+# Methodology {#sec:methodology}
+
+The two questions we seek to answer are: "Why develop new analytical
+techniques, given that the existing ones still work?" and "How can
+changing our abstract perception of data beneficially impact the
+analytical process?" To achieve this goal we follow a pragmatic
+methodology that draws inspiration from the critical realism philosophy
+of [@Bhaskar2008] which gives context to data as observations arising
+from an unknowable real world. Our methodology is pragmatic in that we
+use public domain data as the case study for each step in our analytical
+approach.
+
+We do not, however, try to justify the analytical *results* from our
+case study, as the intent of this work is to demonstrate how *analytical
+fluency* can be achieved when faced with the complexities of real data.
+The reason for this caveat is due to the topical subject of the case
+study and how it relates to the unknowable real world. First, we
+complete our description of the methodology as a series of descriptive
+steps.
+
+Case Study:
+
+:   The analytical process is demonstrated with data with the following
+    characteristics:
+
+    -   Open Source;
+
+    -   Presented in an inconvenient state for analysis;
+
+    -   Multiple units of measure;
+
+    -   Extensible, in that related similar sources are available.
+
+Data Definition:
+
+:   Consider the philosophical nature of data with special reference to
+    the case study to create a data model.
+
+Apply the model:
+
+:   The practical demonstration of data ready for analysis.
+
+Template Concept:
+
+:   Building reusable programmatic elements for analysis.
+
+Template Evaluation:
+
+:   A demonstration and evaluation of the template and its role in
+    supporting analytical fluency.
+
+Throughout this work we have based the practical analysis on the R
+Analytical language [@RCoreTeam2017]. In principle, the techniques
+presented here would work with other languages such as Python
+[@Gentleman2007], but their potential has not been explored.
+
+# References
+
+
