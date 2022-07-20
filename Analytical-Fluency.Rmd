@@ -50,10 +50,15 @@ output:
       in_header: "jese.tex"
       keep_tex:  true  
 ---
+
+```{r echo=FALSE}
+# Set chunk visibility 
+see.chunk <- FALSE
+```
+
 ```{r child = "_header.Rmd"}
 
 ```
-
 
 # Introduction {#sec:introduction}
 
@@ -73,14 +78,7 @@ Our alternative approach is consider data as observations of the real world that
 
 # Methodology {#sec:methodology}
 
-The two questions we seek to answer are: "Why develop new analytical
-techniques, given that the existing ones still work?" and "How can
-changing our abstract perception of data beneficially impact the
-analytical process?" To achieve this goal we follow a pragmatic
-methodology that draws inspiration from the critical realism philosophy
-of [@Bhaskar2008] which gives context to data as observations arising
-from an unknowable real world. Our methodology is pragmatic in that we
-use public domain weather data as the case study for each step in our analytical approach. This data has the following characteristics:
+The two questions we seek to answer are: "Why develop new analytical techniques, given that the existing ones still work?" and "How can changing our abstract perception of data beneficially impact the analytical process?" To achieve this goal we follow a pragmatic methodology that draws inspiration from the critical realism philosophy of [@Bhaskar2008] which gives context to data as observations arising from an unknowable real world. Our methodology is pragmatic in that we use public domain weather data as the case study for each step in our analytical approach. This data has the following characteristics:
 
     -   Open Source;
 
@@ -90,19 +88,12 @@ use public domain weather data as the case study for each step in our analytical
 
     -   Extensible, in that related similar sources are available.
 
-We do not, however, try to justify the analytical *results* from our
-case study, as the intent of this work is to demonstrate how *analytical
-fluency* can be achieved when faced with the complexities of real data.
-The reason for this caveat is due to the topical subject of the case
-study and how it relates to the unknowable real world.
+We do not, however, try to justify the analytical *results* from our case study, as the intent of this work is to demonstrate how *analytical fluency* can be achieved when faced with the complexities of real data. The reason for this caveat is due to the topical subject of the case study and how it relates to the unknowable real world.
 
-Throughout this work we have based the practical analysis on the R
-Analytical language [@RCoreTeam2017]. In principle, the techniques
-presented here would work with other languages such as Python
-[@Gentleman2007], but their potential has not been explored.
+Throughout this work we have based the practical analysis on the R Analytical language [@RCoreTeam2017]. In principle, the techniques presented here would work with other languages such as Python [@Gentleman2007], but their potential has not been explored.
 
-In early drafts of this work, the case study was envisaged as a separate document, but this approach felt very artificial, and the benefits of fluency were unconvincing when presented in this way. In its current form, this article is the case study. It has been written as a dynamic document and the reader is invited to examine the construction of the .Rmd source to gain a deeper understanding.
+In early drafts of this work, the case study was envisaged as a separate document, but this approach felt very artificial, and the benefits of fluency were unconvincing when presented in this way. We have rewritten it so in a recursive sense this article is a case study about the techniques used to write it.
+
+This presents a challenge on how best to structure this document to convey the essentials of the techniques we propose and allow the reader to critique the approach. A further challenge is that that the final output will be a static document rendered from the dynamic components and will look no different from any other document. Since we cannot produce a dynamic document on paper, we will produce a report and a presentation from the same data using the same reusable elements. Given that the weather data is regularly updated though time, and there are many sources of such data, we aim to show that the overall effort of creating documents using analytically fluent methodologies is much less than repeating the same work with manually intensive processes.
 
 # References
-
-
