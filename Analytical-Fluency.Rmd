@@ -53,69 +53,16 @@ output:
 
 # Introduction {#sec:introduction}
 
-Scientific analysis is formally presented as a rigid process typically
-comprising: Review; Theory; Research question; Methodology; Experiment;
-Analysis, Evaluation; and Conclusions. This is a powerful framework that
-has stood the test of time which is the underlying format of countless
-academic publications and there is no reason to think that this format
-will change.
+Scientific analysis is formally presented as a rigid process typically comprising: Review; Theory; Research question; Methodology; Experiment; Analysis, Evaluation; and Conclusions. This is a powerful framework that has stood the test of time which is the underlying format of countless academic publications. But just because this format is rigid, does not mean that there is no opportunity to improve the method used to achieve it.
 
-If we look deeper, we can start to separate the actual process of
-scientific discovery from the way in which it is reported. The
-documentation of research and analysis that has already been completed,
-is very different to an exploration where the outcomes are as yet
-unknown. Nobel Prize winner @Szent-Gyorgyi1972 discussed this issue in
-1972, long before the age of computers and "Big Data"[^2] introduced
-computational and data intensive research methods [@Szent-Gyorgyi1972].
-He described the Apollonian as following a formally prescribed research
-path while a Dionysian explores the unknown. However, research and
-reporting are necessarily linked and one should be a clear and true
-interpretation of the other.
+If we look deeper, we can start to separate the actual process of scientific discovery from the way in which it is reported. The documentation of research and analysis that has already been completed, is very different to an exploration where the outcomes are as yet unknown. Nobel Prize winner @Szent-Gyorgyi1972 discussed this issue in 1972, long before the age of computers and "Big Data"[\^2] introduced computational and data intensive research methods [@Szent-Gyorgyi1972]. He described the Apollonian as following a formally prescribed research path while a Dionysian explores the unknown. However, research and reporting are necessarily linked and one should be a clear and true interpretation of the other.
 
-We argue here that this presumption the analytical process should follow
-the final method of presentation is a hindrance to the adoption of new
-analytical techniques. The term "reproducible research" has been coined
-to describe this linkage, without defining how it may be achieved
-leading to discussion on the topic by @Stodden2014
-[@Lewis2018a; @Leeper2014; @Gentleman2007; @Peng2015; @Drummond2018] and
-others.
+We argue here that this presumption the analytical process should follow the final method of presentation is a hindrance to the adoption of new analytical techniques. The term "reproducible research" has been coined to describe this linkage, without defining how it may be achieved, leading to discussion on the topic by [@Stodden2014; @Lewis2018a; @Leeper2014; @Gentleman2007; @Peng2015; @Drummond2018] and others.
 
-Two questions arise from these discussions which we seek to address in
-the following sections: the first is to justify why there is a need for
-new analytical techniques, given that the existing ones still work? The
-second is: how can changing our abstract perception of data beneficially
-impact the analytical process?
+Two questions arise from these discussions which we seek to address in the following sections: the first is to justify why there is a need for new analytical techniques, given that the existing ones still work? The second is: how can changing our abstract perception of data beneficially impact the analytical process?
 
-Both the need and benefit are illustrated by the "Grammar of Graphics"
-(GoG) paradigm [@Wilkinson2010]. GoG uses combinations of transforms to
-generate every possible graphic and tabulation from data that is
-presented in a suitable state. Thus, a researcher planning to use GoG
-will focus on saving research data in suitable state, so she can make
-many dynamic visualisations as work progresses, rather than waiting for
-the end of the data collation phase.
+Both the need and benefit are illustrated by the "Grammar of Graphics" (GoG) paradigm [@Wilkinson2010]. GoG uses combinations of transforms to generate every possible graphic and tabulation from data that is presented in a suitable state. Thus, a researcher planning to use GoG will focus on saving research data in suitable state, so she can make many dynamic visualisations as work progresses, rather than waiting for the end of the data collation phase.
 
-This contrasts with the typical approach where difficulties with data
-intensive analysis are often retrospectively blamed on imperfections
-within the data that are seen as requiring "cleaning" before analysis
-can begin. It is unfortunate that the popular spreadsheet encourages a
-manually intensive formatting of data and the use of visualisation tools
-that do not scale well with data size
-[@Mack2018; @Bishop2013; @Powell2008].
+This contrasts with the typical approach where difficulties with data intensive analysis are often retrospectively blamed on imperfections within the data that are seen as requiring "cleaning" before analysis can begin. It is unfortunate that the popular spreadsheet encourages a manually intensive formatting of data and the use of visualisation tools that do not scale well with data size [@Mack2018; @Bishop2013; @Powell2008].
 
-Our alternative approach is consider data as observations of the real
-world that are to be interpreted through analysis, rather than formatted
-tables meeting arbitrary technical specifications.[^3] This also expands
-on an idea hinted at in the GoG example above: there is no need to
-rigidly define data format in advance since the real world is clearly
-independent of the methods we choose to observe and record. If we
-believe that the knowledge we seek is encapsulated within a set of
-observations, then we can choose a viewpoint where we see data as
-starting in an initial *inconvenient state*. It follows that we must
-transform it into a *convenient state* for analysis. By constructing a
-working theory supported with a mathematical description, we show that
-the transformation of *data state* can be generalised to allow the
-creation of re-usable code templates. To explain how re-framing the
-problem of *imperfect data* in terms of *data state* can make such a
-difference to the way in which we approach the analytical process, we
-must first construct a methodology that takes into account the nature of
-data.
+Our alternative approach is consider data as observations of the real world that are to be interpreted through analysis, rather than formatted tables meeting arbitrary technical specifications.[\^3] This also expands on an idea hinted at in the GoG example above: there is no need to rigidly define data format in advance since the real world is clearly independent of the methods we choose to observe and record. If we believe that the knowledge we seek is encapsulated within a set of observations, then we can choose a viewpoint where we see data as starting in an initial *inconvenient state*. It follows that we must transform it into a *convenient state* for analysis. By constructing a working theory supported with a mathematical description, we show that the transformation of *data state* can be generalised to allow the creation of re-usable code templates. To explain how re-framing the problem of *imperfect data* in terms of *data state* can make such a difference to the way in which we approach the analytical process, we must first construct a methodology that takes into account the nature of data.
