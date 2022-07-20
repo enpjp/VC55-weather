@@ -1,6 +1,6 @@
 ---
 title: "Achieving Analytical Fluency With Complex Data"
-subtitle: Do you have a subtitle? If so, write it here
+subtitle: Refining the analytical process
 titlerunning: Analytical Fluency
 thanks: |
   The authors acknowledge EPSRC grant: EP/R513088/1 for funding the doctoral research on which this work is based.
