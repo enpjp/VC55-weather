@@ -7,9 +7,9 @@
 #' @param place.name 
 #'
 #' @return
-#' @export
+#' @export get.weather.data.txt
 #'
-#' @examples
+
   get.weather.data.txt <- function(path.to.txt, 
                                    place.name = "Sutton.Bonnington",
                                    skip.rows = 5,

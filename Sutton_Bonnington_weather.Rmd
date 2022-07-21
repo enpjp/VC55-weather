@@ -64,10 +64,8 @@ The datum triple is the universal starting point for all data. Converting to thi
 Finally we can save the data in a machine readable format for reuse. Although we have termed this as `data-raw`, multiple choices have been made in its transformation into this state. It should be clear that this `state` makes no assumptions about numbers of fields in any observation.
 
 ```{r SaveRawData }
-path.to.save <- fs::path( 
- "data-raw","suttonboningtondata", ext = "rds")
-save.data.as.triple(suttonboningtondata,path.to.save )
 
+save.raw.data (suttonboningtondata,"suttonboningtondata")
 
 ```
 
