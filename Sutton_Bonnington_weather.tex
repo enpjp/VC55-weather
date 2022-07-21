@@ -184,21 +184,8 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Load Libraries}
+\begin{frame}{Load Libraries}
 \protect\hypertarget{load-libraries}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(tidyverse) }\CommentTok{\# Load all the Tidyverse packages }
-\CommentTok{\#in one go.}
-\FunctionTok{library}\NormalTok{(kableExtra) }\CommentTok{\# Enable advanced table styling}
-\FunctionTok{library}\NormalTok{(qqplotr) }\CommentTok{\# Enable QQ plots for statistical analysis}
-\FunctionTok{library}\NormalTok{(readr) }\CommentTok{\# Improved reading of text files}
-\FunctionTok{library}\NormalTok{(timeDate) }\CommentTok{\# Helper for time date manipulation}
-\FunctionTok{library}\NormalTok{(rprojroot) }\CommentTok{\# Useful utilities}
-\FunctionTok{library}\NormalTok{(fs) }\CommentTok{\# System independent file paths}
-\end{Highlighting}
-\end{Shaded}
-
 Load the Tidyverse libraries and other helpers before the analysis
 starts.
 \end{frame}
@@ -213,9 +200,14 @@ In addition we can also deduce the following fields using our
 understanding of what the data represents in the real world: place.name,
 latitude, longitude, height.amsl.metre
 
+We use the function \texttt{get.weather.data.txt()} to encapsulate all
+the actions necessary to achieve this in a way that is independent of
+the actual data.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{path.to.data }\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{(}\StringTok{"data{-}ext"}\NormalTok{, }\StringTok{"suttonboningtondata"}\NormalTok{, }\AttributeTok{ext =} \StringTok{"txt"}\NormalTok{)}
+\NormalTok{path.to.data }\OtherTok{\textless{}{-}}
+\NormalTok{  fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{(}\StringTok{"data{-}ext"}\NormalTok{, }\StringTok{"suttonboningtondata"}\NormalTok{, }\AttributeTok{ext =} \StringTok{"txt"}\NormalTok{)}
 \NormalTok{suttonboningtondata }\OtherTok{\textless{}{-}} \FunctionTok{get.weather.data.txt}\NormalTok{(path.to.data)}
 \end{Highlighting}
 \end{Shaded}
@@ -240,17 +232,6 @@ unique observation. Note that this format makes no presumptions about
 attributes, but it does require all data to be represented as
 characters. There is no reason to keep any attribute with a value of
 \texttt{NA} as the row contains no information.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{suttonbonington.triple }\OtherTok{\textless{}{-}}\NormalTok{ suttonboningtondata }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{map\_df}\NormalTok{(as.character) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\# Convert to character}
-  \FunctionTok{pivot\_longer}\NormalTok{(}\SpecialCharTok{!}\NormalTok{datumEntity, }\CommentTok{\# datumEntity as  key}
-  \AttributeTok{names\_to =} \StringTok{"datumAttribute"}\NormalTok{, }\CommentTok{\# Attribute name}
-  \AttributeTok{values\_to =} \StringTok{"datumValue"} \CommentTok{\# Save  value}
-\NormalTok{      ) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{drop\_na}\NormalTok{() }\CommentTok{\# Drop NAs}
-\end{Highlighting}
-\end{Shaded}
 \end{frame}
 
 \begin{frame}[fragile]{Saving The Raw Data}
@@ -260,20 +241,6 @@ Although we have termed this as \texttt{data-raw}, multiple choices have
 been made in its transformation into this state. It should be clear that
 this \texttt{state} makes no assumptions about numbers of fields in any
 observation.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{dir.create}\NormalTok{( }
-\NormalTok{          fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( }
-            \StringTok{"data{-}raw"}\NormalTok{ ),  }
-            \AttributeTok{showWarnings =} \ConstantTok{FALSE}\NormalTok{,}
-            \AttributeTok{recursive =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# }
-
-\NormalTok{path.to.save}\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( }
- \StringTok{"data{-}raw"}\NormalTok{,}\StringTok{"suttonboningtondata"}\NormalTok{, }\AttributeTok{ext =} \StringTok{"rds"}\NormalTok{)}
-\FunctionTok{saveRDS}\NormalTok{(suttonbonington.triple,path.to.save)}
-\end{Highlighting}
-\end{Shaded}
 \end{frame}
 
 \begin{frame}[fragile]{Starting The Analysis With Data-Raw}
@@ -281,21 +248,6 @@ observation.
 For the purpose of this vignette we load the \texttt{data-raw} to
 demonstrate the the analysis could start with multiple files using the
 search style loading.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Load data{-}raw}
-\NormalTok{path.to.data }\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( }
-                        \StringTok{"data{-}raw"}\NormalTok{)}
-\NormalTok{weather.data.triple }\OtherTok{\textless{}{-}} \FunctionTok{list.files}\NormalTok{(}
-\NormalTok{  path.to.data,}
-  \AttributeTok{pattern =} \StringTok{".rds$"}\NormalTok{, }\CommentTok{\# Make a suitable filter.}
-  \AttributeTok{full.names =} \ConstantTok{TRUE}\NormalTok{,}
-  \AttributeTok{recursive =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-\NormalTok{   purrr}\SpecialCharTok{::}\FunctionTok{map\_df}\NormalTok{(readRDS) }\SpecialCharTok{\%\textgreater{}\%}
-   \FunctionTok{rbind}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
 \end{frame}
 
 \begin{frame}[fragile]{File Contents}
@@ -340,18 +292,6 @@ From the raw data we now prepare \texttt{data-sl} which is a loosely
 defined format of convenience. All the attributes are in character
 format, but may be in many different units. Re-arranging into a wider
 format is helpful
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Prepare data{-}sl}
-\CommentTok{\# First prepare the long data}
-\NormalTok{VC55.weather.sl }\OtherTok{\textless{}{-}}\NormalTok{ weather.data.triple }\SpecialCharTok{\%\textgreater{}\%}
-                  \FunctionTok{pivot\_wider}\NormalTok{(}
-  \AttributeTok{id\_cols =}\NormalTok{ datumEntity,}
-  \AttributeTok{names\_from =}\NormalTok{ datumAttribute,}
-  \AttributeTok{values\_from =}\NormalTok{ datumValue)}
-\end{Highlighting}
-\end{Shaded}
 \end{frame}
 
 \begin{frame}[fragile]{Why Use Wide Format?}
@@ -369,60 +309,19 @@ proceed and see how all plots may be specified by changing the GoG
 verbs.
 \end{frame}
 
-\begin{frame}[fragile]{Create Data-ss}
+\begin{frame}{Create Data-ss}
 \protect\hypertarget{create-data-ss}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# But we are interesting in plotting the data by date so}
-
-\NormalTok{  VC55.weather.ss }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.sl }\SpecialCharTok{\%\textgreater{}\%} 
-    \FunctionTok{select}\NormalTok{(}\StringTok{"YYYYMMDD"}\NormalTok{, }
-           \StringTok{"tmax.degC"}\NormalTok{,}
-           \StringTok{"tmin.degC"}\NormalTok{,}
-           \StringTok{"airfrost.days"}\NormalTok{, }
-           \StringTok{"sun.hours"}\NormalTok{ ,}
-           \StringTok{"rain.mm"}\NormalTok{)     }\SpecialCharTok{\%\textgreater{}\%}
-            \FunctionTok{pivot\_longer}\NormalTok{(}\SpecialCharTok{!}\NormalTok{YYYYMMDD,}
-                  \AttributeTok{names\_to =} \StringTok{"datumAttribute"}\NormalTok{, }
-                  \AttributeTok{values\_to =} \StringTok{"datumValue"}\NormalTok{) }
-\end{Highlighting}
-\end{Shaded}
 \end{frame}
 
-\begin{frame}[fragile]{Specify Data types}
+\begin{frame}{Specify Data types}
 \protect\hypertarget{specify-data-types}{}
 At this point we can specify data types as Date and numeric for
 analysis.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Specify data types}
-\NormalTok{VC55.weather.ss}\SpecialCharTok{$}\NormalTok{YYYYMMDD }\OtherTok{\textless{}{-}}  
-\NormalTok{  VC55.weather.ss}\SpecialCharTok{$}\NormalTok{YYYYMMDD }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ as.Date}
-\NormalTok{VC55.weather.ss}\SpecialCharTok{$}\NormalTok{datumValue }\OtherTok{\textless{}{-}} 
-\NormalTok{  VC55.weather.ss}\SpecialCharTok{$}\NormalTok{datumValue }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{as.numeric}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
 \end{frame}
 
 \begin{frame}[fragile]{Save Data-ss}
 \protect\hypertarget{save-data-ss}{}
 We can now save into \texttt{data-ss}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{dir.create}\NormalTok{( }
-\NormalTok{          fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( }
-            \StringTok{"data{-}ss"}\NormalTok{ ),  }
-            \AttributeTok{showWarnings =} \ConstantTok{FALSE}\NormalTok{,}
-            \AttributeTok{recursive =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# Create the directory}
-\CommentTok{\#And save.}
-\NormalTok{path.to.save.ss}\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( }
-                               \StringTok{"data{-}ss"}\NormalTok{,}\StringTok{"VC55.weather.ss"}\NormalTok{,}
-                            \AttributeTok{ext =} \StringTok{"rds"}\NormalTok{)}
-\FunctionTok{saveRDS}\NormalTok{(VC55.weather.ss, path.to.save.ss)}
-\end{Highlighting}
-\end{Shaded}
 \end{frame}
 
 \begin{frame}[fragile]{Why Save Data-ss?}
@@ -436,22 +335,8 @@ would make sense to rename the data to something more appropriate. The
 named method of loading is included as comments for comparison.
 \end{frame}
 
-\begin{frame}[fragile]{Load Data-ss}
+\begin{frame}{Load Data-ss}
 \protect\hypertarget{load-data-ss}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Load data{-}ss}
-\NormalTok{path.to.data.ss }\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{(}\StringTok{"data{-}ss"}\NormalTok{)}
-
-\NormalTok{VC55.weather.ss }\OtherTok{\textless{}{-}} \FunctionTok{list.files}\NormalTok{(}
-\NormalTok{  path.to.data.ss,}
-  \AttributeTok{pattern =} \StringTok{".rds"}\NormalTok{, }\CommentTok{\# Make a suitable filter. }
-  \CommentTok{\# Use the dot for a wildcard.}
-  \AttributeTok{full.names =} \ConstantTok{TRUE}\NormalTok{,}
-  \AttributeTok{recursive =} \ConstantTok{TRUE}\NormalTok{)  }\SpecialCharTok{\%\textgreater{}\%}
-\NormalTok{  purrr}\SpecialCharTok{::}\FunctionTok{map\_df}\NormalTok{(readRDS) }
-\end{Highlighting}
-\end{Shaded}
 \end{frame}
 
 \begin{frame}[fragile]{A Simple Check Plot}
@@ -459,21 +344,6 @@ named method of loading is included as comments for comparison.
 By faceting on \texttt{datumAttribute} we can produce a separate graph
 for each attribute. While is shows we have data, each graph has
 different units, so the scales do not make sense.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data.to.plot }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.ss}
-\NormalTok{data.to.plot }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
-\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{colour =}\NormalTok{ datumAttribute, }
-           \AttributeTok{x=}\NormalTok{ YYYYMMDD, }
-           \AttributeTok{y =}\NormalTok{datumValue, }
-           \AttributeTok{group =}\NormalTok{ datumAttribute) ) }\SpecialCharTok{+} 
- \CommentTok{\# geom\_point() +}
-  \FunctionTok{geom\_smooth}\NormalTok{( }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }
-     \AttributeTok{method =} \StringTok{"loess"}\NormalTok{, }\AttributeTok{formula =} \StringTok{"y \textasciitilde{} x"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ datumAttribute)}
-\end{Highlighting}
-\end{Shaded}
 \end{frame}
 
 \begin{frame}[fragile]{Simple Check Plot}
@@ -485,29 +355,10 @@ different units, so the scales do not make sense.
 \begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-beamer/SimpleCheckPlot-1} \end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Normalising With Z-scores}
+\begin{frame}{Normalising With Z-scores}
 \protect\hypertarget{normalising-with-z-scores}{}
 However, if we use z-scores instead then each plot is normalised against
 zero and the standard deviation.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data.to.plot }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.ss}
-\NormalTok{ data.to.plot }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(datumAttribute) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{mutate}\NormalTok{( }\AttributeTok{value =}\NormalTok{ datumValue,}
-  \AttributeTok{Z.score =} 
-\NormalTok{    (datumValue }\SpecialCharTok{{-}}\FunctionTok{mean}\NormalTok{(datumValue))}\SpecialCharTok{/}\FunctionTok{sd}\NormalTok{(datumValue)}
-\NormalTok{        ) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{( }\FunctionTok{aes}\NormalTok{(}\AttributeTok{colour =}\NormalTok{ datumAttribute, }
-              \AttributeTok{x=}\NormalTok{ YYYYMMDD, }\AttributeTok{y =}\NormalTok{Z.score, }
-              \AttributeTok{group =}\NormalTok{ datumAttribute) ) }\SpecialCharTok{+} 
-              \FunctionTok{geom\_smooth}\NormalTok{( }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }
-                           \AttributeTok{method =} \StringTok{"loess"}\NormalTok{, }
-                           \AttributeTok{formula =} \StringTok{"y \textasciitilde{} x"}\NormalTok{) }\SpecialCharTok{+} 
-              \FunctionTok{scale\_colour\_viridis\_d}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
 \end{frame}
 
 \begin{frame}{Plotting With Z-scores}
@@ -518,28 +369,8 @@ loess regression for each attribute.
 \begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-beamer/NormalisingWithZScore-1} \end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Checking Data Distribution}
+\begin{frame}{Checking Data Distribution}
 \protect\hypertarget{checking-data-distribution}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{my.dist }\OtherTok{\textless{}{-}} \StringTok{"norm"}
-\NormalTok{data.to.plot }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.ss}
-\NormalTok{ data.to.plot }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(datumAttribute) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{mutate}\NormalTok{( }\AttributeTok{value =}\NormalTok{ datumValue,}
-      \AttributeTok{Z.score =} 
-\NormalTok{        (datumValue }\SpecialCharTok{{-}}\FunctionTok{mean}\NormalTok{(datumValue))}\SpecialCharTok{/}\FunctionTok{sd}\NormalTok{(datumValue)}
-\NormalTok{        ) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{( }
-                      \AttributeTok{group =}\NormalTok{ datumAttribute,}
-                      \AttributeTok{sample =}\NormalTok{ Z.score)) }\SpecialCharTok{+}
-    \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ my.dist) }\SpecialCharTok{+}
-   \FunctionTok{stat\_qq\_point}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ my.dist) }\SpecialCharTok{+} 
-  \FunctionTok{scale\_colour\_viridis\_d}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Z{-}score compared to normal distribution"}\NormalTok{) }\SpecialCharTok{+} 
-   \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ datumAttribute)}
-\end{Highlighting}
-\end{Shaded}
 \end{frame}
 
 \begin{frame}{Q-Q Plot Z-score Compared To Normal Distribution}
@@ -559,47 +390,15 @@ Temperature, and Annual Minimum Temperature. Again GoG comes to the
 rescue and we can quickly produce the following plots.
 \end{frame}
 
-\begin{frame}[fragile]{Weather Plots In Native Units}
+\begin{frame}{Weather Plots In Native Units}
 \protect\hypertarget{weather-plots-in-native-units}{}
 For convenience, the plot routine has been written as a function so we
 can get all the plots quickly by reusing the code and just changing the
 selection attribute.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{ggfun }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(dat, nice.title)\{}
-\NormalTok{  plot.output }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ dat,}
-                \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ YYYY,}
-                    \AttributeTok{y =}\NormalTok{ annual)) }\SpecialCharTok{+}
-    \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
-    \FunctionTok{geom\_smooth}\NormalTok{( }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }
-             \AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{formula =} \StringTok{"y \textasciitilde{} x"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{()}\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{( nice.title ) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(nice.title)}
-  \FunctionTok{return}\NormalTok{(plot.output)}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
 \end{frame}
 
-\begin{frame}[fragile]{Filter The Data}
+\begin{frame}{Filter The Data}
 \protect\hypertarget{filter-the-data}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Weather "tmax.degC"     "tmin.degC"    }
-\CommentTok{\# "airfrost.days" "sun.hours"     "rain.mm"}
-\NormalTok{data.to.plot.local }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.ss[}
-\NormalTok{  VC55.weather.ss}\SpecialCharTok{$}\NormalTok{datumAttribute }\SpecialCharTok{==} \StringTok{"airfrost.days"}\NormalTok{, ]}
-\NormalTok{data.to.plot.local}\SpecialCharTok{$}\NormalTok{YYYY }\OtherTok{\textless{}{-}} \FunctionTok{format}\NormalTok{(}
-\NormalTok{  data.to.plot.local}\SpecialCharTok{$}\NormalTok{YYYYMMDD, }\AttributeTok{format =} \StringTok{"\%Y"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
-    \FunctionTok{as.numeric}\NormalTok{()}
-\NormalTok{data.to.plot.annual }\OtherTok{\textless{}{-}}\NormalTok{ data.to.plot.local }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(YYYY) }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{mutate}\NormalTok{( }
-  \CommentTok{\# Change to max, min etc. as required.}
-          \AttributeTok{annual =} \FunctionTok{sum}\NormalTok{(datumValue)}
-\NormalTok{        ) }
-\end{Highlighting}
-\end{Shaded}
 \end{frame}
 
 \begin{frame}{Plot Total Airfrost Days}

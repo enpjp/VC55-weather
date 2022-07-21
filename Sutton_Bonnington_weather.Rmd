@@ -13,7 +13,7 @@ output:
 ---
 ```{r echo=FALSE}
 # Set chunk visibility 
-see.chunk <- TRUE
+see.chunk <- FALSE
 ```
 
 
@@ -40,9 +40,12 @@ The source data is a text file that contains the following nominal data fields i
 In addition we can also deduce the following fields using our understanding of what the data represents in the real world:
 place.name, latitude, longitude, height.amsl.metre
 
+We use the function `get.weather.data.txt()` to encapsulate all the actions necessary to achieve this in a way that is independent of the actual data.
 
-```{r}
-path.to.data <- fs::path("data-ext", "suttonboningtondata", ext = "txt")
+
+```{r echo=TRUE}
+path.to.data <-
+  fs::path("data-ext", "suttonboningtondata", ext = "txt")
 suttonboningtondata <- get.weather.data.txt(path.to.data)
 ```
 
@@ -51,33 +54,19 @@ suttonboningtondata <- get.weather.data.txt(path.to.data)
 
 The long datum triple format requires the explicit use of a unique identifier for each row which we call `datumEntity`. When data is in a wide format, as at present, the identifier is implicit as in the row number, but this is a relative term that is affected by order. The analysis that follows uses the advantages that are brought with an explicit definition.
 
+
 # Working With Datum Triples
 
 The datum triple is the universal starting point for all data. Converting to this format allows us to combine data from multiple sources, as long as the `datumEntity` only ever refers to a unique observation. Note that this format makes no presumptions about attributes, but it does require all data to be represented as characters. There is no reason to keep any attribute with a value of `NA` as the row contains no information.
-
-```{r CreateDatumTriple}
-suttonbonington.triple <- suttonboningtondata %>% 
-  map_df(as.character) %>% # Convert to character
-  pivot_longer(!datumEntity, # datumEntity as  key
-  names_to = "datumAttribute", # Attribute name
-  values_to = "datumValue" # Save  value
-      ) %>% drop_na() # Drop NAs
-```
 
 # Saving The Raw Data
 
 Finally we can save the data in a machine readable format for reuse. Although we have termed this as `data-raw`, multiple choices have been made in its transformation into this state. It should be clear that this `state` makes no assumptions about numbers of fields in any observation.
 
 ```{r SaveRawData }
-dir.create( 
-          fs::path( 
-            "data-raw" ),  
-            showWarnings = FALSE,
-            recursive = TRUE) # 
-
-path.to.save<- fs::path( 
+path.to.save <- fs::path( 
  "data-raw","suttonboningtondata", ext = "rds")
-saveRDS(suttonbonington.triple,path.to.save)
+save.data.as.triple(suttonboningtondata,path.to.save )
 
 
 ```
