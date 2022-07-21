@@ -948,7 +948,7 @@ analysis of data too large to manually handle, that is, "Big Data".
     manipulated by manually intensive methods.
 
 [^3]: The philosophical basis for this interpretation to is described in
-    Section [4](#sec:the-definition-of-data-){reference-type="ref"
+    Section [4](#sec:the-definition-of-data-){reference-type="ref"
     reference="sec:the-definition-of-data-"}
 
 [^4]: The location was chosen because it was the closest to Loughborough

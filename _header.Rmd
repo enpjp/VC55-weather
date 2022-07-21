@@ -32,3 +32,21 @@ library(fs) # System independent file paths
 
 ```
 
+```{r echo=FALSE}
+# Load functions from functions directory
+
+#absolute.path <- rprojroot::find_rstudio_root_file()
+
+function.path <- list.files(fs::path("functions"),  full.names = TRUE)
+
+for(file.r in function.path) {
+
+  source(file.r)
+}
+
+
+
+
+```
+
+

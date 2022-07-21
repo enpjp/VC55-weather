@@ -17,11 +17,6 @@ see.chunk <- TRUE
 ```
 
 
-```{r child = "_header.Rmd"}
-
-```
-
-
 # Introduction
 
 -   The purpose of this vignette is a practical demonstration of reusable templates based upon the novel concept of data state.
@@ -29,6 +24,11 @@ see.chunk <- TRUE
 -   It is not the intention to analyse climate change, but the trends uncovered are striking, even in this single public domain source.
 
 # Load Libraries
+
+```{r child = "_header.Rmd"}
+
+```
+
 
 Load the Tidyverse libraries and other helpers before the analysis starts.
 
@@ -42,8 +42,7 @@ The absolute path helps to write code that is computer independent but it does u
 ```{r ReadData }
 
 absolute.path <- rprojroot::find_rstudio_root_file()
-path.to.my.data <- fs::path( absolute.path,
-                             "data-ext",
+path.to.my.data <- fs::path(  "data-ext",
                              "suttonboningtondata", 
                             ext = "txt")
 ```
@@ -142,8 +141,7 @@ There are also some data attributes which were described in the five lines of te
 # manually name some values
 suttonboningtondata$place <- "Sutton Bonnington"
 suttonboningtondata$lattitude <- 52.833
-suttonboningtondata$logitude <- 52.833
-suttonboningtondata$logitude <- -1.250
+suttonboningtondata$longitude <- -1.250
 suttonboningtondata$easting <- 450700
 suttonboningtondata$northing <- 325900
 suttonboningtondata$height.amsl.metre <- 48

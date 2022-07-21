@@ -64,36 +64,61 @@ see.chunk <- FALSE
 
 Scientific analysis is formally presented as a rigid process typically comprising: Review; Theory; Research question; Methodology; Experiment; Analysis, Evaluation; and Conclusions. This is a powerful framework that has stood the test of time which is the underlying format of countless academic publications. But just because this format is rigid, does not mean that there is no opportunity to improve the method used to achieve it.
 
-If we look deeper, we can start to separate the actual process of scientific discovery from the way in which it is reported. The documentation of research and analysis that has already been completed, is very different to an exploration where the outcomes are as yet unknown. Nobel Prize winner @Szent-Gyorgyi1972 discussed this issue in 1972, long before the age of computers and "Big Data"[\^2] introduced computational and data intensive research methods [@Szent-Gyorgyi1972]. He described the Apollonian as following a formally prescribed research path while a Dionysian explores the unknown. However, research and reporting are necessarily linked and one should be a clear and true interpretation of the other.
+If we look deeper, we can start to separate the actual process of scientific discovery from the way in which it is reported. The documentation of research and analysis that has already been completed, is very different to an exploration where the outcomes are as yet unknown. Nobel Prize winner @Szent-Gyorgyi1972 discussed this issue in 1972, long before the age of computers and "Big Data"[^1] introduced computational and data intensive research methods [@Szent-Gyorgyi1972]. He described the Apollonian as following a formally prescribed research path while a Dionysian explores the unknown. However, research and reporting are necessarily linked and one should be a clear and true interpretation of the other.
+
+[^1]: By "Big Data" we mean data that is too big to be conveniently manipulated by manually intensive methods.
 
 We argue here that this presumption the analytical process should follow the final method of presentation is a hindrance to the adoption of new analytical techniques. The term "reproducible research" has been coined to describe this linkage, without defining how it may be achieved, leading to discussion on the topic by [@Stodden2014; @Lewis2018a; @Leeper2014; @Gentleman2007; @Peng2015; @Drummond2018] and others.
 
-Two questions arise from these discussions which we seek to address in the following sections: the first is to justify why there is a need for new analytical techniques, given that the existing ones still work? The second is: how can changing our abstract perception of data beneficially impact the analytical process?
+Two questions arise from these discussions which we seek to address in the following sections: the first is to justify why there is a need for new analytical techniques, given that the existing ones still work? The second relates to the concepts we introduce in this work: how can changing our abstract perception of data beneficially impact the analytical process?
 
 Both the need and benefit are illustrated by the "Grammar of Graphics" (GoG) paradigm [@Wilkinson2010]. GoG uses combinations of transforms to generate every possible graphic and tabulation from data that is presented in a suitable state. Thus, a researcher planning to use GoG will focus on saving research data in suitable state, so she can make many dynamic visualisations as work progresses, rather than waiting for the end of the data collation phase.
 
 This contrasts with the typical approach where difficulties with data intensive analysis are often retrospectively blamed on imperfections within the data that are seen as requiring "cleaning" before analysis can begin. It is unfortunate that the popular spreadsheet encourages a manually intensive formatting of data and the use of visualisation tools that do not scale well with data size [@Mack2018; @Bishop2013; @Powell2008].
 
-Our alternative approach is consider data as observations of the real world that are to be interpreted through analysis, rather than formatted tables meeting arbitrary technical specifications.[\^3] This also expands on an idea hinted at in the GoG example above: there is no need to rigidly define data format in advance since the real world is clearly independent of the methods we choose to observe and record. If we believe that the knowledge we seek is encapsulated within a set of observations, then we can choose a viewpoint where we see data as starting in an initial *inconvenient state*. It follows that we must transform it into a *convenient state* for analysis. By constructing a working theory supported with a mathematical description, we show that the transformation of *data state* can be generalised to allow the creation of re-usable code templates. To explain how re-framing the problem of *imperfect data* in terms of *data state* can make such a difference to the way in which we approach the analytical process, we must first construct a methodology that takes into account the nature of data.
+Our alternative approach is consider data as observations of the real world that are to be interpreted through analysis, rather than formatted tables meeting arbitrary technical specifications. This also expands on an idea hinted at in the GoG example above: there is no need to rigidly define data format in advance since the real world is clearly independent of the methods we choose to observe and record. If we believe that the knowledge we seek is encapsulated within a set of observations, then we can choose a viewpoint where we see data as starting in an initial *inconvenient state*. It follows that we must transform it into a *convenient state* for analysis. By constructing a working theory supported with a mathematical description, we show that the transformation of *data state* can be generalised to allow the creation of re-usable code templates. To explain how re-framing the problem of *imperfect data* in terms of *data state* can make such a difference to the way in which we approach the analytical process, we must first construct a methodology that takes into account the nature of data.
 
 # Methodology {#sec:methodology}
 
 The two questions we seek to answer are: "Why develop new analytical techniques, given that the existing ones still work?" and "How can changing our abstract perception of data beneficially impact the analytical process?" To achieve this goal we follow a pragmatic methodology that draws inspiration from the critical realism philosophy of [@Bhaskar2008] which gives context to data as observations arising from an unknowable real world. Our methodology is pragmatic in that we use public domain weather data as the case study for each step in our analytical approach. This data has the following characteristics:
 
-    -   Open Source;
+-   Open Source;
+-   Presented in an inconvenient state for analysis;
+-   Multiple units of measure;
+-   Extensible, in that related similar sources are available.
 
-    -   Presented in an inconvenient state for analysis;
+We do not, however, try to justify the analytical *results* from our case study, as the intent of this work is to demonstrate how *analytical fluency* can be achieved when faced with the complexities of real data. The reason for this caveat is due the topical subject of the case study and how it relates to the future of the real world. We emphasise that our analysis of past events is not a model for extrapolating future events.
 
-    -   Multiple units of measure;
+In early drafts of this work, the case study was envisaged as a separate document, but this approach felt very artificial, and the benefits of fluency were unconvincing when presented in this way. We have rewritten it so in a recursive sense this article is a case study about the techniques used to write it. This presents a challenge on how best to structure this document to convey the essentials of the techniques we propose and allow the reader to critique the approach.
 
-    -   Extensible, in that related similar sources are available.
+A further challenge is that that the final output will be a static document rendered from the dynamic components and will look no different from any other document. Since we cannot produce a dynamic document on paper, we will produce a report and a presentation from the same data using the same reusable elements. Given that the weather data is regularly updated though time, and there are many sources of such data, we aim to show that the overall effort of creating documents using analytically fluent methodologies is much less than repeating the same work with manually intensive processes.
 
-We do not, however, try to justify the analytical *results* from our case study, as the intent of this work is to demonstrate how *analytical fluency* can be achieved when faced with the complexities of real data. The reason for this caveat is due to the topical subject of the case study and how it relates to the unknowable real world.
+The work is presented in the following order:
 
-Throughout this work we have based the practical analysis on the R Analytical language [@RCoreTeam2017]. In principle, the techniques presented here would work with other languages such as Python [@Gentleman2007], but their potential has not been explored.
+-   Data Definition:
+    -   Consider the philosophical nature of data with special reference to the case study to create a data model.
+-   Apply the model:
+    - The practical demonstration of data ready for analysis.
+- Template Concept:
+    - Building reusable programmatic elements for analysis.
+- Template Evaluation:
+  - A demonstration and evaluation of the template and its role in supporting analytical fluency.
+  
+Throughout this work we have based the practical analysis on the R Analytical language [@RCoreTeam2017]. In principle, the techniques presented here would work with other languages such as Python
+[@Gentleman2007], but their potential has not been explored. The detailed implementation can be found at the Github repository xxxxxxx. A presentation using the same code elements is also presented alongside the "paper" format. While this serves to demonstrate the re-usability of code, it was created as a container for the visualisations used prior to the creation of the supporting narrative. Simply put, it was easier to create both presentation and report.
 
-In early drafts of this work, the case study was envisaged as a separate document, but this approach felt very artificial, and the benefits of fluency were unconvincing when presented in this way. We have rewritten it so in a recursive sense this article is a case study about the techniques used to write it.
+# Case Study Data {#sec:case-study}
 
-This presents a challenge on how best to structure this document to convey the essentials of the techniques we propose and allow the reader to critique the approach. A further challenge is that that the final output will be a static document rendered from the dynamic components and will look no different from any other document. Since we cannot produce a dynamic document on paper, we will produce a report and a presentation from the same data using the same reusable elements. Given that the weather data is regularly updated though time, and there are many sources of such data, we aim to show that the overall effort of creating documents using analytically fluent methodologies is much less than repeating the same work with manually intensive processes.
+The case study uses data from the Sutton Bonnington long term
+weather monitoring station which is freely available online from
+[@UKMetrologicalOffice2022]. As
+Figure [1](#fig:suttonbonningtondata){reference-type="ref"
+reference="fig:suttonbonningtondata"} shows, it contains observations
+from 1959 to the present day, and is presented as a text file in an
+inconvenient format for analysis. The files contain a series of weather
+related observations in various units. To complicate matters some are
+annotated and some are missing. Multiple similar source files available
+for download, so the issues in this file are typical of a much larger
+data set.
 
 # References
