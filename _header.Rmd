@@ -5,7 +5,7 @@
 # To print a version of this document without code set echo = FALSE. 
 #Include false will ignore the code chunk completely!
 knitr::opts_chunk$set(include = TRUE, 
-                      echo = see.chunk, 
+                      echo = FALSE, 
                       warning=FALSE, 
                       message=FALSE, 
                       error=FALSE, 
