@@ -269,6 +269,70 @@ introducing a terminology of ``data state'' to describe the changes in
 data presentation that do not affect the inherent knowledge contained
 within it. Looking ahead to Table 1 and our terminology it is clear that the data as supplied is what we term as Data \emph{nascent} and that the \emph{Nominal} data fields are equivalent to the column format proposed earlier in the previous paragraph. These interpretations are based entirely on what we believe the data represents about the real world and our analytical intent, if our research was to examine the observational impact of changes in meteorological recording equipment in the accuracy of long term records, then we would clearly need additional nominal data fields.
 
+As the reader will see as the case study is developed, there has been a
+noticeable trend in Sutton Bonnington local climate over the past 60
+years which can be demonstrated by anyone who cares to examine the
+public records. But a demonstration of an historical trend is does not
+necessarily predict the future, which is why much scientific effort is
+expended on developing predictive models.It is the goal of this work is
+to demonstrate an effective approach to data driven analysis, so we
+focus on the techniques used, rather than the analytical results.
+
+The definitions associated with our approach of data state are presented
+in Figure \ref{fig:TerminologyIntroduction}. The term ``Nascent data'' is
+used in this work to distinguish it from the term ``raw data'', which is
+frequently applied to data which has already been filtered and
+transformed in some way, rather than to data which is truly in its ``raw''
+state. Justification for this viewpoint is found in work by
+(Bowker et al. 2013) whom collate a series of essays challenging presumptions
+on the nature of raw data. These illustrate scenarios across multiple
+scientific domains where ``raw data'' has been transformed and filtered by
+processes applied prior to incorporation into a formal methodology. This
+should not be seen as an attack on the \emph{accuracy} of data used in the
+scientific method, but instead is looking past the attractive simplicity
+of idealised data into the underlying real world complexity, and the
+need to describe \emph{all} the processes needed to access that data.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{standalone-states-nascent} 
+
+}
+
+\caption{ Data representation}\label{fig:FigTheoryNascentData}
+\end{figure}
+
+With this introduction in mind, nascent data are conceptually
+represented in data definition of
+Figure \ref{fig:FigTheoryNascentData}, after Fox and Levitin (1994), as the starting
+point for the application of the template approach developed in this
+work.
+
+The model for recording observations of the real world is to save data
+as ``Datum Triples'', consisting of Entity, Attribute, and Value. An
+Entity uniquely identifies the thing that is being observed. An
+Attribute is the property being observed, and the Value may be
+numerical, logical, categorical or any other representation of the
+observation. This approach is versatile as it allows for the definition
+of new attributes on-the-fly since it makes no presumption about the
+final data format. The philosophical foundation for this approach in
+information systems was explored by (Dobson 2001). Using this reasoning,
+our observations are used to build theories that are tested against the
+real world leading to a better understanding of reality. We regard data
+as observations and see the widely accepted ``Dirty Data'' viewpoint as
+just one possible theory that describes \emph{imperfect data}. We propose
+here ``Data State'' as an alternative approach, and empirically test it
+using the case study data.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{terminology-introduction} 
+
+}
+
+\caption{Terminology introduction.}\label{fig:TerminologyIntroduction}
+\end{figure}
+
 \hypertarget{references}{%
 \section*{References}\label{references}}
 \addcontentsline{toc}{section}{References}
@@ -281,8 +345,17 @@ Bhaskar, Prof. Roy. 2008. \emph{{A Realist Theory of Science}}. London, UK: Vers
 \leavevmode\vadjust pre{\hypertarget{ref-Bishop2013}{}}%
 Bishop, Katrina. 2013. {``{Spreadsheet blunders costing business billions}.''} Englewood Cliffs, New Jersey,USA. \url{https://www.cnbc.com/id/100923538}.
 
+\leavevmode\vadjust pre{\hypertarget{ref-Bowker2013}{}}%
+Bowker, Geoffrey C., Kevin R. Brine, Ellen Gruber Garvey, Lisa Gitelman, Steven J. Jackson, Jackson Virginia, Markus Krajewski, et al. 2013. \emph{{{``Raw data''} is an oxymoron(Infrastructures)}}. London, UK: MIT Press.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Dobson2001}{}}%
+Dobson, Philip J. 2001. {``{The Philosophy of Critical Realism - An Opportunity for Information Systems Research}.''} \emph{Information Systems Frontiers} 3 (2): 199--210. \url{https://doi.org/10.1023/A:1011495424958}.
+
 \leavevmode\vadjust pre{\hypertarget{ref-Drummond2018}{}}%
 Drummond, Chris. 2018. {``{Reproducible research: a minority opinion}.''} \emph{Journal of Experimental and Theoretical Artificial Intelligence} 30 (1): 1--11. \url{https://doi.org/10.1080/0952813X.2017.1413140}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Fox1994}{}}%
+Fox, Christopher, and Anany Levitin. 1994. {``{The notion of data and its quality dimensions}.''} \emph{Information Processing and Management} 30 (1): 9--19. \url{https://doi.org/10.1016/0306-4573(94)90020-5}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-Gentleman2007}{}}%
 Gentleman, Robert, and Duncan Temple Lang. 2007. {``{Statistical Analyses and Reproducible Research}.''} \emph{Journal of Computational and Graphical Statistics} 16 (1): 1--23. \url{https://doi.org/10.1198/106186007X178663}.
