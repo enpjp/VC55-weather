@@ -246,22 +246,28 @@ The work is presented in the following order:
   \end{itemize}
 \end{itemize}
 
-Throughout this work we have based the practical analysis on the R Analytical language (R Core Team 2022). In principle, the techniques presented here would work with other languages such as Python
-(Gentleman and Temple Lang 2007), but their potential has not been explored. The detailed implementation can be found at the Github repository xxxxxxx. A presentation using the same code elements is also presented alongside the ``paper'' format. While this serves to demonstrate the re-usability of code, it was created as a container for the visualisations used prior to the creation of the supporting narrative. Simply put, it was easier to create both presentation and report.
+Throughout this work we have based the practical analysis on the R Analytical language (R Core Team 2022). In principle, the techniques presented here would work with other languages such as Python (Gentleman and Temple Lang 2007), but their potential has not been explored. The detailed implementation can be found at the Github repository xxxxxxx. A presentation using the same code elements is also presented alongside the ``paper'' format. While this serves to demonstrate the re-usability of code, it was created as a container for the visualisations used prior to the creation of the supporting narrative. Simply put, it was easier to create both presentation and report.
 
 \hypertarget{sec:case-study}{%
 \section{Case Study Data}\label{sec:case-study}}
 
-The case study uses data from the Sutton Bonnington long term
-weather monitoring station which is freely available online from
-(UK Metrological Office 2022). As
-Figure \protect\hyperlink{fig:suttonbonningtondata}{1} shows, it contains observations
-from 1959 to the present day, and is presented as a text file in an
-inconvenient format for analysis. The files contain a series of weather
-related observations in various units. To complicate matters some are
-annotated and some are missing. Multiple similar source files available
-for download, so the issues in this file are typical of a much larger
-data set.
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{image_Sutton_bonnington_data} 
+
+}
+
+\caption{Source data showing the initial inconvenient state for analysis.}\label{fig:ImageSuttonBonningtonData}
+\end{figure}
+
+The case study uses data from the Sutton Bonnington long term weather monitoring station which is freely available online from (UK Metrological Office 2022). As Figure \ref{fig:ImageSuttonBonningtonData} shows, it contains observations from 1959 to the present day, and is presented as a text file in an inconvenient format for analysis. The files contain a series of weather related observations in various units. To complicate matters some are annotated and some are missing.
+
+However, if we unpick the file shown in Figure \ref{fig:ImageSuttonBonningtonData} we can see that the UK Metrological Office statement that the file contains a ``time series of monthly data'' is true, but the data is not useable ``as is'' due to the way in which it is formatted. If we were to alter the observations it contains into a series of columns labelled: Date, Maximum temperature, Minimum temperature, etc., we would accept these as data for analysis, and possibly even present this revised format as ``raw data'' in a formal report with the justification that ``nothing has been changed.''
+
+Our reason for emphasising these points are to lay the foundation for
+introducing a terminology of ``data state'' to describe the changes in
+data presentation that do not affect the inherent knowledge contained
+within it. Looking ahead to Table 1 and our terminology it is clear that the data as supplied is what we term as Data \emph{nascent} and that the \emph{Nominal} data fields are equivalent to the column format proposed earlier in the previous paragraph. These interpretations are based entirely on what we believe the data represents about the real world and our analytical intent, if our research was to examine the observational impact of changes in meteorological recording equipment in the accuracy of long term records, then we would clearly need additional nominal data fields.
 
 \hypertarget{references}{%
 \section*{References}\label{references}}
@@ -288,7 +294,7 @@ Leeper, J., Thomas. 2014. {``{Archiving Reproducible Research with R and Dataver
 Lewis, Keith P., Eric Vander Wal, and David A. Fifield. 2018. {``{Wildlife biology, big data, and reproducible research}.''} \emph{Wildlife Society Bulletin} 42 (1): 172--79. \url{https://doi.org/10.1002/wsb.847}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-Mack2018}{}}%
-Mack, Kelly, John Lee, Kevin Chang, Karrie Karahalios, and Aditya Parameswaran. 2018. {``{Characterizing Scalability Issues in Spreadsheet Software using Online Forums}.''} University of Illinois. \href{http://arxiv.org/abs/1801.03829\%20https://arxiv.org/pdf/1801.03829.pdf}{http://arxiv.org/abs/1801.03829 https://arxiv.org/pdf/1801.03829.pdf}.
+Mack, Kelly, John Lee, Kevin Chang, Karrie Karahalios, and Aditya Parameswaran. 2018. {``{Characterizing Scalability Issues in Spreadsheet Software using Online Forums}.''} University of Illinois. \url{http://arxiv.org/abs/1801.03829}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-Peng2015}{}}%
 Peng, Roger. 2015. {``{The reproducibility crisis in science: A statistical counterattack}.''} \emph{Significance} 12 (3): 30--32. \url{https://doi.org/10.1111/j.1740-9713.2015.00827.x}.

@@ -98,27 +98,28 @@ The work is presented in the following order:
 -   Data Definition:
     -   Consider the philosophical nature of data with special reference to the case study to create a data model.
 -   Apply the model:
-    - The practical demonstration of data ready for analysis.
-- Template Concept:
-    - Building reusable programmatic elements for analysis.
-- Template Evaluation:
-  - A demonstration and evaluation of the template and its role in supporting analytical fluency.
-  
-Throughout this work we have based the practical analysis on the R Analytical language [@RCoreTeam2017]. In principle, the techniques presented here would work with other languages such as Python
-[@Gentleman2007], but their potential has not been explored. The detailed implementation can be found at the Github repository xxxxxxx. A presentation using the same code elements is also presented alongside the "paper" format. While this serves to demonstrate the re-usability of code, it was created as a container for the visualisations used prior to the creation of the supporting narrative. Simply put, it was easier to create both presentation and report.
+    -   The practical demonstration of data ready for analysis.
+-   Template Concept:
+    -   Building reusable programmatic elements for analysis.
+-   Template Evaluation:
+    -   A demonstration and evaluation of the template and its role in supporting analytical fluency.
+
+Throughout this work we have based the practical analysis on the R Analytical language [@RCoreTeam2017]. In principle, the techniques presented here would work with other languages such as Python [@Gentleman2007], but their potential has not been explored. The detailed implementation can be found at the Github repository xxxxxxx. A presentation using the same code elements is also presented alongside the "paper" format. While this serves to demonstrate the re-usability of code, it was created as a container for the visualisations used prior to the creation of the supporting narrative. Simply put, it was easier to create both presentation and report.
 
 # Case Study Data {#sec:case-study}
 
-The case study uses data from the Sutton Bonnington long term
-weather monitoring station which is freely available online from
-[@UKMetrologicalOffice2022]. As
-Figure [1](#fig:suttonbonningtondata){reference-type="ref"
-reference="fig:suttonbonningtondata"} shows, it contains observations
-from 1959 to the present day, and is presented as a text file in an
-inconvenient format for analysis. The files contain a series of weather
-related observations in various units. To complicate matters some are
-annotated and some are missing. Multiple similar source files available
-for download, so the issues in this file are typical of a much larger
-data set.
+```{r ImageSuttonBonningtonData, fig.cap= "Source data showing the initial inconvenient state for analysis."}
+
+knitr::include_graphics("image_Sutton_bonnington_data.png", dpi = 700 )
+```
+
+The case study uses data from the Sutton Bonnington long term weather monitoring station which is freely available online from [@UKMetrologicalOffice2022]. As Figure \@ref(fig:ImageSuttonBonningtonData) shows, it contains observations from 1959 to the present day, and is presented as a text file in an inconvenient format for analysis. The files contain a series of weather related observations in various units. To complicate matters some are annotated and some are missing.
+
+However, if we unpick the file shown in Figure \@ref(fig:ImageSuttonBonningtonData) we can see that the UK Metrological Office statement that the file contains a "time series of monthly data" is true, but the data is not useable "as is" due to the way in which it is formatted. If we were to alter the observations it contains into a series of columns labelled: Date, Maximum temperature, Minimum temperature, etc., we would accept these as data for analysis, and possibly even present this revised format as "raw data" in a formal report with the justification that "nothing has been changed."
+
+Our reason for emphasising these points are to lay the foundation for
+introducing a terminology of "data state" to describe the changes in
+data presentation that do not affect the inherent knowledge contained
+within it. Looking ahead to Table 1 and our terminology it is clear that the data as supplied is what we term as Data *nascent* and that the *Nominal* data fields are equivalent to the column format proposed earlier in the previous paragraph. These interpretations are based entirely on what we believe the data represents about the real world and our analytical intent, if our research was to examine the observational impact of changes in meteorological recording equipment in the accuracy of long term records, then we would clearly need additional nominal data fields.
 
 # References
