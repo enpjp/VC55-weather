@@ -76,7 +76,9 @@
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 % Jese tex
-
+\hypersetup{hidelinks}
+\usepackage[hyphenbreaks]{breakurl}
+\usepackage[hyphens]{url}
 
 
 \usepackage{booktabs}
@@ -253,7 +255,7 @@ Throughout this work we have based the practical analysis on the R Analytical la
 The case study uses data from the Sutton Bonnington long term
 weather monitoring station which is freely available online from
 (UK Metrological Office 2022). As
-Figure~\protect\hyperlink{fig:suttonbonningtondata}{1} shows, it contains observations
+Figure \protect\hyperlink{fig:suttonbonningtondata}{1} shows, it contains observations
 from 1959 to the present day, and is presented as a text file in an
 inconvenient format for analysis. The files contain a series of weather
 related observations in various units. To complicate matters some are
