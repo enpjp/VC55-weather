@@ -11,10 +11,6 @@ output:
           in_header: "preamble.tex" 
     keep_tex:  true
 ---
-```{r echo=FALSE}
-# Set chunk visibility 
-see.chunk <- FALSE
-```
 
 
 # Introduction
@@ -26,6 +22,12 @@ see.chunk <- FALSE
 # Load Libraries
 
 ```{r child = "_header.Rmd"}
+
+```
+
+```{r echo=FALSE}
+# Set chunk visibility 
+knitr::opts_chunk$set(echo = TRUE)
 
 ```
 

@@ -20,7 +20,7 @@ knitr::opts_chunk$set(include = TRUE,
 
 ```
 
-```{r LoadLibraries, echo = see.chunk}
+```{r LoadLibraries, echo = TRUE}
 library(tidyverse) # Load all the Tidyverse packages 
 #in one go.
 library(kableExtra) # Enable advanced table styling
