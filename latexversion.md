@@ -211,6 +211,8 @@ The case study is available as a vignette at
 
 # The Definition Of Data  {#sec:the-definition-of-data-}
 
+
+
 ::: {#fig_terminology_introduction}
 +----------------------------------------------------------------------+
 | :   This term is used to describe the **presumed** data fields and   |
