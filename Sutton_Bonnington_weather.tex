@@ -116,13 +116,6 @@
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\usepackage{longtable,booktabs,array}
-\usepackage{calc} % for calculating minipage widths
-\usepackage{caption}
-% Make caption package work with longtable
-\makeatletter
-\def\fnum@table{\tablename~\thetable}
-\makeatother
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -228,32 +221,49 @@ the actual data.
 
 \begin{frame}[fragile]{Introducing Datum Triples}
 \protect\hypertarget{introducing-datum-triples}{}
-The long datum triple format requires the explicit use of a unique
-identifier for each row which we call \texttt{datumEntity}. When data is
-in a wide format, as at present, the identifier is implicit as in the
-row number, but this is a relative term that is affected by order. The
-analysis that follows uses the advantages that are brought with an
-explicit definition.
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/standalone-data-definition} 
+
+}
+
+\caption{ Data representation}\label{fig:FigTheoryNascentData}
+\end{figure}
+
+The datum triple (Entity; Attribute; Value) is the universal starting
+point for all data and requires the explicit use of a unique identifier
+for each row which we call \texttt{datumEntity}. When data is in a wide
+format, as at present, the identifier is implicit as in the row number,
+but this is a relative term that is affected by order. Note that this
+format makes no presumptions about number or types of attributes, but it
+does require all data to be represented as characters. There is no
+reason to keep any attribute with a value of \texttt{NA} as the row
+contains no information.
 \end{frame}
 
-\begin{frame}[fragile]{Working With Datum Triples}
-\protect\hypertarget{working-with-datum-triples}{}
-The datum triple is the universal starting point for all data.
-Converting to this format allows us to combine data from multiple
-sources, as long as the \texttt{datumEntity} only ever refers to a
-unique observation. Note that this format makes no presumptions about
-attributes, but it does require all data to be represented as
-characters. There is no reason to keep any attribute with a value of
-\texttt{NA} as the row contains no information.
+\begin{frame}[fragile]{File Contents}
+\protect\hypertarget{file-contents}{}
+The first 12 rows of the \texttt{weather.data.triple} now look like
+this:
+
+Quitting from lines 69-70 (Sutton\_Bonnington\_weather.Rmd) Error in
+head(weather.data.triple, 12) : object `weather.data.triple' not found
+Calls: \ldots{} eval\_with\_user\_handlers -\textgreater{} eval
+-\textgreater{} eval -\textgreater{} -\textgreater{} head In addition:
+Warning message: In call\_block(x) : The chunk `unnamed-chunk-1' has the
+`child' option, and this code chunk must be empty. Its code will be
+ignored.
 \end{frame}
 
 \begin{frame}[fragile]{Saving The Raw Data}
 \protect\hypertarget{saving-the-raw-data}{}
-Finally we can save the data in a machine readable format for reuse.
+Finally we can save the data in the datum triple format for reuse.
 Although we have termed this as \texttt{data-raw}, multiple choices have
-been made in its transformation into this state. It should be clear that
-this \texttt{state} makes no assumptions about numbers of fields in any
-observation.
+been made in its transformation into this state, so is it really raw
+data? It should be clear that this \texttt{state} makes no assumptions
+about the data fields in any observation, so multiple files can be saved
+in the same directory as long as they use the same names for the three
+columns in the datum triple.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -284,42 +294,6 @@ search style loading.
 \end{Shaded}
 \end{frame}
 
-\begin{frame}[fragile]{File Contents}
-\protect\hypertarget{file-contents}{}
-The first 13 rows of the \texttt{weather.data.triple} now look like
-this:
-
-\begin{longtable}[]{@{}
-  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3889}}
-  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2778}}
-  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1806}}@{}}
-\toprule()
-\begin{minipage}[b]{\linewidth}\centering
-datumEntity
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-datumAttribute
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-datumValue
-\end{minipage} \\
-\midrule()
-\endhead
-Sutton.Bonnington:1959:01 & YYYY & 1959 \\
-Sutton.Bonnington:1959:01 & mm & 01 \\
-Sutton.Bonnington:1959:01 & tmax.degC & 4.2 \\
-Sutton.Bonnington:1959:01 & tmin.degC & -2.4 \\
-Sutton.Bonnington:1959:01 & airfrost.days & 23 \\
-Sutton.Bonnington:1959:01 & sun.hours & 78.8 \\
-Sutton.Bonnington:1959:01 & YYYYMMDD & 1959-01-31 \\
-Sutton.Bonnington:1959:01 & lattitude & 52.833 \\
-Sutton.Bonnington:1959:01 & longitude & -1.25 \\
-Sutton.Bonnington:1959:01 & easting & 450700 \\
-Sutton.Bonnington:1959:01 & northing & 325900 \\
-Sutton.Bonnington:1959:01 & height.amsl.metre & 48 \\
-Sutton.Bonnington:1959:02 & YYYY & 1959 \\
-\bottomrule()
-\end{longtable}
-\end{frame}
-
 \begin{frame}[fragile]{Prepare \texttt{data-sl}}
 \protect\hypertarget{prepare-data-sl}{}
 From the raw data we now prepare \texttt{data-sl} which is a loosely
@@ -342,14 +316,15 @@ format is helpful
 
 \begin{frame}[fragile]{Why Use Wide Format?}
 \protect\hypertarget{why-use-wide-format}{}
-To prepare strictly defined data to analyse the weather we select the
-columns of interest and make a long format with the date as the key
-column. At this point we loose any columns that are not required that
-may have be present if multiple sources of \texttt{data-raw} were used.
+In this example we are interested in the weather through time so we
+select the columns of interest and make a long format with the date as
+the key column. At this point we can also lose any columns that are not
+required that may have been present if multiple sources of
+\texttt{data-raw} were used.
 
-We choose this format as it gives great flexibility with analysis and
-works well with a Grammar of Graphic (GoG) approach. This contrasts with
-the temptation to produce a wide format of data as one might use in a
+This wide format gives great flexibility with analysis and works well
+with a Grammar of Graphic (GoG) approach. This contrasts with the
+temptation to produce a compact summary of data as one might use in a
 spreadsheet analysis. The versatility of GoG will become apparent as we
 proceed and see how all plots may be specified by changing the GoG
 verbs.
@@ -414,12 +389,14 @@ We can now save into \texttt{data-ss}.
 \begin{frame}[fragile]{Why Save Data-ss?}
 \protect\hypertarget{why-save-data-ss}{}
 Once again the data may be loaded and the analysis start from this
-point. Rather than load as a named file, we demonstrate how multiple
-files in \texttt{data-ss} may be loaded and combined in a simple action.
-Since \texttt{data-ss} are strictly defined each file may be `stacked'
-to combine into a larger data-set. If this were really the case then it
-would make sense to rename the data to something more appropriate. The
-named method of loading is included as comments for comparison.
+point.In this example the production of \texttt{data-ss} is quick, but
+for large an complex data we may wish to cache results for speedier
+analysis.
+
+Rather than load as a named file, we demonstrate how multiple files in
+\texttt{data-ss} may be loaded and combined in a simple action. Since
+\texttt{data-ss} are strictly defined each file may be `stacked' to
+combine into a larger data-set.
 \end{frame}
 
 \begin{frame}[fragile]{Load Data-ss}

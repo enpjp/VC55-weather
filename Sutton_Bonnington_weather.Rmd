@@ -22,7 +22,7 @@ output:
 # Load Libraries
 
 ```{r child = "_header.Rmd"}
-
+# Can I make comments here
 ```
 
 ```{r echo=FALSE}
@@ -54,16 +54,25 @@ suttonboningtondata <- get.weather.data.txt(path.to.data)
 
 # Introducing Datum Triples
 
-The long datum triple format requires the explicit use of a unique identifier for each row which we call `datumEntity`. When data is in a wide format, as at present, the identifier is implicit as in the row number, but this is a relative term that is affected by order. The analysis that follows uses the advantages that are brought with an explicit definition.
+```{r FigTheoryNascentData, fig.cap=" Data representation", echo=FALSE}
+path.to.image <- fs::path("images","standalone-data-definition", ext = "png")
+knitr::include_graphics(path.to.image )
+```
 
+The datum triple (Entity; Attribute; Value) is the universal starting point for all data and requires the explicit use of a unique identifier for each row which we call `datumEntity`.  When data is in a wide format, as at present, the identifier is implicit as in the row number, but this is a relative term that is affected by order. Note that this format makes no presumptions about number or types of attributes, but it does require all data to be represented as characters. There is no reason to keep any attribute with a value of `NA` as the row contains no information.
 
-# Working With Datum Triples
+# File Contents
 
-The datum triple is the universal starting point for all data. Converting to this format allows us to combine data from multiple sources, as long as the `datumEntity` only ever refers to a unique observation. Note that this format makes no presumptions about attributes, but it does require all data to be represented as characters. There is no reason to keep any attribute with a value of `NA` as the row contains no information.
+The first 12 rows of the `weather.data.triple` now look like this:
+
+```{r ViewFileContents, echo=FALSE}
+pander::pander(head(weather.data.triple,12))
+```
+
 
 # Saving The Raw Data
 
-Finally we can save the data in a machine readable format for reuse. Although we have termed this as `data-raw`, multiple choices have been made in its transformation into this state. It should be clear that this `state` makes no assumptions about numbers of fields in any observation.
+Finally we can save the data in the datum triple format for reuse. Although we have termed this as `data-raw`, multiple choices have been made in its transformation into this state, so is it really raw data? It should be clear that this `state` makes no assumptions about the data fields in any observation, so multiple files can be saved in the same directory as long as they use the same names for the three columns in the datum triple.
 
 ```{r SaveRawData }
 
@@ -88,13 +97,6 @@ weather.data.triple <- list.files(
    rbind()
 ```
 
-# File Contents
-
-The first 13 rows of the `weather.data.triple` now look like this:
-
-```{r ViewFileContents, echo=FALSE}
-pander::pander(head(weather.data.triple,13))
-```
 
 # Prepare `data-sl`
 
@@ -112,9 +114,9 @@ VC55.weather.sl <- weather.data.triple %>%
 
 # Why Use Wide Format?
 
-To prepare strictly defined data to analyse the weather we select the columns of interest and make a long format with the date as the key column. At this point we loose any columns that are not required that may have be present if multiple sources of `data-raw` were used.
+In this example we are interested in the weather through time so we select the columns of interest and make a long format with the date as the key column. At this point we can also lose any columns that are not required that may have been present if multiple sources of `data-raw` were used.
 
-We choose this format as it gives great flexibility with analysis and works well with a Grammar of Graphic (GoG) approach. This contrasts with the temptation to produce a wide format of data as one might use in a spreadsheet analysis. The versatility of GoG will become apparent as we proceed and see how all plots may be specified by changing the GoG verbs.
+This wide format gives great flexibility with analysis and works well with a Grammar of Graphic (GoG) approach. This contrasts with the temptation to produce a compact summary of data as one might use in a spreadsheet analysis. The versatility of GoG will become apparent as we proceed and see how all plots may be specified by changing the GoG verbs.
 
 # Create Data-ss
 
@@ -165,7 +167,9 @@ saveRDS(VC55.weather.ss, path.to.save.ss)
 
 # Why Save Data-ss?
 
-Once again the data may be loaded and the analysis start from this point. Rather than load as a named file, we demonstrate how multiple files in `data-ss` may be loaded and combined in a simple action. Since `data-ss` are strictly defined each file may be 'stacked' to combine into a larger data-set. If this were really the case then it would make sense to rename the data to something more appropriate. The named method of loading is included as comments for comparison.
+Once again the data may be loaded and the analysis start from this point.In this example the production of `data-ss` is quick, but for large an complex data we may wish to cache results for speedier analysis.
+
+Rather than load as a named file, we demonstrate how multiple files in `data-ss` may be loaded and combined in a simple action. Since `data-ss` are strictly defined each file may be 'stacked' to combine into a larger data-set. 
 
 # Load Data-ss
 
