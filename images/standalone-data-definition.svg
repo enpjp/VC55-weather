@@ -14,7 +14,10 @@
    version="1.1"
    id="svg3150"
    inkscape:version="1.0.1 (c497b03c, 2020-09-10)"
-   sodipodi:docname="standalone-data-definition.svg">
+   sodipodi:docname="standalone-data-definition.svg"
+   inkscape:export-filename="/Users/TechTrends/Documents/my_github/bookdown/2022-reports/VC55-weather/images/standalone-data-definition.png"
+   inkscape:export-xdpi="600"
+   inkscape:export-ydpi="600">
   <defs
      id="defs3144">
     <marker
@@ -272,7 +275,7 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.63210386"
+     inkscape:zoom="0.51725439"
      inkscape:cx="633.39109"
      inkscape:cy="164.70442"
      inkscape:document-units="mm"
@@ -281,8 +284,8 @@
      showgrid="false"
      inkscape:window-width="1344"
      inkscape:window-height="787"
-     inkscape:window-x="100"
-     inkscape:window-y="25"
+     inkscape:window-x="190"
+     inkscape:window-y="547"
      inkscape:window-maximized="0"
      inkscape:snap-bbox="true"
      inkscape:snap-global="false"
@@ -2196,7 +2199,8 @@
   <g
      inkscape:groupmode="layer"
      id="layer8"
-     inkscape:label="Knowledge Filter">
+     inkscape:label="Knowledge Filter"
+     style="display:none">
     <ellipse
        ry="32.94479"
        rx="81.752853"
