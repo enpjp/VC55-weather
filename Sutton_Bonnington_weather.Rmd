@@ -12,7 +12,6 @@ output:
     keep_tex:  true
 ---
 
-
 # Introduction
 
 -   The purpose of this vignette is a practical demonstration of reusable templates based upon the novel concept of data state.
@@ -31,26 +30,21 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```
 
-
 Load the Tidyverse libraries and other helpers before the analysis starts.
-
 
 # Read The Sutton Bonnington Data
 
 The source data is a text file that contains the following nominal data fields in an inconvenient format: YYYY, mm, tmax.degC, tmin.degC, airfrost.days, rain.mm, and sun.hours.
 
-In addition we can also deduce the following fields using our understanding of what the data represents in the real world:
-place.name, latitude, longitude, height.amsl.metre
+In addition we can also deduce the following fields using our understanding of what the data represents in the real world: place.name, latitude, longitude, height.amsl.metre
 
 We use the function `get.weather.data.txt()` to encapsulate all the actions necessary to achieve this in a way that is independent of the actual data.
-
 
 ```{r echo=TRUE}
 path.to.data <-
   fs::path("data-ext", "suttonboningtondata", ext = "txt")
 suttonboningtondata <- get.weather.data.txt(path.to.data)
 ```
-
 
 # Introducing Datum Triples
 
@@ -59,16 +53,18 @@ path.to.image <- fs::path("images","standalone-data-definition", ext = "png")
 knitr::include_graphics(path.to.image )
 ```
 
-The datum triple (Entity; Attribute; Value) is the universal starting point for all data and requires the explicit use of a unique identifier for each row which we call `datumEntity`.  When data is in a wide format, as at present, the identifier is implicit as in the row number, but this is a relative term that is affected by order. Note that this format makes no presumptions about number or types of attributes, but it does require all data to be represented as characters. There is no reason to keep any attribute with a value of `NA` as the row contains no information.
+The datum triple (Entity; Attribute; Value) is the universal starting point for all data and requires the explicit use of a unique identifier for each row which we call `datumEntity`. When data is in a wide format, as at present, the identifier is implicit as in the row number, but this is a relative term that is affected by order. Note that this format makes no presumptions about number or types of attributes, and implicitly casts all the data in character format . There is no reason to keep any attribute with a value of `NA` as the row contains no information.
 
 # File Contents
 
 The first 12 rows of the `weather.data.triple` now look like this:
 
 ```{r ViewFileContents, echo=FALSE}
+
+weather.data.triple <- data.as.triple(suttonboningtondata)
+
 pander::pander(head(weather.data.triple,12))
 ```
-
 
 # Saving The Raw Data
 
@@ -76,7 +72,7 @@ Finally we can save the data in the datum triple format for reuse. Although we h
 
 ```{r SaveRawData }
 
-save.raw.data (suttonboningtondata,"suttonboningtondata")
+save.data.as.triple(suttonboningtondata,"suttonboningtondata")
 
 ```
 
@@ -87,16 +83,15 @@ For the purpose of this vignette we load the `data-raw` to demonstrate the the a
 ```{r LoadRawData}
 # Load data-raw
 path.to.data <- fs::path( 
-                        "data-raw")
+                        "data-raw") 
 weather.data.triple <- list.files(
   path.to.data,
-  pattern = ".rds$", # Make a suitable filter.
-  full.names = TRUE,
-  recursive = TRUE) %>%
-   purrr::map_df(readRDS) %>%
-   rbind()
+  pattern = ".rds$",            # Just include .rds files.
+  full.names = TRUE,            # Build paths to files, not just filenames.
+  recursive = TRUE) %>%         # Read any subdirectories
+   purrr::map_df(readRDS) %>%   # Make a dataframe rather than a list.
+   rbind()                      # Stack all the files found
 ```
-
 
 # Prepare `data-sl`
 
@@ -169,7 +164,7 @@ saveRDS(VC55.weather.ss, path.to.save.ss)
 
 Once again the data may be loaded and the analysis start from this point.In this example the production of `data-ss` is quick, but for large an complex data we may wish to cache results for speedier analysis.
 
-Rather than load as a named file, we demonstrate how multiple files in `data-ss` may be loaded and combined in a simple action. Since `data-ss` are strictly defined each file may be 'stacked' to combine into a larger data-set. 
+Rather than load as a named file, we demonstrate how multiple files in `data-ss` may be loaded and combined in a simple action. Since `data-ss` are strictly defined each file may be 'stacked' to combine into a larger data-set.
 
 # Load Data-ss
 
@@ -187,22 +182,6 @@ VC55.weather.ss <- list.files(
 
 ```
 
-# A Simple Check Plot
-
-By faceting on `datumAttribute` we can produce a separate graph for each attribute. While is shows we have data, each graph has different units, so the scales do not make sense.
-
-```{r SimpleCheckPlotCode, eval=FALSE}
-data.to.plot <- VC55.weather.ss
-data.to.plot %>% drop_na() %>%
-ggplot(aes(colour = datumAttribute, 
-           x= YYYYMMDD, 
-           y =datumValue, 
-           group = datumAttribute) ) + 
- # geom_point() +
-  geom_smooth( se = FALSE, 
-     method = "loess", formula = "y ~ x") +
-  facet_wrap(~ datumAttribute)
-```
 
 # Simple Check Plot
 
@@ -221,72 +200,9 @@ ggplot(aes(colour = datumAttribute,
   facet_wrap(~ datumAttribute)
 ```
 
-# Normalising With Z-scores
-
-However, if we use z-scores instead then each plot is normalised against zero and the standard deviation.
-
-```{r NormalisingWithZScoreCode, eval=FALSE}
-
-data.to.plot <- VC55.weather.ss
- data.to.plot %>% drop_na() %>%
-  group_by(datumAttribute) %>% 
-  mutate( value = datumValue,
-  Z.score = 
-    (datumValue -mean(datumValue))/sd(datumValue)
-        ) %>%
-  ggplot( aes(colour = datumAttribute, 
-              x= YYYYMMDD, y =Z.score, 
-              group = datumAttribute) ) + 
-              geom_smooth( se = FALSE, 
-                           method = "loess", 
-                           formula = "y ~ x") + 
-              scale_colour_viridis_d()
-```
-
-# Plotting With Z-scores
-
-Rather than 5 separate plots, we can use a single graph to plot a smooth loess regression for each attribute.
-
-```{r NormalisingWithZScore, eval= TRUE, echo=FALSE}
-
-data.to.plot <- VC55.weather.ss
-data.to.plot %>% drop_na() %>% group_by(datumAttribute) %>% 
-  mutate( value = datumValue, Z.score = 
-        (datumValue -mean(datumValue))/sd(datumValue)) %>%
-  ggplot( aes(colour = datumAttribute, 
-      x= YYYYMMDD, y =Z.score, 
-      group = datumAttribute) ) + 
-      geom_smooth( se = FALSE, 
-      method = "loess",  formula = "y ~ x") + 
-      scale_colour_viridis_d()
-```
-
-# Checking Data Distribution
-
-```{r CheckingDataDistributionCode, eval=FALSE}
-my.dist <- "norm"
-data.to.plot <- VC55.weather.ss
- data.to.plot %>% drop_na() %>%
-  group_by(datumAttribute) %>% 
-  mutate( value = datumValue,
-      Z.score = 
-        (datumValue -mean(datumValue))/sd(datumValue)
-        ) %>%
-  ggplot(mapping = aes( 
-                      group = datumAttribute,
-                      sample = Z.score)) +
-    stat_qq_line(distribution = my.dist) +
-   stat_qq_point(distribution = my.dist) + 
-  scale_colour_viridis_d() +
-  ggtitle("Z-score compared to normal distribution") + 
-   facet_wrap(~ datumAttribute)
-  
-
-```
-
 # Q-Q Plot Z-score Compared To Normal Distribution
 
-This looks good but it is predicated upon the deviations being normally distributed about the mean.
+Rather than 5 separate plots, if we use z-scores instead then each plot is normalised against zero and the standard deviation we can plot all the points on a common scale. The results seem to show that while a normal distribution is a reasonable model, this is not the case for extreme variances.
 
 ```{r CheckingDataDistributionQQ, eval=TRUE, echo=FALSE}
 my.dist <- "norm"
@@ -307,6 +223,53 @@ data.to.plot <- VC55.weather.ss
    facet_wrap(~ datumAttribute)
 
 ```
+
+
+
+# Normalising With Z-scores
+
+Rather than 5 separate plots, if we use z-scores instead then each plot is normalised against zero and the standard deviation we can plot all the points on a common scale. However, the result is hard to interpret because the variation between points is large.
+
+```{r PointsWithZScoreCode, echo =FALSE}
+
+data.to.plot <- VC55.weather.ss
+ data.to.plot %>% drop_na() %>%
+  group_by(datumAttribute) %>% 
+  mutate( value = datumValue,
+  Z.score = 
+    (datumValue -mean(datumValue))/sd(datumValue)
+        ) %>%
+  ggplot( aes(colour = datumAttribute, 
+              x= YYYYMMDD, y =Z.score, 
+              group = datumAttribute) ) + 
+              geom_point() +
+              scale_colour_viridis_d()
+```
+
+
+# Trends in With Z-scores
+
+However, if try to fit a local trend (Loess curve), then it is easier to visualise trends.
+
+
+```{r NormalisingWithZScoreCode, echo = FALSE}
+
+data.to.plot <- VC55.weather.ss
+ data.to.plot %>% drop_na() %>%
+  group_by(datumAttribute) %>% 
+  mutate( value = datumValue,
+  Z.score = 
+    (datumValue -mean(datumValue))/sd(datumValue)
+        ) %>%
+  ggplot( aes(colour = datumAttribute, 
+              x= YYYYMMDD, y =Z.score, 
+              group = datumAttribute) ) + 
+              geom_smooth( se = FALSE, 
+                           method = "loess", 
+                           formula = "y ~ x") + 
+              scale_colour_viridis_d()
+```
+
 
 # Assumptions
 

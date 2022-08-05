@@ -116,6 +116,13 @@
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -235,10 +242,10 @@ point for all data and requires the explicit use of a unique identifier
 for each row which we call \texttt{datumEntity}. When data is in a wide
 format, as at present, the identifier is implicit as in the row number,
 but this is a relative term that is affected by order. Note that this
-format makes no presumptions about number or types of attributes, but it
-does require all data to be represented as characters. There is no
-reason to keep any attribute with a value of \texttt{NA} as the row
-contains no information.
+format makes no presumptions about number or types of attributes, and
+implicitly casts all the data in character format . There is no reason
+to keep any attribute with a value of \texttt{NA} as the row contains no
+information.
 \end{frame}
 
 \begin{frame}[fragile]{File Contents}
@@ -246,13 +253,34 @@ contains no information.
 The first 12 rows of the \texttt{weather.data.triple} now look like
 this:
 
-Quitting from lines 69-70 (Sutton\_Bonnington\_weather.Rmd) Error in
-head(weather.data.triple, 12) : object `weather.data.triple' not found
-Calls: \ldots{} eval\_with\_user\_handlers -\textgreater{} eval
--\textgreater{} eval -\textgreater{} -\textgreater{} head In addition:
-Warning message: In call\_block(x) : The chunk `unnamed-chunk-1' has the
-`child' option, and this code chunk must be empty. Its code will be
-ignored.
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3889}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2778}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1806}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+datumEntity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+datumAttribute
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+datumValue
+\end{minipage} \\
+\midrule()
+\endhead
+Sutton.Bonnington:1959:01 & YYYY & 1959 \\
+Sutton.Bonnington:1959:01 & mm & 01 \\
+Sutton.Bonnington:1959:01 & tmax.degC & 4.2 \\
+Sutton.Bonnington:1959:01 & tmin.degC & -2.4 \\
+Sutton.Bonnington:1959:01 & airfrost.days & 23 \\
+Sutton.Bonnington:1959:01 & sun.hours & 78.8 \\
+Sutton.Bonnington:1959:01 & YYYYMMDD & 1959-01-31 \\
+Sutton.Bonnington:1959:01 & lattitude & 52.833 \\
+Sutton.Bonnington:1959:01 & longitude & -1.25 \\
+Sutton.Bonnington:1959:01 & easting & 450700 \\
+Sutton.Bonnington:1959:01 & northing & 325900 \\
+Sutton.Bonnington:1959:01 & height.amsl.metre & 48 \\
+\bottomrule()
+\end{longtable}
 \end{frame}
 
 \begin{frame}[fragile]{Saving The Raw Data}
@@ -267,7 +295,7 @@ columns in the datum triple.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{save.raw.data}\NormalTok{ (suttonboningtondata,}\StringTok{"suttonboningtondata"}\NormalTok{)}
+\FunctionTok{save.data.as.triple}\NormalTok{(suttonboningtondata,}\StringTok{"suttonboningtondata"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 \end{frame}
@@ -282,14 +310,14 @@ search style loading.
 \begin{Highlighting}[]
 \CommentTok{\# Load data{-}raw}
 \NormalTok{path.to.data }\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( }
-                        \StringTok{"data{-}raw"}\NormalTok{)}
+                        \StringTok{"data{-}raw"}\NormalTok{) }
 \NormalTok{weather.data.triple }\OtherTok{\textless{}{-}} \FunctionTok{list.files}\NormalTok{(}
 \NormalTok{  path.to.data,}
-  \AttributeTok{pattern =} \StringTok{".rds$"}\NormalTok{, }\CommentTok{\# Make a suitable filter.}
-  \AttributeTok{full.names =} \ConstantTok{TRUE}\NormalTok{,}
-  \AttributeTok{recursive =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-\NormalTok{   purrr}\SpecialCharTok{::}\FunctionTok{map\_df}\NormalTok{(readRDS) }\SpecialCharTok{\%\textgreater{}\%}
-   \FunctionTok{rbind}\NormalTok{()}
+  \AttributeTok{pattern =} \StringTok{".rds$"}\NormalTok{,            }\CommentTok{\# Just include .rds files.}
+  \AttributeTok{full.names =} \ConstantTok{TRUE}\NormalTok{,            }\CommentTok{\# Build paths to files, not just filenames.}
+  \AttributeTok{recursive =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}         \CommentTok{\# Read any subdirectories}
+\NormalTok{   purrr}\SpecialCharTok{::}\FunctionTok{map\_df}\NormalTok{(readRDS) }\SpecialCharTok{\%\textgreater{}\%}   \CommentTok{\# Make a dataframe rather than a list.}
+   \FunctionTok{rbind}\NormalTok{()                      }\CommentTok{\# Stack all the files found}
 \end{Highlighting}
 \end{Shaded}
 \end{frame}
@@ -417,28 +445,6 @@ combine into a larger data-set.
 \end{Shaded}
 \end{frame}
 
-\begin{frame}[fragile]{A Simple Check Plot}
-\protect\hypertarget{a-simple-check-plot}{}
-By faceting on \texttt{datumAttribute} we can produce a separate graph
-for each attribute. While is shows we have data, each graph has
-different units, so the scales do not make sense.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data.to.plot }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.ss}
-\NormalTok{data.to.plot }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
-\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{colour =}\NormalTok{ datumAttribute, }
-           \AttributeTok{x=}\NormalTok{ YYYYMMDD, }
-           \AttributeTok{y =}\NormalTok{datumValue, }
-           \AttributeTok{group =}\NormalTok{ datumAttribute) ) }\SpecialCharTok{+} 
- \CommentTok{\# geom\_point() +}
-  \FunctionTok{geom\_smooth}\NormalTok{( }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }
-     \AttributeTok{method =} \StringTok{"loess"}\NormalTok{, }\AttributeTok{formula =} \StringTok{"y \textasciitilde{} x"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ datumAttribute)}
-\end{Highlighting}
-\end{Shaded}
-\end{frame}
-
 \begin{frame}[fragile]{Simple Check Plot}
 \protect\hypertarget{simple-check-plot}{}
 By faceting on \texttt{datumAttribute} we can produce a separate graph
@@ -448,69 +454,33 @@ different units, so the scales do not make sense.
 \begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-beamer/SimpleCheckPlot-1} \end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Normalising With Z-scores}
-\protect\hypertarget{normalising-with-z-scores}{}
-However, if we use z-scores instead then each plot is normalised against
-zero and the standard deviation.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data.to.plot }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.ss}
-\NormalTok{ data.to.plot }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(datumAttribute) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{mutate}\NormalTok{( }\AttributeTok{value =}\NormalTok{ datumValue,}
-  \AttributeTok{Z.score =} 
-\NormalTok{    (datumValue }\SpecialCharTok{{-}}\FunctionTok{mean}\NormalTok{(datumValue))}\SpecialCharTok{/}\FunctionTok{sd}\NormalTok{(datumValue)}
-\NormalTok{        ) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{( }\FunctionTok{aes}\NormalTok{(}\AttributeTok{colour =}\NormalTok{ datumAttribute, }
-              \AttributeTok{x=}\NormalTok{ YYYYMMDD, }\AttributeTok{y =}\NormalTok{Z.score, }
-              \AttributeTok{group =}\NormalTok{ datumAttribute) ) }\SpecialCharTok{+} 
-              \FunctionTok{geom\_smooth}\NormalTok{( }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }
-                           \AttributeTok{method =} \StringTok{"loess"}\NormalTok{, }
-                           \AttributeTok{formula =} \StringTok{"y \textasciitilde{} x"}\NormalTok{) }\SpecialCharTok{+} 
-              \FunctionTok{scale\_colour\_viridis\_d}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-\end{frame}
-
-\begin{frame}{Plotting With Z-scores}
-\protect\hypertarget{plotting-with-z-scores}{}
-Rather than 5 separate plots, we can use a single graph to plot a smooth
-loess regression for each attribute.
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-beamer/NormalisingWithZScore-1} \end{center}
-\end{frame}
-
-\begin{frame}[fragile]{Checking Data Distribution}
-\protect\hypertarget{checking-data-distribution}{}
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{my.dist }\OtherTok{\textless{}{-}} \StringTok{"norm"}
-\NormalTok{data.to.plot }\OtherTok{\textless{}{-}}\NormalTok{ VC55.weather.ss}
-\NormalTok{ data.to.plot }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(datumAttribute) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{mutate}\NormalTok{( }\AttributeTok{value =}\NormalTok{ datumValue,}
-      \AttributeTok{Z.score =} 
-\NormalTok{        (datumValue }\SpecialCharTok{{-}}\FunctionTok{mean}\NormalTok{(datumValue))}\SpecialCharTok{/}\FunctionTok{sd}\NormalTok{(datumValue)}
-\NormalTok{        ) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{( }
-                      \AttributeTok{group =}\NormalTok{ datumAttribute,}
-                      \AttributeTok{sample =}\NormalTok{ Z.score)) }\SpecialCharTok{+}
-    \FunctionTok{stat\_qq\_line}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ my.dist) }\SpecialCharTok{+}
-   \FunctionTok{stat\_qq\_point}\NormalTok{(}\AttributeTok{distribution =}\NormalTok{ my.dist) }\SpecialCharTok{+} 
-  \FunctionTok{scale\_colour\_viridis\_d}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Z{-}score compared to normal distribution"}\NormalTok{) }\SpecialCharTok{+} 
-   \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ datumAttribute)}
-\end{Highlighting}
-\end{Shaded}
-\end{frame}
-
 \begin{frame}{Q-Q Plot Z-score Compared To Normal Distribution}
 \protect\hypertarget{q-q-plot-z-score-compared-to-normal-distribution}{}
-This looks good but it is predicated upon the deviations being normally
-distributed about the mean.
+Rather than 5 separate plots, if we use z-scores instead then each plot
+is normalised against zero and the standard deviation we can plot all
+the points on a common scale. The results seem to show that while a
+normal distribution is a reasonable model, this is not the case for
+extreme variances.
 
 \begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-beamer/CheckingDataDistributionQQ-1} \end{center}
+\end{frame}
+
+\begin{frame}{Normalising With Z-scores}
+\protect\hypertarget{normalising-with-z-scores}{}
+Rather than 5 separate plots, if we use z-scores instead then each plot
+is normalised against zero and the standard deviation we can plot all
+the points on a common scale. However, the result is hard to interpret
+because the variation between points is large.
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-beamer/PointsWithZScoreCode-1} \end{center}
+\end{frame}
+
+\begin{frame}{Trends in With Z-scores}
+\protect\hypertarget{trends-in-with-z-scores}{}
+However, if try to fit a local trend (Loess curve), then it is easier to
+visualise trends.
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Sutton_Bonnington_weather_files/figure-beamer/NormalisingWithZScoreCode-1} \end{center}
 \end{frame}
 
 \begin{frame}{Assumptions}
