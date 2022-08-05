@@ -308,16 +308,8 @@ search style loading.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Load data{-}raw}
-\NormalTok{path.to.data }\OtherTok{\textless{}{-}}\NormalTok{ fs}\SpecialCharTok{::}\FunctionTok{path}\NormalTok{( }
-                        \StringTok{"data{-}raw"}\NormalTok{) }
-\NormalTok{weather.data.triple }\OtherTok{\textless{}{-}} \FunctionTok{list.files}\NormalTok{(}
-\NormalTok{  path.to.data,}
-  \AttributeTok{pattern =} \StringTok{".rds$"}\NormalTok{,            }\CommentTok{\# Just include .rds files.}
-  \AttributeTok{full.names =} \ConstantTok{TRUE}\NormalTok{,            }\CommentTok{\# Build paths to files, not just filenames.}
-  \AttributeTok{recursive =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}         \CommentTok{\# Read any subdirectories}
-\NormalTok{   purrr}\SpecialCharTok{::}\FunctionTok{map\_df}\NormalTok{(readRDS) }\SpecialCharTok{\%\textgreater{}\%}   \CommentTok{\# Make a dataframe rather than a list.}
-   \FunctionTok{rbind}\NormalTok{()                      }\CommentTok{\# Stack all the files found}
+\CommentTok{\# Load data{-}raw as datum triples}
+\NormalTok{weather.data.triple }\OtherTok{\textless{}{-}} \FunctionTok{load.data.raw}\NormalTok{(}\StringTok{"data{-}raw"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 \end{frame}
@@ -327,7 +319,7 @@ search style loading.
 From the raw data we now prepare \texttt{data-sl} which is a loosely
 defined format of convenience. All the attributes are in character
 format, but may be in many different units. Re-arranging into a wider
-format is helpful
+format is helpful as it is more human readable and easier to analyse.
 
 \begin{Shaded}
 \begin{Highlighting}[]

@@ -81,21 +81,14 @@ save.data.as.triple(suttonboningtondata,"suttonboningtondata")
 For the purpose of this vignette we load the `data-raw` to demonstrate the the analysis could start with multiple files using the search style loading.
 
 ```{r LoadRawData}
-# Load data-raw
-path.to.data <- fs::path( 
-                        "data-raw") 
-weather.data.triple <- list.files(
-  path.to.data,
-  pattern = ".rds$",            # Just include .rds files.
-  full.names = TRUE,            # Build paths to files, not just filenames.
-  recursive = TRUE) %>%         # Read any subdirectories
-   purrr::map_df(readRDS) %>%   # Make a dataframe rather than a list.
-   rbind()                      # Stack all the files found
+# Load data-raw as datum triples
+weather.data.triple <- load.data.raw("data-raw")
+
 ```
 
 # Prepare `data-sl`
 
-From the raw data we now prepare `data-sl` which is a loosely defined format of convenience. All the attributes are in character format, but may be in many different units. Re-arranging into a wider format is helpful
+From the raw data we now prepare `data-sl` which is a loosely defined format of convenience. All the attributes are in character format, but may be in many different units. Re-arranging into a wider format is helpful as it is more human readable and easier to analyse.
 
 ```{r PrepareDataSL}
 # Prepare data-sl
