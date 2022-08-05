@@ -108,32 +108,14 @@ This wide format gives great flexibility with analysis and works well with a Gra
 
 # Create Data-ss
 
+Transform the data into a tightly defined format and cast data into the desired types. Date, numeric etc.
+
 ```{r CreateDataSS}
 # But we are interesting in plotting the data by date so
+VC55.weather.ss <- create.data.ss.from.sl(VC55.weather.sl)
 
-  VC55.weather.ss <- VC55.weather.sl %>% 
-    select("YYYYMMDD", 
-           "tmax.degC",
-           "tmin.degC",
-           "airfrost.days", 
-           "sun.hours" ,
-           "rain.mm")     %>%
-            pivot_longer(!YYYYMMDD,
-                  names_to = "datumAttribute", 
-                  values_to = "datumValue") 
 ```
 
-# Specify Data types
-
-At this point we can specify data types as Date and numeric for analysis.
-
-```{r SpecifyDataTypes}
-# Specify data types
-VC55.weather.ss$YYYYMMDD <-  
-  VC55.weather.ss$YYYYMMDD %>% as.Date
-VC55.weather.ss$datumValue <- 
-  VC55.weather.ss$datumValue %>% as.numeric()
-```
 
 # Save Data-ss
 
