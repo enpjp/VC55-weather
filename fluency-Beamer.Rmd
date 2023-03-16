@@ -1,8 +1,11 @@
 ---
 title: "Analytical Fluency"
-author: Paul J. Palmer
-date: March 22, 2005
-output: beamer_presentation
+author: "Paul J. Palmer"
+date: "March 22, 2005"
+output:
+  beamer_presentation: default
+  slidy_presentation: default
+  ioslides_presentation: default
 ---
 
 ```{r setDefaults,  include=TRUE, echo=FALSE, warning=FALSE, message=FALSE, error=FALSE, results='asis'}
@@ -27,14 +30,24 @@ knitr::opts_chunk$set(include = TRUE,
 
 ```
 
-# Introduction
+# An Initial Analysis
 
-![The usual way of doing things](images/established_process.png)
+![](images/DescriptiveAnalysis.png)
 
-# The usual way
+-   You need to have a nominal description of the data, plus a nominal intention to plan the analysis.
 
-\includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{images/established_process.png}
+-   This could be as simple as "Look for time related trends".
 
-# Some Pictures
+-   A descriptive analysis is a good place to start as this will also confirm that the data aligns with the nominal description.
 
-a nice picture
+# The manual way to analyse data
+
+![](images/established_process.png)
+
+Multiple files multiple formats Multiple documents
+
+# The Markdown Method
+
+![](images/markdown.png)
+
+Single data source, Actions on data, Woven into report.
