@@ -62,6 +62,8 @@ see.chunk <- FALSE
 
 # Introduction {#sec:introduction}
 
+A problem 
+
 Scientific analysis is formally presented as a rigid process typically comprising: Review; Theory; Research question; Methodology; Experiment; Analysis, Evaluation; and Conclusions. This is a powerful framework that has stood the test of time which is the underlying format of countless academic publications. But just because this format is rigid, does not mean that there is no opportunity to improve the method used to achieve it.
 
 If we look deeper, we can start to separate the actual process of scientific discovery from the way in which it is reported. The documentation of research and analysis that has already been completed, is very different to an exploration where the outcomes are as yet unknown. Nobel Prize winner @Szent-Gyorgyi1972 discussed this issue in 1972, long before the age of computers and "Big Data"[^1] introduced computational and data intensive research methods [@Szent-Gyorgyi1972]. He described the Apollonian as following a formally prescribed research path while a Dionysian explores the unknown. However, research and reporting are necessarily linked and one should be a clear and true interpretation of the other.
